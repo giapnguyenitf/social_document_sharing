@@ -11,5 +11,14 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+mix.copy('node_modules/jquery/dist/jquery.min.js', 'public/js')
+    .copy('node_modules/jquery-slimscroll/jquery.slimscroll.min.js', 'public/js')
+    .copy('node_modules/font-awesome/css/font-awesome.min.css', 'public/css')
+    .copy('node_modules/ionicons/dist/css/ionicons.min.css', 'public/css')
+    .copy('node_modules/bootstrap/dist/css/bootstrap.min.css', 'public/css')
+    .copy('node_modules/bootstrap/dist/js/bootstrap.min.js', 'public/js')
+    .copy('node_modules/fastclick/lib/fastclick.js', 'public/js')
+    .copy('resources/assets/css/custom', 'public/css')
+    .copy('resources/assets/js/custom', 'public/js')
+    .copy('node_modules/font-awesome/fonts', 'public/fonts');
+    
