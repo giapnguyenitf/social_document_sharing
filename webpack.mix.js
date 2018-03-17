@@ -20,5 +20,11 @@ mix.copy('node_modules/jquery/dist/jquery.min.js', 'public/js')
     .copy('node_modules/fastclick/lib/fastclick.js', 'public/js')
     .copy('resources/assets/css/custom', 'public/css')
     .copy('resources/assets/js/custom', 'public/js')
-    .copy('node_modules/font-awesome/fonts', 'public/fonts');
+    .copy('node_modules/font-awesome/fonts', 'public/fonts')
+    .copy('node_modules/slick-carousel/slick/slick.min.js', 'public/js')
+    .copy('node_modules/slick-carousel/slick/slick.css', 'public/css')
+    .copy('node_modules/slick-carousel/slick/slick-theme.css', 'public/css')
+    .copy('node_modules/nouislider/distribute/nouislider.min.js', 'public/js')
+    .copy('node_modules/nouislider/distribute/nouislider.min.css', 'public/css')
+    .copy('node_modules/jquery-zoom/jquery.zoom.min.js', 'public/js');
     
