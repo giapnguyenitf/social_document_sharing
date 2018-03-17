@@ -2,14 +2,16 @@
 <html lang="{{ app()->getLocale() }}">
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>AdminLTE 2 | Blank Page</title>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         {{ Html::style('css/bootstrap.min.css') }}
         {{ Html::style('css/font-awesome.min.css') }}
         {{ Html::style('css/ionicons.min.css') }}
         {{ Html::style('css/AdminLTE.min.css') }}
         {{ Html::style('css/_all-skins.min.css') }}
+        {{ Html::style('css/new-style.css') }}
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         @yield('css')
     </head>
@@ -17,7 +19,7 @@
         <div class="wrapper">
             <header class="main-header">
                 <a href="" class="logo">
-                    <span class="logo-lg"><b>@lang('admin.admin')</span>
+                    <span class="logo-lg"><b>@lang('admin.admin')</span></b>
                 </a>
                 <nav class="navbar navbar-static-top">
                     <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
@@ -326,6 +328,7 @@
         {{ Html::script('js/fastclick.js') }}
         {{ Html::script('js/adminlte.min.js') }}
         {{ Html::script('js/demo.js') }}
+        {{ Html::script('js/new-event.js') }}
         @yield('js')
         <script>
             $(document).ready(function () {

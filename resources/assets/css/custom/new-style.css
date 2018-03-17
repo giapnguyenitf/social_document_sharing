@@ -1,0 +1,38 @@
+.sub-category {
+    padding-left: 0px;
+}
+.sub-category li {
+    list-style-type: none;
+    padding: 2px 0px 2px 0px;
+    border-bottom: 1px solid #f1f1f1;
+}
+.bt-edit-category {
+    font-size: 12px;
+}
+.bt-edit-category:hover {
+    color: #f39c12;
+}
+.bt-delete-category {
+    font-size: 12px;
+}
+.bt-delete-category:hover {
+    color: #dd4b39;
+}
+.sub-category li:hover {
+    background: #24c4eca6;
+}
+.form-add-new-user .row {
+    padding-bottom: 20px;
+}
+.form-edit-info-document .row {
+    padding-bottom: 20px;
+}
+.form-edit-info-user .row {
+    padding-bottom: 20px;
+}
+.form-edit-info-category .row {
+    padding-bottom: 20px;
+}
+.new-sub-category li {
+    list-style-type: none;
+}
