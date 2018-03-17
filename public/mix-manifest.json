@@ -5,5 +5,11 @@
     "/css/ionicons.min.css": "/css/ionicons.min.css",
     "/css/bootstrap.min.css": "/css/bootstrap.min.css",
     "/js/bootstrap.min.js": "/js/bootstrap.min.js",
-    "/js/fastclick.js": "/js/fastclick.js"
+    "/js/fastclick.js": "/js/fastclick.js",
+    "/js/slick.min.js": "/js/slick.min.js",
+    "/css/slick.css": "/css/slick.css",
+    "/css/slick-theme.css": "/css/slick-theme.css",
+    "/js/nouislider.min.js": "/js/nouislider.min.js",
+    "/css/nouislider.min.css": "/css/nouislider.min.css",
+    "/js/jquery.zoom.min.js": "/js/jquery.zoom.min.js"
 }

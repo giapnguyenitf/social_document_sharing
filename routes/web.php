@@ -16,7 +16,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/home', function () {
-    return view('admin.layouts.master');
+    return view('user.layouts.master');
 });
 
 Route::prefix('dashboard')->group(function () {
