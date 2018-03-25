@@ -36,3 +36,7 @@
 .new-sub-category li {
     list-style-type: none;
 }
+.help-block strong {
+    color: #dd4b39;
+    font-weight: 500;
+}
