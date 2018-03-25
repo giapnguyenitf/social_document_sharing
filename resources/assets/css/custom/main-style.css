@@ -835,6 +835,7 @@ textarea.input {
   -webkit-transform: translateY(-4px);
   -ms-transform: translateY(-4px);
   transform: translateY(-4px);
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 .product.product-single .product-thumb {
@@ -1631,6 +1632,11 @@ textarea.input {
 .custom-dots .slick-dots {
   position: static;
   margin: 15px 0px;
+}
+
+.product-bts li {
+  float: left;
+  padding: 5px 18px 5px 18px;
 }
 
 /*=========================================================

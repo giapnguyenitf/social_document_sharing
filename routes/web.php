@@ -12,10 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('user.pages.home');
 })->name('home');
 
-Route::get('/home', function () {
+Route::get('/home/master-layouts', function () {
     return view('user.layouts.master');
 });
 
@@ -56,3 +56,7 @@ Route::prefix('dashboard')->group(function () {
         return view('admin.pages.listPartner');
     });
 });
+
+Auth::routes();
+
+Route::get('home', 'HomeController@index')->name('home');

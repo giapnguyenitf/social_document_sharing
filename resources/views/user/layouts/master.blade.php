@@ -74,7 +74,7 @@
                                 </div>
                             @endauth
                             @guest
-                                <i class="fa fa-user-o">&nbsp;</i><a href="#" class="">@lang('user.sign_in')</a> / <a href="#" class="">@lang('user.register')</a>
+                                <i class="fa fa-user-o">&nbsp;</i><a href="{{ route('login') }}" class="">@lang('user.sign_in')</a> / <a href="{{ route('register') }}" class="">@lang('user.register')</a>
                             @endguest
                             <ul class="custom-menu">
                                 <li><a href="#"><i class="fa fa-user-o"></i> @lang('user.my_account')</a></li>
@@ -341,18 +341,12 @@
     <div id="breadcrumb">
         <div class="container">
             <ul class="breadcrumb">
-                <li><a href="#">#</a></li>
-                <li class="active">#</li>
             </ul>
         </div>
     </div>
 
-    <div class="section">
-        <div class="container">
-            <div class="row">
-            </div>
-        </div>
-    </div>
+    @yield('content')
+
     <footer id="footer" class="section section-grey">
         <div class="container">
             <div class="row">
