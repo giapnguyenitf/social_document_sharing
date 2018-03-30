@@ -55,4 +55,5 @@
         'view_in_month' => 'Lượt xem hàng tháng',
         'top_view_document' => 'Tài liệu được xem nhiều',
         'category_document' => 'Loại tài liệu',
+        'document_related' => 'Tài liệu liên quan',
     ];
