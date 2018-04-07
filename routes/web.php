@@ -60,3 +60,23 @@ Route::prefix('dashboard')->group(function () {
 Auth::routes();
 
 Route::get('home', 'HomeController@index')->name('home');
+
+Route::get('user/profile', function () {
+    return view('user.pages.profile');
+});
+
+Route::get('user/uploaded', function () {
+    return view('user.pages.uploaded');
+});
+
+Route::get('user/downloaded', function () {
+    return view('user.pages.downloaded');
+});
+
+Route::get('user/bookmark', function () {
+    return view('user.pages.bookmark');
+});
+
+Route::get('user/upload', function () {
+    return view('user.pages.upload');
+});

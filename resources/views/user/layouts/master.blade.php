@@ -9,11 +9,13 @@
     <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
     {{ Html::style('css/bootstrap.min.css') }}
     {{ Html::style('css/font-awesome.min.css') }}
+    {{ Html::style('css/pretty-checkbox.min.css') }}
     {{ Html::style('css/slick.css') }}
     {{ Html::style('css/slick-theme.css') }}
     {{ Html::style('css/nouislider.min.css') }}
     {{ Html::style('css/main-style.css') }}
-    @yield('css')
+    {{ Html::style('css/new-style.css') }}
+    @stack('css')
 </head>
 <body>
     <header>
@@ -418,8 +420,7 @@
     {{ Html::script('js/slick.min.js') }}
     {{ Html::script('js/nouislider.min.js') }}
     {{ Html::script('js/jquery.zoom.min.js') }}
-    {{ Html::script('js/jquery.zoom.min.js') }}
     {{ Html::script('js/main.js') }}
-    @yield('js')
+    @stack('js')
 </body>
 </html>

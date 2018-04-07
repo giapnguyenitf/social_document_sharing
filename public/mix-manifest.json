@@ -11,5 +11,9 @@
     "/css/slick-theme.css": "/css/slick-theme.css",
     "/js/nouislider.min.js": "/js/nouislider.min.js",
     "/css/nouislider.min.css": "/css/nouislider.min.css",
-    "/js/jquery.zoom.min.js": "/js/jquery.zoom.min.js"
+    "/js/jquery.zoom.min.js": "/js/jquery.zoom.min.js",
+    "/css/pretty-checkbox.min.css": "/css/pretty-checkbox.min.css",
+    "/css/bootstrap-tagsinput.css": "/css/bootstrap-tagsinput.css",
+    "/js/bootstrap-tagsinput.min.js": "/js/bootstrap-tagsinput.min.js",
+    "/css/bootstrap-tagsinput-typeahead.css": "/css/bootstrap-tagsinput-typeahead.css"
 }
