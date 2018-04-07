@@ -40,3 +40,89 @@
     color: #dd4b39;
     font-weight: 500;
 }
+
+.sidebar-profile {
+    margin-top: 20px;
+}
+
+.sidebar-panel li {
+    padding: 7px 0px 7px 0px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.sidebar-panel li:last-child {
+    border-bottom: 0px;
+}
+
+.sidebar-panel li>a>i {
+    width: 25px;
+    color: #2cb1e9;
+}
+
+.user-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #2cb1e9;
+}
+
+.sidebar-profile .panel .panel-heading {
+    background: #2cb1e9;
+    color: #fff;
+}
+
+.manage-user-info {
+    margin-top: 20px;
+}
+
+.input-no-border {
+    border-radius: 0px;
+}
+
+.edit-user-info {
+    padding: 20px 20px 10px 0px;
+    border: 1px solid #f1f1f1;
+}
+
+.manage-user-info .panel-body hr {
+    margin-left: 20px;
+    color: #f1f1f1;
+}
+
+.manage-user-info .panel .panel-heading {
+    background: #2cb1e9;
+    color: #fff;
+}
+
+.label-thin {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.panel-title {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.user-upload-document {
+    margin-top: 20px;
+}
+
+.user-upload-document .panel .panel-heading {
+    background: #2cb1e9;
+    color: #fff;
+} 
+
+.link {
+    color: #2cb1e9 !important;
+}
+
+.label-thin {
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.bootstrap-tagsinput {
+    border-radius: 0px !important;
+    display: -webkit-box !important;
+}
