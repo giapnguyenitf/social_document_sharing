@@ -94,4 +94,6 @@
         'list_document_bookmark' => 'Tài liệu đã đánh dấu',
         'date_bookmark' => 'Ngày đánh dấu',
         'document_name' => 'Tên tài liệu',
+        'document_bookmarks' => 'Tài liệu đánh dấu',
+        'logout' => 'Đăng xuất',
     ];

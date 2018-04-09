@@ -20,7 +20,7 @@
         </div>
         <div class="register-box-body">
             <h3 class="login-box-msg">@lang('user.register')</h3>
-            <form action="" method="post">
+            <form action="{{ route('register') }}" method="post">
                 @csrf
                 <div class="form-group has-feedback">
                     <input name="name" type="text" class="form-control" value="{{ old('name')}}" placeholder="@lang('user.name')" required>
@@ -71,12 +71,12 @@
             </form>
             <div class="social-auth-links text-center">
             <p>- @lang('user.or') -</p>
-            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat">
+            <a href="{{ route('redirect', ['provider' => 'facebook']) }}" class="btn btn-block btn-social btn-facebook btn-flat">
                 <i class="fa fa-facebook"></i>
                 @lang('user.sign_up_with_facebook')
                 
             </a>
-            <a href="#" class="btn btn-block btn-social btn-google btn-flat">
+            <a href="{{ route('redirect', ['provider' => 'google']) }}" class="btn btn-block btn-social btn-google btn-flat">
                 <i class="fa fa-google"></i>
                 @lang('user.sign_up_with_google')
             </a>

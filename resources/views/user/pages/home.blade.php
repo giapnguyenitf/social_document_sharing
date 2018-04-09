@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-md-4 col-sm-6">
                     <a class="banner banner-1" href="#">
-                        <img src="{{ asset('images/no-image.png') }}" alt="">
+                        <img class="img-responsive" src="{{ asset('images/banner-1.jpg') }}" alt="">
                         <div class="banner-caption text-center">
                             <h2 class="white-color">2000</h2>
                             <h3 class="white-color">@lang('user.documents')</h3>
@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-md-4 col-sm-6">
                     <a class="banner banner-1" href="#">
-                        <img src="{{ asset('images/no-image.png') }}" alt="">
+                        <img src="{{ asset('images/banner-2.jpg') }}" alt="">
                         <div class="banner-caption text-center">
                             <h2 class="white-color">30</h2>
                             <h3 class="white-color">@lang('user.category_document')</h3>
@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-3">
                     <a class="banner banner-1" href="#">
-                        <img src="{{ asset('images/no-image.png') }}" alt="">
+                        <img src="{{ asset('images/banner-3.jpg') }}" alt="">
                         <div class="banner-caption text-center">
                             <h2 class="white-color">30000</h2>
                             <h3 class="white-color">@lang('user.view_in_month')</h3>

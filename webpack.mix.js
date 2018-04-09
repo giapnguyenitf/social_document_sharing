@@ -31,5 +31,5 @@ mix.copy('node_modules/jquery/dist/jquery.min.js', 'public/js')
     .copy('node_modules/pretty-checkbox/dist/pretty-checkbox.min.css', 'public/css')
     .copy('node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css', 'public/css')
     .copy('node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js', 'public/js')
-    .copy('node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput-typeahead.css', 'public/css');
-    
+    .copy('node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput-typeahead.css', 'public/css')
+    .copy('resources/assets/images', 'public/images');
