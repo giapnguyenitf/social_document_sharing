@@ -126,3 +126,29 @@
     border-radius: 0px !important;
     display: -webkit-box !important;
 }
+
+.register-page {
+    background: url('../images/login.jpg') no-repeat 0 0;
+    background-size: cover;
+}
+
+.login-page {
+    background: url('../images/login.jpg') no-repeat 0 0;
+    background-size: cover;
+}
+
+.login-box-body {
+    border-radius: 5px;
+}
+
+.register-box-body {
+    border-radius: 5px;
+}
+
+.menu-profile {
+    line-height: 2.9;
+}
+
+.text-lowercase {
+    text-transform: initial !important;
+}

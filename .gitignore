@@ -17,3 +17,5 @@ yarn-error.log
 /public/fonts
 .env
 public/storage
+public/images
+

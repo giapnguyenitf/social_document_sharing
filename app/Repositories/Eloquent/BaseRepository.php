@@ -28,23 +28,29 @@ abstract class BaseRepository implements RepositoryInterface
         if (!$model instanceof Model) {
             throw new Exception('Class ' . $this->model() . ' must be an instance of Illuminate\Database\Eloquent\Model');
         }
+
         return $this->model = $model;
     }
 
-     public function __call($method, $args)
+    public function __call($method, $args)
     {
         $model = $this->model;
+
         if ($method == head($args)) {
             $this->model = call_user_func_array([$model, $method], array_diff($args, [head($args)]));
+
             return $this;
         }
+
         if (!$model instanceof Model) {
             $model = $model->first();
             if (!$model) {
                 throw new ModelNotFoundException();
             }
         }
+
         $this->model = call_user_func_array([$model, $method], $args);
+
         return $this;
     }
 
@@ -71,12 +77,9 @@ abstract class BaseRepository implements RepositoryInterface
         return $model;
     }
 
-    public function findByField($field, $value, $columns = ['*'])
+    public function findByField($field, $value)
     {
-        $model = $this->model->where($field, $value);
-        $this->resetModel();
-
-        return $model;
+        return $this->model->where($field, '=', $value)->get()->first();
     }
 
     public function create(array $attributes)
@@ -113,7 +116,7 @@ abstract class BaseRepository implements RepositoryInterface
         return $this;
     }
 
-    public function where($column, $operator = null, $condition)
+    public function where($column, $operator = '=', $condition)
     {
         $this->model = $this->model->where($column, $operator, $condition);
 
@@ -146,7 +149,7 @@ abstract class BaseRepository implements RepositoryInterface
     public function get($columns = ['*'])
     {
         $model = $this->model->get($columns);
-        $this->makeModel();
+        $this->resetModel();
 
         return $model;
     }

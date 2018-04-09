@@ -10,73 +10,26 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('user.pages.home');
-})->name('home');
-
-Route::get('/home/master-layouts', function () {
-    return view('user.layouts.master');
-});
-
-Route::prefix('dashboard')->group(function () {
-    Route::get('new-document', function () {
-        return view('admin.pages.newDocument');
-    })->name('dashboard.page.newDocument');
-
-    Route::get('public-document', function() {
-        return view('admin.pages.publicDocument');
-    })->name('dashboard.page.publicDocument');
-
-    Route::get('illegal-document', function() {
-        return view('admin.pages.illegalDocument');
-    })->name('dashboard.page.illegalDocument');
-
-    Route::get('list-user', function () {
-        return view('admin.pages.listUser');
-    })->name('dashboard.page.listUser');
-
-    Route::get('list-category', function () {
-        return view('admin.pages.listCategory');
-    });
-
-    Route::get('add-new-user', function () {
-        return view('admin.pages.addNewUser');
-    });
-
-    Route::get('edit-info-user', function () {
-        return view('admin.pages.editInfoUser');
-    });
-
-    Route::get('edit-info-document', function () {
-        return view('admin.pages.editInfoDocument');
-    });
-
-    Route::get('list-partner', function () {
-        return view('admin.pages.listPartner');
-    });
-});
-
 Auth::routes();
 
-Route::get('home', 'HomeController@index')->name('home');
+Route::namespace('Auth')->group(function (){
+    Route::get('redirect/{provider}', [
+        'as' => 'redirect',
+        'uses' => 'SocialLoginController@redirectToProvider',
+    ]);
 
-Route::get('user/profile', function () {
-    return view('user.pages.profile');
+    Route::get('callback/{provider}', [
+        'as' => 'callback',
+        'uses' => 'SocialLoginController@handleProviderCallback',
+    ]);
+
+    Route::get('logout', [
+        'as' => 'logout',
+        'uses' => 'LoginController@logout',
+    ]);
 });
 
-Route::get('user/uploaded', function () {
-    return view('user.pages.uploaded');
-});
-
-Route::get('user/downloaded', function () {
-    return view('user.pages.downloaded');
-});
-
-Route::get('user/bookmark', function () {
-    return view('user.pages.bookmark');
-});
-
-Route::get('user/upload', function () {
-    return view('user.pages.upload');
-});
+Route::get('/', [
+    'as' => 'home',
+    'uses' => 'HomeController@index',
+]);

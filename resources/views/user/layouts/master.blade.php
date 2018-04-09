@@ -72,17 +72,17 @@
                                     <div class="header-btns-icon">
                                         <i class="fa fa-user-o"></i>
                                     </div>
-                                    <strong class="text-uppercase">@lang('user.my_account') <i class="fa fa-caret-down"></i></strong>
+                                    <strong class="menu-profile">@lang('user.my_account') <i class="fa fa-caret-down"></i></strong>
                                 </div>
                             @endauth
                             @guest
                                 <i class="fa fa-user-o">&nbsp;</i><a href="{{ route('login') }}" class="">@lang('user.sign_in')</a> / <a href="{{ route('register') }}" class="">@lang('user.register')</a>
                             @endguest
                             <ul class="custom-menu">
-                                <li><a href="#"><i class="fa fa-user-o"></i> @lang('user.my_account')</a></li>
-                                <li><a href="#"><i class="fa fa-heart-o"></i> @lang('user.my_favorites')</a></li>
-                                <li><a href="#"><i class="fa fa-unlock-alt"></i> @lang('user.sign_in')</a></li>
-                                <li><a href="#"><i class="fa fa-user-plus"></i> @lang('user.register')</a></li>
+                                <li><a href="#" class="text-lowercase"><i class="fa fa-user"></i> @lang('user.my_account')</a></li>
+                                <li><a href="#" class="text-lowercase"><i class="fa fa-heart"></i> @lang('user.document_bookmarks')</a></li>
+                                <li><a href="#" class="text-lowercase"><i class="fa fa-cloud-upload"></i> @lang('user.upload')</a></li>
+                                <li><a href="{{ route('logout') }}" class="text-lowercase"><i class="fa fa-file"></i> @lang('user.logout')</a></li>
                             </ul>
                         </li>
                         <li class="nav-toggle">
