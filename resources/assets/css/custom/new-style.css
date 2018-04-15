@@ -64,6 +64,7 @@
     height: 100px;
     border-radius: 50%;
     border: 2px solid #2cb1e9;
+    overflow: hidden;
 }
 
 .sidebar-profile .panel .panel-heading {

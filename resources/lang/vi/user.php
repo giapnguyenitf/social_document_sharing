@@ -96,4 +96,12 @@
         'document_name' => 'Tên tài liệu',
         'document_bookmarks' => 'Tài liệu đánh dấu',
         'logout' => 'Đăng xuất',
+        'gender' => 'Giới tính',
+        'male' => 'Nam',
+        'female' => 'Nữ',
+        'avatar' => 'Avatar',
+        'date_of_birth' => 'Ngày sinh',
+        'profile' => [
+            'update_success' => 'Cập nhật thông tin thành công!',
+        ]
     ];

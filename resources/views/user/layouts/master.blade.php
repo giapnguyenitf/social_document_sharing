@@ -48,7 +48,7 @@
             <div class="container">
                 <div class="pull-left">
                     <div class="header-logo">
-                        <a class="logo" href="#">
+                        <a class="logo" href="{{ route('home') }}">
                             <img src="{{ asset('images/logo.png') }}" alt="">
                         </a>
                     </div>
@@ -79,7 +79,7 @@
                                 <i class="fa fa-user-o">&nbsp;</i><a href="{{ route('login') }}" class="">@lang('user.sign_in')</a> / <a href="{{ route('register') }}" class="">@lang('user.register')</a>
                             @endguest
                             <ul class="custom-menu">
-                                <li><a href="#" class="text-lowercase"><i class="fa fa-user"></i> @lang('user.my_account')</a></li>
+                                <li><a href="{{ route('manage-profile') }}" class="text-lowercase"><i class="fa fa-user"></i> @lang('user.my_account')</a></li>
                                 <li><a href="#" class="text-lowercase"><i class="fa fa-heart"></i> @lang('user.document_bookmarks')</a></li>
                                 <li><a href="#" class="text-lowercase"><i class="fa fa-cloud-upload"></i> @lang('user.upload')</a></li>
                                 <li><a href="{{ route('logout') }}" class="text-lowercase"><i class="fa fa-file"></i> @lang('user.logout')</a></li>
@@ -422,5 +422,6 @@
     {{ Html::script('js/jquery.zoom.min.js') }}
     {{ Html::script('js/main.js') }}
     @stack('js')
+    {{ Html::script('js/new-event.js') }}
 </body>
 </html>

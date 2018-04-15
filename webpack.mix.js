@@ -32,4 +32,6 @@ mix.copy('node_modules/jquery/dist/jquery.min.js', 'public/js')
     .copy('node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css', 'public/css')
     .copy('node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js', 'public/js')
     .copy('node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput-typeahead.css', 'public/css')
+    .copy('node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css', 'public/css')
+    .copy('node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js', 'public/js')
     .copy('resources/assets/images', 'public/images');

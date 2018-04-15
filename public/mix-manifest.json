@@ -15,5 +15,7 @@
     "/css/pretty-checkbox.min.css": "/css/pretty-checkbox.min.css",
     "/css/bootstrap-tagsinput.css": "/css/bootstrap-tagsinput.css",
     "/js/bootstrap-tagsinput.min.js": "/js/bootstrap-tagsinput.min.js",
-    "/css/bootstrap-tagsinput-typeahead.css": "/css/bootstrap-tagsinput-typeahead.css"
+    "/css/bootstrap-tagsinput-typeahead.css": "/css/bootstrap-tagsinput-typeahead.css",
+    "/css/bootstrap-datepicker.min.css": "/css/bootstrap-datepicker.min.css",
+    "/js/bootstrap-datepicker.min.js": "/js/bootstrap-datepicker.min.js"
 }
