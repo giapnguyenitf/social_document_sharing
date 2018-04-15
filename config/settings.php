@@ -17,4 +17,8 @@
             'true' => true,
             'false' => false,
         ],
+        'avatar' => [
+            'path_store' => 'public/uploads/avatars',
+            'path_default' => 'images/user_default.png',
+        ]
     ];

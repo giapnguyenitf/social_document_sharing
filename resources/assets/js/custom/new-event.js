@@ -6,4 +6,6 @@ $(document).ready(function () {
     $('#bt-cancel-add-new-category').on('click', function () {
         $('.js-add-new-category').addClass('hidden');
     });
+    $('.datepicker').datepicker({
+    });
 });

@@ -9,16 +9,16 @@
                     <div class="form-inline">
                         <div class="form-group">
                             <div class="user-avatar">
-                                <img src="" alt="">
+                                <img class="img-responsive" src="{{ $user->avatar_path }}" alt="">
                             </div>
                         </div>
                         <div class="form-group">
-                            <h4 class="user-name">Username</h4>
+                            <h4 class="user-name">{{ $user->name }}</h4>
                         </div>
                     </div>
                 </li>
-                <li class=""><a href=""><i class="fa fa-user"></i>@lang('user.user_infomation')</a></li>
-                <li class=""><a href=""><i class="glyphicon glyphicon-cloud-upload"></i>@lang('user.upload')</a></li>
+                <li class=""><a href="{{ route('manage-profile') }}"><i class="fa fa-user"></i>@lang('user.user_infomation')</a></li>
+                <li class=""><a href="{{ route('document.index') }}"><i class="glyphicon glyphicon-cloud-upload"></i>@lang('user.upload')</a></li>
                 <li class=""><a href=""><i class="glyphicon glyphicon-open-file"></i>@lang('user.uploaded')</a></li>
                 <li class=""><a href=""><i class="glyphicon glyphicon-cloud-download"></i>@lang('user.downloaded')</a></li>
                 <li class=""><a href=""><i class="glyphicon glyphicon-heart"></i>@lang('user.bookmark_document')</a></li>
