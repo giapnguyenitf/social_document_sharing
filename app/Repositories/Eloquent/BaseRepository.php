@@ -77,6 +77,12 @@ abstract class BaseRepository implements RepositoryInterface
         return $model;
     }
 
+    public function find($id)
+    {
+        return $this->model->find($id);
+    }
+    
+
     public function findByField($field, $value)
     {
         return $this->model->where($field, '=', $value)->get()->first();
@@ -116,7 +122,7 @@ abstract class BaseRepository implements RepositoryInterface
         return $this;
     }
 
-    public function where($column, $operator = '=', $condition)
+    public function where($column, $operator = null, $condition)
     {
         $this->model = $this->model->where($column, $operator, $condition);
 

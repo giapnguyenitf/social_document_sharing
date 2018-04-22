@@ -153,3 +153,36 @@
 .text-lowercase {
     text-transform: initial !important;
 }
+
+.btn-action-group {
+    text-align: center;
+}
+
+.btn-action-group .btn {
+    margin-bottom: 2px;
+}
+
+.no-document-upload {
+    text-align: center;
+}
+
+.img-center {
+    margin: 0 auto;
+    border: 2px solid #dd4b39;
+}
+
+.preview-image {
+    margin-top: 10px;
+}
+
+.btn-upload-thumbnail {
+    cursor: pointer;
+    background: #2cb1e9;
+    color: #fff;
+    border-color: #2cb1e9;
+}
+
+.preview-message {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

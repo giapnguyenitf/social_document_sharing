@@ -12,6 +12,8 @@ interface RepositoryInterface
 
     public function findByField($field, $value);
 
+    public function find($id);
+
     public function create(array $attributes);
 
     public function update($id, array $attributes);
@@ -24,7 +26,7 @@ interface RepositoryInterface
 
     public function with($relations);
 
-    public function where($column, $operator, $condition);
+    public function where($column, $operator = null, $condition);
 
     public function whereIn($olumn, $values);
 

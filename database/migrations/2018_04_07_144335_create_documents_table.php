@@ -17,6 +17,7 @@ class CreateDocumentsTable extends Migration
             $table->increments('id');
             $table->string('user_id');
             $table->string('category_id');
+            $table->string('name');
             $table->string('file_name');
             $table->text('description');
             $table->float('file_size');
@@ -24,7 +25,7 @@ class CreateDocumentsTable extends Migration
             $table->string('thumbnail');
             $table->integer('views')->default(0);
             $table->integer('downloads')->default(0);
-            $table->integer('is_illegal')->default(config('settings.is_illegal.false'));
+            $table->integer('status')->default(config('settings.document.status.is_checking'));
             $table->timestamps();
         });
     }

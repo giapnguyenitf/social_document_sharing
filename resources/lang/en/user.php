@@ -104,30 +104,5 @@ return [
     'date_of_birth' => 'Ngày sinh',
     'profile' => [
         'update_success' => 'Cập nhật thông tin thành công!',
-    ],
-    'required_agree_with_term' => 'Bạn phải đông ý với điều khoản và điều kiện trước khi tải lên',
-    'thumbnail' => 'Hình minh họa',
-    'document' => [
-        'upload_success' => 'Tải lên thành công',
-        'upload_fail' => 'Tải lên thất bại',
-        'status' => [
-            'is_illegal' => 'Tài liệu vi phạm',
-            'is_checking' => 'Tài liệu đang được kiểm duyệt',
-            'is_published' => 'Tài liệu đã được phát hành',
-        ],
-        'no_document_uploaded' => 'Bạn chưa tải lên tài liệu nào',
-        'delete_success' => 'Xóa tài liệu thành công',
-        'delete_fail' => 'Xóa tài liệu thất bại',
-        'update_success' => 'Cập nhật thành công',
-        'update_fail' => 'Cập nhật thất bại',
-        'upload_image' => 'Tải lên hình ảnh',
-        'cancel' => 'Hủy',
-        'save' => 'Lưu', 
-    ],
-    'edit_document' => 'Chỉnh sửa tài liệu',
-    'image_preview' => 'Hình ảnh xem trước',
-    'upload_image_fail' => 'Tải lên hình ảnh thất bại',
-    'url_is_invalid' => 'URL không đúng',
-    'url_is_required' => 'URL không được để trống',
-    'insert_url_or_upload' => 'Chèn url hình ảnh hoặc tải lên hình ảnh mới',
+    ]
 ];

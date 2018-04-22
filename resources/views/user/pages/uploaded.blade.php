@@ -26,26 +26,35 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <a class="btn btn-success btn-sm" href=""><i class="fa fa-eye"></i></a>
-                                                    <a class="btn btn-info btn-sm" href=""><i class="fa fa-pencil"></i></a>
-                                                    <a class="btn btn-danger btn-sm" href=""><i class="fa fa-trash"></i></a>
-                                                </td>
-                                            </tr>
+                                            @if (count($documents))
+                                                @foreach ($documents as $document)
+                                                    <tr>
+                                                        <td>{{ $document->name }}</td>
+                                                        <td>{{ $document->created_at }}</td>
+                                                        <td>{{ $document->views }}</td>
+                                                        <td>{{ $document->downloads }}</td>
+                                                        <td>{{ $document->status }}</td>
+                                                        <td class="btn-action-group">
+                                                            <a class="btn btn-success btn-sm" href=""><i class="fa fa-eye"></i></a>
+                                                            <a class="btn btn-info btn-sm" href="{{ route('uploaded-document.edit', ['id' => $document->id]) }}"><i class="fa fa-pencil"></i></a>
+                                                            <a class="btn btn-danger btn-sm" href=""><i class="fa fa-trash"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>
+                                @if (count($documents))
+                                    <div>{{ $documents->links() }}</div>
+                                @else
+                                    <div class="no-document-upload">@lang('user.document.no_document_uploaded')</div>
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-  </div>
+    </div>
 @endsection
