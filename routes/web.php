@@ -32,6 +32,10 @@ Route::get('/', [
     'uses' => 'HomeController@index',
 ]);
 
+Route::get('home', function () {
+    return redirect()->route('home');
+});
+
 Route::middleware('auth')->group(function () {
     Route::namespace('User')->group(function () {
         Route::get('manage-profile', [
@@ -43,5 +47,17 @@ Route::middleware('auth')->group(function () {
             'uses' => 'UserController@update',
         ]);
         Route::resource('document', 'DocumentController');
+        Route::resource('uploaded-document', 'UploadedDocumentController');
     });
+});
+
+Route::namespace('Ajax')->group(function () {
+    Route::post('get-child-categories', [
+        'uses' => 'CategoryController@getChildCategory',
+        'as' => 'ajax-get-child-category',
+    ]);
+    Route::post('upload-image', [
+        'uses' => 'UploadImageController@uploadImage',
+        'as' => 'ajax-upload-image',
+    ]);
 });

@@ -30,7 +30,7 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
-                                                <td>
+                                                <td class="btn-action-group">
                                                     <a class="btn btn-success btn-sm" href=""><i class="fa fa-eye"></i></a>
                                                     <a class="btn btn-danger btn-sm" href=""><i class="fa fa-trash"></i></a>
                                                 </td>

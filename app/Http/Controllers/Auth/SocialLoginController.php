@@ -48,7 +48,7 @@ class SocialLoginController extends Controller
        
         return $this->userRepository->create([
             'name' => $user->name,
-            'avatar' => $user->avatar,
+            'avatar' => str_replace('?sz=50', '?sz=200', $user->avatar),
             'provider' => $provider,
             'provider_id' => $user->id,
         ]);

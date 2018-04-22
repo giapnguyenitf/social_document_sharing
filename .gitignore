@@ -18,4 +18,4 @@ yarn-error.log
 .env
 public/storage
 public/images
-
+public/messages.js

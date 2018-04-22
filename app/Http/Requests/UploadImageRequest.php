@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UploadDocumentRequest extends FormRequest
+class UploadImageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,7 @@ class UploadDocumentRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:10|max:200',
-            'description' => 'required|string|min:50|max:1000',
-            'document' => 'required|max:10240|mimes:doc,pdf,docx,ppt,pptx',
-            'parent_category' => 'required',
-            'child_category' => 'required',
+            'image' => 'required|max:5120|mimes:jpg,png,jpeg,svg,gif',
         ];
     }
 }

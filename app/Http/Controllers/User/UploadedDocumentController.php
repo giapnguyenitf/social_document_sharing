@@ -3,27 +3,22 @@
 namespace App\Http\Controllers\User;
 
 use Auth;
-// use Exception;
 use Illuminate\Http\Request;
-use App\Traits\UploadFileTrait;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UploadDocumentRequest;
-use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Repositories\Contracts\DocumentRepositoryInterface;
+use App\Repositories\Contracts\CategoryRepositoryInterface;
 
-class DocumentController extends Controller
+class UploadedDocumentController extends Controller
 {
-    use UploadFileTrait;
-
-    protected $categoryRepository;
     protected $documentRepository;
-
+    protected $categoryRepository;
+    
     public function __construct(
         CategoryRepositoryInterface $categoryRepository,
         DocumentRepositoryInterface $documentRepository
     ) {
-        $this->categoryRepository = $categoryRepository;
         $this->documentRepository = $documentRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -34,9 +29,9 @@ class DocumentController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $parentCategories = $this->categoryRepository->where('parent_id', '=', config('settings.category.is_parent'))->get();
+        $documents = $this->documentRepository->getUploadedDocument(Auth::user()->id);
 
-        return view('user.pages.upload', compact('user', 'parentCategories'));
+        return view('user.pages.uploaded', compact('documents', 'user'));
     }
 
     /**
@@ -55,32 +50,9 @@ class DocumentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UploadDocumentRequest $request)
+    public function store(Request $request)
     {
-        try {
-            $document = $request->only([
-                'name',
-                'description',
-                'tag',
-            ]);
-
-            $file = $request->file('document');
-            $thumbnail = $request->file('thumbnail');
-            $filePath = $this->uploadFile(config('settings.document.path_store'), $file);
-            $thumbnailPath = $this->uploadFile(config('settings.document.path_thumbnail'), $thumbnail);
-            
-            $document['file_name'] = $filePath;
-            $document['file_size'] = round($file->getClientSize()/(1024*1024), 2);
-            $document['file_type'] = $file->extension();
-            $document['category_id'] = $request->input('child_category');
-            $document['thumbnail'] = $thumbnailPath;
-            $document['user_id'] = Auth::user()->id;
-            $this->documentRepository->create($document);
-
-            return back()->with('messageSuccess', trans('user.document.upload_success'));
-        } catch(Exception $e) {
-            return back()->with('messageError', trans('user.document.upload_fail'));
-        }
+        //
     }
 
     /**
@@ -103,8 +75,9 @@ class DocumentController extends Controller
     public function edit($id)
     {
         $document = $this->documentRepository->find($id);
+        $parentCategories = $this->categoryRepository->where('parent_id', '=', config('settings.category.is_parent'))->get();
 
-        return view('user.pages.edit-document', compact('document'));
+        return view('user.pages.edit-document', compact('document', 'parentCategories'));
     }
 
     /**
@@ -116,7 +89,7 @@ class DocumentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return redirect()->route('home');
     }
 
     /**
@@ -128,11 +101,11 @@ class DocumentController extends Controller
     public function destroy($id)
     {
         try {
-            $this->documentRepository->delete($id);
+            $this->documentRepository->destroy($id);
 
-            return back();
+            return back()->with('message_success', trans('user.document.delete_success'));
         } catch(Exception $e) {
-            return back();
+            return back()->with('message_fail', trans('user.delete_fail'));
         }
     }
 }

@@ -6,5 +6,5 @@ use App\Repositories\Contracts\RepositoryInterface;
 
 interface DocumentRepositoryInterface extends RepositoryInterface
 {
-    
+    public function getUploadedDocument($userID);
 }

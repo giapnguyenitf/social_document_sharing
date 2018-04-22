@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Auth;
 use Storage;
+use Exception;
 use Illuminate\Http\Request;
 use App\Traits\UploadFileTrait;
 use App\Http\Controllers\Controller;
@@ -23,8 +24,9 @@ class UserController extends Controller
 
     public function index()
     {
-        $user = Auth::user();
-
+        $authUser = Auth::user();
+        $user = $this->userRepository->find($authUser->id);
+        
         return view('user.pages.profile', compact('user'));
     }
 
