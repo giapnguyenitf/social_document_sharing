@@ -75,14 +75,8 @@ $(document).ready(function () {
 
     $('.btn-save-image').click(function () {
         var urlImage = $('.preview-image .img-center').attr('src');
-        var regex = /^http/;
         if (urlImage) {
-            if (regex.test(urlImage)) {
-                $('.input-url-thumbnail-image').val(urlImage);
-            } else {
-                urlImage = urlImage.replace('storage', 'public');
-                $('.input-url-thumbnail-image').val(urlImage);
-            }
+            $('.input-url-thumbnail-image').val(urlImage);
         }
     });
 
@@ -145,4 +139,47 @@ $(document).ready(function () {
     function setPreviewImage(urlImage) {
         $('.preview-image .img-center').attr('src', urlImage);
     }
+
+    // live search document
+    $('#search-input').keyup(function (e) {
+        e.preventDefault();
+        var url = $(this).data('url');
+        var keyword = $(this).val().trim();
+        var searchBy = $('.search-categories').val();
+
+        if (keyword.length) {
+            $.ajax({
+                method: 'POST',
+                url: url,
+                dataType: 'json',
+                data: {
+                    keyword: keyword,
+                    searchBy: searchBy,
+                }
+            })
+            .done(function (response) {
+                $('.live-search').empty();
+
+                if (response.status && response.data.length) {
+                    var data = response.data;
+                    data.forEach(function (el) {
+                        $('.live-search').append(`
+                            <li><a href="">${el.name}</a></li>
+                        `);
+                    });
+                } else {
+                    $('.live-search').append(`
+                        <li><a href="">${Lang.get('user.search.no_result')}</a></li>
+                    `);
+                }
+            });
+        } else {
+            $('.live-search').empty();
+        }
+    });
+
+    // remove result when click outside the live-search div
+    $(document).click(function (e) {
+        $('.live-search').empty();
+    });
 });

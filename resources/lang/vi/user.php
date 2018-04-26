@@ -130,4 +130,8 @@ return [
     'url_is_invalid' => 'URL không đúng',
     'url_is_required' => 'URL không được để trống',
     'insert_url_or_upload' => 'Chèn url hình ảnh hoặc tải lên hình ảnh mới',
+    'search' => [
+        'by_all' => 'Tất cả',
+        'no_result' => 'Không có kết quả nào',
+    ]
 ];

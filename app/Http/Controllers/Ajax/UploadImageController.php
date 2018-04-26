@@ -17,9 +17,8 @@ class UploadImageController extends Controller
         if ($request->ajax()) {
             $thumbnail = $request->image;
             $thumbnailPath = $this->uploadFile(config('settings.document.path_thumbnail'), $thumbnail);
-            $urlImage = Storage::url($thumbnailPath);
             
-            return response()->json($urlImage);
+            return response()->json($thumbnailPath);
         }
 
         return response()->json(false);

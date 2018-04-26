@@ -35,5 +35,7 @@ interface RepositoryInterface
     public function count();
     
     public function get($columns = ['*']);
+
+    public function sum($column);
     
 }

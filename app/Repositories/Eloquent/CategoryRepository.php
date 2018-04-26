@@ -12,4 +12,17 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     {
         return Category::class;
     }
+
+    public function getAll()
+    {
+        return $this->model->where('parent_id', '=', config('settings.category.is_parent'))
+            ->with('subCategories')
+            ->orderBy('name', 'asc')
+            ->get();
+    }
+
+    public function countAll()
+    {
+        return $this->model->count();
+    }
 }

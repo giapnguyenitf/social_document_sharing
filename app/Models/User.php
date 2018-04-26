@@ -44,13 +44,4 @@ class User extends Model implements Authenticatable
     {
         return $this->hasMany(Bookmark::class);
     }
-
-    public function getAvatarPathAttribute()
-    {
-        if ($this->attributes['provider']) {
-            return $this->attributes['avatar'];
-        }
-
-        return Storage::url($this->attrbutes['avatar']);
-    }
 }

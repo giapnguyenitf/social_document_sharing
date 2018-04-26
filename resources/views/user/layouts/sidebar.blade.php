@@ -9,7 +9,7 @@
                     <div class="form-inline">
                         <div class="form-group">
                             <div class="user-avatar">
-                                <img class="img-responsive" src="{{ Auth::user()->avatar_path }}" alt="">
+                                <img class="img-responsive" src="{{ Auth::user()->avatar }}" alt="">
                             </div>
                         </div>
                         <div class="form-group">
