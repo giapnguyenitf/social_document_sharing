@@ -159,4 +159,12 @@ abstract class BaseRepository implements RepositoryInterface
 
         return $model;
     }
+
+    public function sum($column)
+    {
+        $model = $this->model->sum($column);
+        $this->resetModel();
+
+        return $model;
+    }
 }

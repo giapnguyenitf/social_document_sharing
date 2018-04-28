@@ -31,5 +31,11 @@
             'uploaded' => [
                 'paginate' => 4, 
             ],
-        ]
+            'top_new' => 10,
+            'paginate_per_page' => 8,
+            'top_views' => 8,
+        ],
+        'search' => [
+            'by_name' => 0,
+        ],
     ];

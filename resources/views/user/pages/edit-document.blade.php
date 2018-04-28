@@ -13,7 +13,7 @@
                         </div>
                         <div class="panel-body">
                             <div class="form-upload-document">
-                                <form action="{{ route('uploaded-document.update', ['id' => $document->id]) }}" method="PUT" class="form-horizontal" enctype="multipart/form-data" files="true">
+                                <form action="{{ route('uploaded-document.update', ['id' => $document->id]) }}" method="PUT" class="form-horizontal" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group">
                                         <div class="col-md-8 col-md-offset-3">

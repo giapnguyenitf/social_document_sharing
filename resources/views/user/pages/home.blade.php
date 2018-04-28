@@ -7,7 +7,7 @@
                     <a class="banner banner-1" href="#">
                         <img class="img-responsive" src="{{ asset('images/banner-1.jpg') }}" alt="">
                         <div class="banner-caption text-center">
-                            <h2 class="white-color">2000</h2>
+                            <h2 class="white-color">{{ $numberDocument }}</h2>
                             <h3 class="white-color">@lang('user.documents')</h3>
                         </div>
                     </a>
@@ -16,7 +16,7 @@
                     <a class="banner banner-1" href="#">
                         <img src="{{ asset('images/banner-2.jpg') }}" alt="">
                         <div class="banner-caption text-center">
-                            <h2 class="white-color">30</h2>
+                            <h2 class="white-color">{{ $numberCategory }}</h2>
                             <h3 class="white-color">@lang('user.category_document')</h3>
                         </div>
                     </a>
@@ -25,7 +25,7 @@
                     <a class="banner banner-1" href="#">
                         <img src="{{ asset('images/banner-3.jpg') }}" alt="">
                         <div class="banner-caption text-center">
-                            <h2 class="white-color">30000</h2>
+                            <h2 class="white-color">{{ $numberViews }}</h2>
                             <h3 class="white-color">@lang('user.view_in_month')</h3>
                         </div>
                     </a>
@@ -49,85 +49,23 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="row">
                         <div id="product-slick-1" class="product-slick">
-                            <div class="product product-single">
-                                <div class="product-thumb">
-                                    <button class="main-btn quick-view"><i class="fa fa-eye"></i> @lang('user.view')</button>
-                                    <img src="{{ asset('images/no-image.png') }}" alt="">
-                                </div>
-                                <div class="product-body">
-                                    <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                    <div class="product-info">
-                                        <ul class="product-bts">
-                                            <li title="@lang('user.views')"><i class="fa fa-eye"></i> 2000</li>
-                                            <li title="@lang('user.downloads')"><i class="fa fa-cloud-download"></i> 2000</li>
-                                        </ul>
+                            @foreach ($newestDocuments as $newestDocument)
+                                <div class="product product-single">
+                                    <div class="product-thumb">
+                                        <button class="main-btn quick-view"><i class="fa fa-eye"></i> @lang('user.view')</button>
+                                        <img class="img-responsive" src="{{ $newestDocument->thumbnail }}" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <h2 class="product-name"><a href="#">{{ $newestDocument->name }}</a></h2>
+                                        <div class="product-info">
+                                            <ul class="product-bts">
+                                                <li title="@lang('user.views')"><i class="fa fa-eye"></i> {{ $newestDocument->views }}</li>
+                                                <li title="@lang('user.downloads')"><i class="fa fa-cloud-download"></i> {{ $newestDocument->downloads }}</li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                           <div class="product product-single">
-                                <div class="product-thumb">
-                                    <button class="main-btn quick-view"><i class="fa fa-eye"></i> @lang('user.view')</button>
-                                    <img src="{{ asset('images/no-image.png') }}" alt="">
-                                </div>
-                                <div class="product-body">
-                                    <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                    <div class="product-info">
-                                        <ul class="product-bts">
-                                            <li title="@lang('user.views')"><i class="fa fa-eye"></i> 2000</li>
-                                            <li title="@lang('user.downloads')"><i class="fa fa-cloud-download"></i> 2000</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="product product-single">
-                                <div class="product-thumb">
-                                    <button class="main-btn quick-view"><i class="fa fa-eye"></i> @lang('user.view')</button>
-                                    <img src="{{ asset('images/no-image.png') }}" alt="">
-                                </div>
-                                <div class="product-body">
-                                    <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                    <div class="product-info">
-                                        <ul class="product-bts">
-                                            <li title="@lang('user.views')"><i class="fa fa-eye"></i> 2000</li>
-                                            <li title="@lang('user.downloads')"><i class="fa fa-cloud-download"></i> 2000</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="product product-single">
-                                <div class="product-thumb">
-                                    <button class="main-btn quick-view"><i class="fa fa-eye"></i> @lang('user.view')</button>
-                                    <img src="{{ asset('images/no-image.png') }}" alt="">
-                                </div>
-                                <div class="product-body">
-                                    <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                    <div class="product-info">
-                                        <ul class="product-bts">
-                                            <li title="@lang('user.views')"><i class="fa fa-eye"></i> 2000</li>
-                                            <li title="@lang('user.downloads')"><i class="fa fa-cloud-download"></i> 2000</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="product product-single">
-                                <div class="product-thumb">
-                                    <button class="main-btn quick-view"><i class="fa fa-eye"></i> @lang('user.view')</button>
-                                    <img src="{{ asset('images/no-image.png') }}" alt="">
-                                </div>
-                                <div class="product-body">
-                                    <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                    <div class="product-info">
-                                        <ul class="product-bts">
-                                            <li title="@lang('user.views')"><i class="fa fa-eye"></i> 2000</li>
-                                            <li title="@lang('user.downloads')"><i class="fa fa-cloud-download"></i> 2000</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -141,66 +79,22 @@
                 <div class="col-md-3" id="aside">
                     <div class="aside">
                         <h3 class="aside-title">@lang('user.top_view_document')</h3>
-                        <div class="product product-widget">
-                            <div class="product-thumb">
-                                <img src="{{ asset('images/no-image.png') }}" alt="">
-                            </div>
-                            <div class="product-body">
-                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                <div class="product-info">
-                                    <ul class="product-bts">
-                                        <li><i class="fa fa-eye"></i> 2000</li>
-                                        <li><i class="fa fa-cloud-download"></i> 2000</li>
-                                    </ul>
+                        @foreach ($topViewsDocuments  as $topViewsDocument)
+                            <div class="product product-widget">
+                                <div class="product-thumb">
+                                    <img class="img-responsive" src="{{ $topViewsDocument->thumbnail }}" alt="">
+                                </div>
+                                <div class="product-body">
+                                    <h2 class="product-name"><a href="#">{{ $topViewsDocument->name }}</a></h2>
+                                    <div class="product-info">
+                                        <ul class="product-bts">
+                                            <li><i class="fa fa-eye"></i> {{ $topViewsDocument->views }}</li>
+                                            <li><i class="fa fa-cloud-download"></i> {{ $topViewsDocument->downloads }}</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="product product-widget">
-                            <div class="product-thumb">
-                                <img src="{{ asset('images/no-image.png') }}" alt="">
-                            </div>
-                            <div class="product-body">
-                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                <div class="product-info">
-                                    <ul class="product-bts">
-                                        <li><i class="fa fa-eye"></i> 2000</li>
-                                        <li><i class="fa fa-cloud-download"></i> 2000</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product product-widget">
-                            <div class="product-thumb">
-                                <img src="{{ asset('images/no-image.png') }}" alt="">
-                            </div>
-                            <div class="product-body">
-                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                <div class="product-info">
-                                    <ul class="product-bts">
-                                        <li><i class="fa fa-eye"></i> 2000</li>
-                                        <li><i class="fa fa-cloud-download"></i> 2000</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product product-widget">
-                            <div class="product-thumb">
-                                <img src="{{ asset('images/no-image.png') }}" alt="">
-                            </div>
-                            <div class="product-body">
-                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                <div class="product-info">
-                                    <ul class="product-bts">
-                                        <li><i class="fa fa-eye"></i> 2000</li>
-                                        <li><i class="fa fa-cloud-download"></i> 2000</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
+                        @endforeach
                     </div>
                 </div>
                 <div class="col-md-9" id="main">
@@ -233,153 +127,30 @@
 
                     <div id="store">
                         <div class="row">
-                            <div class="col-md-3 col-sm-6 col-xs-6">
-                                <div class="product product-single">
-                                    <div class="product-thumb">
-                                        <button class="main-btn quick-view"><i class="fa fa-eye"></i> View</button>
-                                        <img src="{{ asset('images/no-image.png') }}" alt="">
-                                    </div>
-                                    <div class="product-body">
-                                        <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                        <div class="product-btns">
-                                            <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                            <button class="main-btn icon-btn"><i class="fa fa-eye"></i></button>
-                                            <button class="main-btn icon-btn"><i class="fa fa-cloud-download"></i></button>
+                            @foreach ($allDocuments as $allDocument)
+                                <div class="col-md-3 col-sm-6 col-xs-6">
+                                    <div class="product product-single">
+                                        <div class="product-thumb">
+                                            <button class="main-btn quick-view"><i class="fa fa-eye"></i> @lang('user.view')</button>
+                                            <img src="{{ $allDocument->thumbnail }}" alt="">
+                                        </div>
+                                        <div class="product-body">
+                                            <h2 class="product-name"><a href="#">{{ $allDocument->name }}</a></h2>
+                                            <div class="product-btns">
+                                                <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+                                                <button class="main-btn icon-btn"><i class="fa fa-eye"></i></button>
+                                                <button class="main-btn icon-btn"><i class="fa fa-cloud-download"></i></button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-6">
-                                <div class="product product-single">
-                                    <div class="product-thumb">
-                                        <button class="main-btn quick-view"><i class="fa fa-eye"></i> View</button>
-                                        <img src="{{ asset('images/no-image.png') }}" alt="">
-                                    </div>
-                                    <div class="product-body">
-                                        <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                        <div class="product-btns">
-                                            <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                            <button class="main-btn icon-btn"><i class="fa fa-eye"></i></button>
-                                            <button class="main-btn icon-btn"><i class="fa fa-cloud-download"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-6">
-                                <div class="product product-single">
-                                    <div class="product-thumb">
-                                        <button class="main-btn quick-view"><i class="fa fa-eye"></i> View</button>
-                                        <img src="{{ asset('images/no-image.png') }}" alt="">
-                                    </div>
-                                    <div class="product-body">
-                                        <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                        <div class="product-btns">
-                                            <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                            <button class="main-btn icon-btn"><i class="fa fa-eye"></i></button>
-                                            <button class="main-btn icon-btn"><i class="fa fa-cloud-download"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                             <div class="col-md-3 col-sm-6 col-xs-6">
-                                <div class="product product-single">
-                                    <div class="product-thumb">
-                                        <button class="main-btn quick-view"><i class="fa fa-eye"></i> View</button>
-                                        <img src="{{ asset('images/no-image.png') }}" alt="">
-                                    </div>
-                                    <div class="product-body">
-                                        <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                        <div class="product-btns">
-                                            <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                            <button class="main-btn icon-btn"><i class="fa fa-eye"></i></button>
-                                            <button class="main-btn icon-btn"><i class="fa fa-cloud-download"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-6">
-                                <div class="product product-single">
-                                    <div class="product-thumb">
-                                        <button class="main-btn quick-view"><i class="fa fa-eye"></i> View</button>
-                                        <img src="{{ asset('images/no-image.png') }}" alt="">
-                                    </div>
-                                    <div class="product-body">
-                                        <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                        <div class="product-btns">
-                                            <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                            <button class="main-btn icon-btn"><i class="fa fa-eye"></i></button>
-                                            <button class="main-btn icon-btn"><i class="fa fa-cloud-download"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-6">
-                                <div class="product product-single">
-                                    <div class="product-thumb">
-                                        <button class="main-btn quick-view"><i class="fa fa-eye"></i> View</button>
-                                        <img src="{{ asset('images/no-image.png') }}" alt="">
-                                    </div>
-                                    <div class="product-body">
-                                        <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                        <div class="product-btns">
-                                            <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                            <button class="main-btn icon-btn"><i class="fa fa-eye"></i></button>
-                                            <button class="main-btn icon-btn"><i class="fa fa-cloud-download"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-6">
-                                <div class="product product-single">
-                                    <div class="product-thumb">
-                                        <button class="main-btn quick-view"><i class="fa fa-eye"></i> View</button>
-                                        <img src="{{ asset('images/no-image.png') }}" alt="">
-                                    </div>
-                                    <div class="product-body">
-                                        <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                        <div class="product-btns">
-                                            <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                            <button class="main-btn icon-btn"><i class="fa fa-eye"></i></button>
-                                            <button class="main-btn icon-btn"><i class="fa fa-cloud-download"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-6">
-                                <div class="product product-single">
-                                    <div class="product-thumb">
-                                        <button class="main-btn quick-view"><i class="fa fa-eye"></i> View</button>
-                                        <img src="{{ asset('images/no-image.png') }}" alt="">
-                                    </div>
-                                    <div class="product-body">
-                                        <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                        <div class="product-btns">
-                                            <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                            <button class="main-btn icon-btn"><i class="fa fa-eye"></i></button>
-                                            <button class="main-btn icon-btn"><i class="fa fa-cloud-download"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
 
                     <div class="store-filter clearfix">
                         <div class="pull-right">
-                            <ul class="store-pages">
-                                <li><span class="text-uppercase">Page:</span></li>
-                                <li class="active">1</li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#"><i class="fa fa-caret-right"></i></a></li>
-                            </ul>
+                            {{ $allDocuments->links() }}
                         </div>
                     </div>
                 </div>

@@ -27,13 +27,13 @@ Route::namespace('Auth')->group(function (){
     ]);
 });
 
-Route::get('/', [
-    'as' => 'home',
-    'uses' => 'HomeController@index',
-]);
+Route::redirect('/', '/home');
 
-Route::get('home', function () {
-    return redirect()->route('home');
+Route::namespace('User')->group(function () {
+    Route::get('home', [
+        'uses' => 'HomeController@index',
+        'as' => 'home',
+    ]);
 });
 
 Route::middleware('auth')->group(function () {
@@ -59,5 +59,9 @@ Route::namespace('Ajax')->group(function () {
     Route::post('upload-image', [
         'uses' => 'UploadImageController@uploadImage',
         'as' => 'ajax-upload-image',
+    ]);
+    Route::post('live-search', [
+        'uses' => 'SearchController@search',
+        'as' => 'ajax-live-search',
     ]);
 });

@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Repositories\Contracts;
 use App\Repositories\Eloquent;
+use Illuminate\Support\Facades\View;
+use App\Models\Category;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +19,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        $categories = Category::where('parent_id', '=', config('settings.category.is_parent'))
+            ->with('subCategories')
+            ->orderBy('name', 'asc')
+            ->get();
+        View::share('categories', $categories);
     }
 
     /**
