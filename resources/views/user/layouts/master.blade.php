@@ -46,11 +46,11 @@
                         </a>
                     </div>
                     <div class="header-search">
-                        <form>
+                        <form action="{{ route('search-document') }}" method="GET">
                             <input class="input search-input" name="keyword" id="search-input" data-url="{{ route('ajax-live-search') }}" type="text" autocomplete="off" placeholder="@lang('user.enter_your_keyword')">
                             <ul class="live-search">
                             </ul>
-                            <select class="input search-categories">
+                            <select class="input search-categories" name="category">
                                 <option value="0">@lang('user.search.by_all')</option>
                                 @foreach ($categories as $parentCategory)
                                     <option value="{{ $parentCategory->id }}">{{ $parentCategory->name }}</option>
@@ -123,39 +123,17 @@
                         <li class="dropdown mega-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">@lang('user.other_categories') <i class="fa fa-caret-down"></i></a>
                             <div class="custom-menu">
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <ul class="list-links">
-                                            <li><h3 class="list-links-title">Categories</h3></li>
-                                            <li><a href="#">Women’s Clothing</a></li>
-                                            <li><a href="#">Men’s Clothing</a></li>
-                                            <li><a href="#">Phones & Accessories</a></li>
-                                            <li><a href="#">Jewelry & Watches</a></li>
-                                            <li><a href="#">Bags & Shoes</a></li>
-                                        </ul>
-                                        <hr class="hidden-md hidden-lg">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="list-links">
-                                            <li><h3 class="list-links-title">Categories</h3></li>
-                                            <li><a href="#">Women’s Clothing</a></li>
-                                            <li><a href="#">Men’s Clothing</a></li>
-                                            <li><a href="#">Phones & Accessories</a></li>
-                                            <li><a href="#">Jewelry & Watches</a></li>
-                                            <li><a href="#">Bags & Shoes</a></li>
-                                        </ul>
-                                        <hr class="hidden-md hidden-lg">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="list-links">
-                                            <li>
-                                                <h3 class="list-links-title">Categories</h3></li>
-                                            <li><a href="#">Women’s Clothing</a></li>
-                                            <li><a href="#">Men’s Clothing</a></li>
-                                            <li><a href="#">Phones & Accessories</a></li>
-                                            <li><a href="#">Jewelry & Watches</a></li>
-                                            <li><a href="#">Bags & Shoes</a></li>
-                                        </ul>
-                                    </div>
+                                    @foreach ($categories as $category)
+                                        <div class="col-md-4">
+                                            <ul class="list-links">
+                                                <li><h3 class="list-links-title">{{ $category->name }}</h3></li>
+                                                @foreach ($category->subCategories as $subCategory)
+                                                    <li><a href="#">{{ $subCategory->name }}</a></li>
+                                                @endforeach
+                                            </ul>
+                                            <hr class="hidden-md hidden-lg">
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </li>

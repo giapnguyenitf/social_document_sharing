@@ -34,6 +34,10 @@ Route::namespace('User')->group(function () {
         'uses' => 'HomeController@index',
         'as' => 'home',
     ]);
+    Route::get('search', [
+        'uses' => 'SearchController@search',
+        'as' => 'search-document',
+    ]);
 });
 
 Route::middleware('auth')->group(function () {

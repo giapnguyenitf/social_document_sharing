@@ -7,7 +7,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   color: #30323A;
   margin: 0 0 10px;
-  font-weight: 700;
+  font-weight: normal;
 }
 
 a {
@@ -144,6 +144,7 @@ textarea.input {
   text-transform: uppercase;
   margin-bottom: 10px;
   font-size: 16px;
+  font-weight: 600;
 }
 
 .list-links li>a {
@@ -447,6 +448,7 @@ textarea.input {
   background: #2cb1e9;
   color: #FFF;
   font-weight: 700;
+  cursor: pointer;
 }
 
 .category-nav .category-header>i {
