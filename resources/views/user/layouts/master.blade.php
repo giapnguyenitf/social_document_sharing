@@ -104,7 +104,7 @@
                                         <div class="col-md-12">
                                             <ul class="list-links">
                                                 @foreach ($parentCategory->subCategories as $subCategory)
-                                                    <li><a href="#">{{ $subCategory->name }}</a></li>
+                                                    <li><a href="{{ route('show-by-sub-category', $subCategory->id) }}">{{ $subCategory->name }}</a></li>
                                                 @endforeach
                                             </ul>
                                             <hr class="hidden-md hidden-lg">
@@ -128,7 +128,7 @@
                                             <ul class="list-links">
                                                 <li><h3 class="list-links-title">{{ $category->name }}</h3></li>
                                                 @foreach ($category->subCategories as $subCategory)
-                                                    <li><a href="#">{{ $subCategory->name }}</a></li>
+                                                    <li><a href="{{ route('show-by-sub-category', $subCategory->id) }}">{{ $subCategory->name }}</a></li>
                                                 @endforeach
                                             </ul>
                                             <hr class="hidden-md hidden-lg">

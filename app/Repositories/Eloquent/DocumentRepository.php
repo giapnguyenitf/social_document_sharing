@@ -68,4 +68,20 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
             ->where('name', 'like', '%' . $keyword . '%')
             ->paginate(config('settings.document.paginate_per_page'));
     }
+
+    public function getBySubCategory($categoryId)
+    {
+        return $this->model->where('category_id', $categoryId)
+            ->where('status', config('settings.document.status.is_published'))
+            ->paginate(config('settings.document.paginate_per_page'));
+    }
+
+    public function getByParentCategory($categoryId)
+    {
+        return $this->model->where('status', config('settings.document.status.is_published'))
+            ->whereIn('category_id', function($query) use ($categoryId) {
+                $query->select('id')->from('categories')->where('parent_id', $categoryId);
+            })
+            ->paginate(config('settings.document.paginate_per_page'));
+    }
 }

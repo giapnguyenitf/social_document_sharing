@@ -13,7 +13,7 @@ $(document).ready(function () {
         $('.js-add-new-category').addClass('hidden');
     });
 
-    $('#parent-category').change(function () {
+    $('#parent-category').click(function () {
         $('#child-category').empty();
         var url = $(this).data('url');
         var parentId = $(this).val();
