@@ -21,4 +21,8 @@ interface DocumentRepositoryInterface extends RepositoryInterface
     public function searchByName($keyword);
 
     public function searchByCategory($keyword, $categoryId);
+
+    public function getBySubCategory($categoryId);
+
+    public function getByParentCategory($categoryId);
 }

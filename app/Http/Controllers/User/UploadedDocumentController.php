@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\User;
 
 use Auth;
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateDocumentRequest;
 use App\Repositories\Contracts\DocumentRepositoryInterface;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
 
@@ -87,9 +89,28 @@ class UploadedDocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateDocumentRequest $request, $id)
     {
-        return redirect()->route('home');
+        try {
+            $document = $request->only([
+                'name',
+                'description',
+            ]);
+            $document['category_id'] = $request->child_category;
+            $document['tag'] = $request->tag ? $request->tag : ' ';
+
+            if ($request->thumbnail) {
+                $document['thumbnail'] = $request->thumbnail;
+            }
+
+            $this->documentRepository->update($id, $document);
+
+            return redirect()->route('uploaded-document.index')->with('messageSuccess', trans('user.document.update_success'));
+        } catch(Exception $e) {
+            return redirect()->route('uploaded-document.index')->with('messageError', trans('user.document.update_fail'));
+        }
+
+        
     }
 
     /**

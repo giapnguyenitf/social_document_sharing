@@ -19,3 +19,4 @@ yarn-error.log
 public/storage
 public/images
 public/messages.js
+public/viewer

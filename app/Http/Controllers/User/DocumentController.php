@@ -91,7 +91,10 @@ class DocumentController extends Controller
      */
     public function show($id)
     {
-        //
+        $document = $this->documentRepository->find($id);
+        $relatedDocuments = $this->documentRepository->where('category_id', '=',$document->category_id)->with('user')->get()->take(10);
+
+        return view('user.pages.view-document', compact('document', 'relatedDocuments'));
     }
 
     /**

@@ -52,11 +52,11 @@
                             @foreach ($newestDocuments as $newestDocument)
                                 <div class="product product-single">
                                     <div class="product-thumb">
-                                        <button class="main-btn quick-view"><i class="fa fa-eye"></i> @lang('user.view')</button>
+                                        <a class="main-btn quick-view" href="{{ route('view-document', $newestDocument->id) }}"><i class="fa fa-eye"></i> @lang('user.view')</a>
                                         <img class="img-responsive" src="{{ $newestDocument->thumbnail }}" alt="">
                                     </div>
                                     <div class="product-body">
-                                        <h2 class="product-name"><a href="#">{{ $newestDocument->name }}</a></h2>
+                                        <h2 class="product-name"><a href="{{ route('view-document', $newestDocument->id) }}">{{ $newestDocument->name }}</a></h2>
                                         <div class="product-info">
                                             <ul class="product-bts">
                                                 <li title="@lang('user.views')"><i class="fa fa-eye"></i> {{ $newestDocument->views }}</li>
@@ -82,10 +82,10 @@
                         @foreach ($topViewsDocuments  as $topViewsDocument)
                             <div class="product product-widget">
                                 <div class="product-thumb">
-                                    <img class="img-responsive" src="{{ $topViewsDocument->thumbnail }}" alt="">
+                                    <a href="{{ route('view-document', $topViewsDocument->id) }}"><img class="img-responsive" src="{{ $topViewsDocument->thumbnail }}" alt=""></a>
                                 </div>
                                 <div class="product-body">
-                                    <h2 class="product-name"><a href="#">{{ $topViewsDocument->name }}</a></h2>
+                                    <h2 class="product-name"><a href="{{ route('view-document', $topViewsDocument->id) }}">{{ $topViewsDocument->name }}</a></h2>
                                     <div class="product-info">
                                         <ul class="product-bts">
                                             <li><i class="fa fa-eye"></i> {{ $topViewsDocument->views }}</li>
@@ -105,23 +105,16 @@
                                 <a href="#" ><i class="fa fa-bars"></i></a>
                             </div>
                             <div class="sort-filter">
-                                <span class="text-uppercase">Sort by: </span>
+                                <span class="text-uppercase">@lang('user.sort_by'): </span>
                                 <select class="input">
-                                    <option value="0">Date</option>
-                                    <option value="0">Views</option>
-                                    <option value="0">Downloads</option>
+                                    <option value="0">@lang('user.date_upload')</option>
+                                    <option value="0">@lang('user.views')</option>
+                                    <option value="0">@lang('user.downloads')</option>
                                 </select>
-                                <a href="#" class="main-btn icon-btn"><i class="fa fa-arrow-down"></i></a>
                             </div>
                         </div>
                         <div class="pull-right">
-                            <ul class="store-pages">
-                                <li><span class="text-uppercase">Page:</span></li>
-                                <li class="active">1</li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#"><i class="fa fa-caret-right"></i></a></li>
-                            </ul>
+                            {{ $allDocuments->links() }}
                         </div>
                     </div>
 
@@ -131,15 +124,15 @@
                                 <div class="col-md-3 col-sm-6 col-xs-6">
                                     <div class="product product-single">
                                         <div class="product-thumb">
-                                            <button class="main-btn quick-view"><i class="fa fa-eye"></i> @lang('user.view')</button>
+                                            <a class="main-btn quick-view" href="{{ route('view-document',  $allDocument->id) }}"><i class="fa fa-eye"></i> @lang('user.view')</a>
                                             <img src="{{ $allDocument->thumbnail }}" alt="">
                                         </div>
                                         <div class="product-body">
-                                            <h2 class="product-name"><a href="#">{{ $allDocument->name }}</a></h2>
+                                            <h2 class="product-name"><a href="{{ route('view-document', $allDocument->id) }}">{{ $allDocument->name }}</a></h2>
                                             <div class="product-btns">
-                                                <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                                <button class="main-btn icon-btn"><i class="fa fa-eye"></i></button>
-                                                <button class="main-btn icon-btn"><i class="fa fa-cloud-download"></i></button>
+                                                <a class="main-btn icon-btn"><i class="fa fa-heart"></i></a>
+                                                <a class="main-btn icon-btn" href="{{ route('view-document', $allDocument->id) }}"><i class="fa fa-eye"></i></a>
+                                                <a class="main-btn icon-btn"><i class="fa fa-cloud-download"></i></a>
                                             </div>
                                         </div>
                                     </div>

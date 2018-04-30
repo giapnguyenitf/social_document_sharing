@@ -13,8 +13,9 @@
                         </div>
                         <div class="panel-body">
                             <div class="form-upload-document">
-                                <form action="{{ route('uploaded-document.update', ['id' => $document->id]) }}" method="PUT" class="form-horizontal" enctype="multipart/form-data">
+                                <form action="{{ route('uploaded-document.update', ['id' => $document->id]) }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
                                     @csrf
+                                    @method('PUT')
                                     <div class="form-group">
                                         <div class="col-md-8 col-md-offset-3">
                                             @include('user.layouts.alert-success')
@@ -46,7 +47,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 label-thin" for="">@lang('user.category')</label>
                                         <div class="col-md-6">
-                                            <select class="form-control input-no-border" value="" id="parent-category" data-url="{{ route('ajax-get-child-category') }}" name="parent_category">
+                                            <select class="form-control input-no-border" id="parent-category" data-url="{{ route('ajax-get-child-category') }}" name="parent_category">
                                                 <option value="">--@lang('user.choose_category')--</option>
                                                 @foreach ($parentCategories as $parentCategory)
                                                     <option {{ $parentCategory->id == $document->category->parentCategory->id ? 'selected' : '' }} value="{{ $parentCategory->id }}">{{ $parentCategory->name }}</option>
@@ -76,7 +77,7 @@
                                         <label class="control-label col-md-3 label-thin" for="">@lang('user.thumbnail')</label>
                                         <div class="col-md-6">
                                            <div class="input-group">
-                                                <input class="form-control input-no-border input-url-thumbnail-image" type="text" name="thumbnail" disabled>
+                                                <input class="form-control input-no-border input-url-thumbnail-image" type="text" name="thumbnail">
                                                 <a href="#modal-upload-image" data-toggle="modal" class="btn btn-primary input-group-addon">@lang('user.document.upload_image')</a>
                                             </div>
                                         </div>

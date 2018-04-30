@@ -38,6 +38,18 @@ Route::namespace('User')->group(function () {
         'uses' => 'SearchController@search',
         'as' => 'search-document',
     ]);
+    Route::get('document/{id}', [
+        'uses' => 'DocumentController@show',
+        'as' => 'view-document',
+    ]);
+    Route::get('sub-category/{id}', [
+        'uses' => 'SearchController@showBySubCategory',
+        'as' => 'show-by-sub-category',
+    ]);
+    Route::get('parent-category/{id}', [
+        'uses' => 'SearchController@showBySubCategory',
+        'as' => 'show-by-parent-category',
+    ]);
 });
 
 Route::middleware('auth')->group(function () {
@@ -68,4 +80,8 @@ Route::namespace('Ajax')->group(function () {
         'uses' => 'SearchController@search',
         'as' => 'ajax-live-search',
     ]);
+});
+
+Route::get('view', function () {
+    return view('user.pages.viewer');
 });

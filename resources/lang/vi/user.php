@@ -133,5 +133,11 @@ return [
     'search' => [
         'by_all' => 'Tất cả',
         'no_result' => 'Không có kết quả nào',
+    ],
+    'related_document' => 'Tài liệu liên quan',
+    'category_page' => [
+        'document' => 'tài liệu',
+        'category' => 'Danh mục',
+        'has' => 'có',
     ]
 ];
