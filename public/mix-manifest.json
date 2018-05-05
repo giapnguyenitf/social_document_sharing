@@ -17,5 +17,6 @@
     "/js/bootstrap-tagsinput.min.js": "/js/bootstrap-tagsinput.min.js",
     "/css/bootstrap-tagsinput-typeahead.css": "/css/bootstrap-tagsinput-typeahead.css",
     "/css/bootstrap-datepicker.min.css": "/css/bootstrap-datepicker.min.css",
-    "/js/bootstrap-datepicker.min.js": "/js/bootstrap-datepicker.min.js"
+    "/js/bootstrap-datepicker.min.js": "/js/bootstrap-datepicker.min.js",
+    "/js/sweetalert.min.js": "/js/sweetalert.min.js"
 }

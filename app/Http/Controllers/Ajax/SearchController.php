@@ -30,6 +30,7 @@ class SearchController extends Controller
             return response()->json([
                 'status' => true,
                 'data' => $results,
+                'url' => route('view-document', ''),
             ]);
         }
 

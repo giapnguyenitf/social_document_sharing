@@ -8,7 +8,7 @@ interface RepositoryInterface
 
     public function paginate($limit = null, $columns = ['*']);
 
-    public function findOrFail($id, $column = ['*']);
+    public function findOrFail($id, $columns = ['*']);
 
     public function findByField($field, $value);
 
@@ -26,7 +26,7 @@ interface RepositoryInterface
 
     public function with($relations);
 
-    public function where($column, $operator = null, $condition);
+    public function where($column, $operator = null, $condition = null);
 
     public function whereIn($olumn, $values);
 

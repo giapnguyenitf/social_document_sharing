@@ -49,5 +49,8 @@ mix.copy('node_modules/jquery/dist/jquery.min.js', 'public/js')
     .copy('node_modules/pdfjs-dist/external', 'public/viewer/external')
     .copy('node_modules/pdfjs-dist/lib', 'public/viewer/lib')
     .copy('node_modules/pdfjs-dist/web', 'public/viewer/web')
+    // .copy('node_modules/bootstrap-sweetalert/dist/sweetalert.css', 'public/css')
+    // .copy('node_modules/bootstrap-sweetalert/dist/sweetalert.min.js', 'public/js')
+    .copy('node_modules/sweetalert/dist/sweetalert.min.js', 'public/js')
     .copy('resources/assets/images', 'public/images');
     

@@ -164,7 +164,7 @@ $(document).ready(function () {
                     var data = response.data;
                     data.forEach(function (el) {
                         $('.live-search').append(`
-                            <li><a href="">${el.name}</a></li>
+                            <li><a href="${response.url}/${el.id}">${el.name}</a></li>
                         `);
                     });
                 } else {
@@ -182,4 +182,90 @@ $(document).ready(function () {
     $(document).click(function (e) {
         $('.live-search').empty();
     });
+
+    // bookmark document
+    $('.document-action').on('click', '#btn-bookmark-document', function (e) {
+        e.preventDefault();
+        var documentId = $(this).data('id');
+        var url = $(this).data('url');
+
+        $.ajax({
+            method: 'POST',
+            url: url,
+            dataType: 'json',
+            data: {
+                documentId: documentId,
+            }
+        })
+        .done(function (response) {
+            if (response.success) {
+                $('#btn-bookmark-document').addClass('hidden');
+                $('#btn-cancel-bookmark-document').removeClass('hidden');
+            }
+        });
+    });
+
+    // cancel bookmark document
+    $('.document-action').on('click', '#btn-cancel-bookmark-document', function (e) {
+        e.preventDefault();
+        var documentId = $(this).data('id');
+        var url = $(this).data('url');
+
+        $.ajax({
+            method: 'POST',
+            url: url,
+            dataType: 'json',
+            data: {
+                documentId: documentId,
+            }
+        })
+        .done(function (response) {
+            if (response.success) {
+                $('#btn-cancel-bookmark-document').addClass('hidden');
+                $('#btn-bookmark-document').removeClass('hidden');
+            }
+        });
+    });
+
+    // confirm delete uploaded document
+    $('.btn-delete-uploaded-document').on('click', function (e){
+        var form = $(this).closest('.form-delete-uploaded-document');
+        swal({
+            title: "Are you sure?",
+            text: Lang.get('user.modal.delete_uploaded_document_message'),
+            icon: "warning",
+            dangerMode: true,
+            buttons: {
+                cancel: Lang.get('user.modal.bt_cancel_text'),
+                ok: Lang.get('user.modal.bt_delete_text'),
+            },
+        })
+        .then((value) => {
+            if (value == "ok") {
+                $(form).submit();
+            }
+        });
+    });
+
+    // confirm delete bookmark document
+    $('.btn-delete-bookmark-document').on('click', function(e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
+        swal({
+            title: "Are you sure?",
+            text: Lang.get('user.modal.delete_bookmark_document_message'),
+            icon: "warning",
+            dangerMode: true,
+            buttons: {
+                cancel: Lang.get('user.modal.bt_cancel_text'),
+                ok: Lang.get('user.modal.bt_delete_text'),
+            },
+        })
+        .then((value) => {
+            if (value == 'ok') {
+                window.location = href;
+            }
+        });
+    });
+
 });

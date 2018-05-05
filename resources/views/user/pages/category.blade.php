@@ -37,7 +37,7 @@
                                                 <img src="{{ $document->thumbnail }}" alt="">
                                             </div>
                                             <div class="product-body">
-                                                <h2 class="product-name"><a href="#">{{ $document->name }}</a></h2>
+                                                <h2 class="product-name"><a href="{{ route('view-document', $document->id) }}">{{ $document->name }}</a></h2>
                                                 <div class="product-btns">
                                                     <a class="main-btn icon-btn"><i class="fa fa-heart"></i></a>
                                                     <a class="main-btn icon-btn" href="{{ route('view-document', $document->id) }}"><i class="fa fa-eye"></i></a>

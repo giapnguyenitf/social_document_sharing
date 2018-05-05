@@ -27,7 +27,7 @@ class UploadDocumentRequest extends FormRequest
         return [
             'name' => 'required|string|min:10|max:200',
             'description' => 'required|string|min:50|max:1000',
-            'document' => 'required|max:10240|mimes:doc,pdf,docx,ppt,pptx',
+            'document' => 'required|max:10240|mimes:pdf,ppt,pptx',
             'parent_category' => 'required',
             'child_category' => 'required',
         ];

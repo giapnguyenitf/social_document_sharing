@@ -34,6 +34,13 @@
             'top_new' => 10,
             'paginate_per_page' => 8,
             'top_views' => 8,
+            'is_bookmark' => [
+                'true' => true,
+                'false' => false,
+            ],
+            'bookmark' => [
+                'paginate' => 4,
+            ]
         ],
         'search' => [
             'by_name' => 0,

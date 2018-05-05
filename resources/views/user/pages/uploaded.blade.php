@@ -13,7 +13,7 @@
                         </div>
                         <div class="panel-body">
                             <div class="document-uploaded-info">
-                                <div class="">
+                                <div class="notifications">
                                     @include('user.layouts.alert-success')
                                     @include('user.layouts.alert-error')
                                 </div>
@@ -39,12 +39,12 @@
                                                         <td>{{ $document->downloads }}</td>
                                                         <td>{{ $document->status }}</td>
                                                         <td class="btn-action-group">
-                                                            <a class="btn btn-success btn-sm" href=""><i class="fa fa-eye"></i></a>
+                                                            <a class="btn btn-success btn-sm" href="{{ route('view-document', $document->id) }}"><i class="fa fa-eye"></i></a>
                                                             <a class="btn btn-info btn-sm" href="{{ route('uploaded-document.edit', ['id' => $document->id]) }}"><i class="fa fa-pencil"></i></a>
-                                                            <form action="{{ route('uploaded-document.destroy', ['id' => $document->id]) }}" method="POST">
+                                                            <form action="{{ route('uploaded-document.destroy', ['id' => $document->id]) }}" method="POST" class="form-delete-uploaded-document">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash"></i></button>
+                                                                <button class="btn btn-danger btn-sm btn-delete-uploaded-document" type="button"><i class="fa fa-trash"></i></button>
                                                             </form>
                                                         </td>
                                                     </tr>
@@ -54,7 +54,9 @@
                                     </table>
                                 </div>
                                 @if (count($documents))
-                                    <div>{{ $documents->links() }}</div>
+                                    <div class="paginate">
+                                        {{ $documents->links() }}
+                                    </div>
                                 @else
                                     <div class="no-document-upload">@lang('user.document.no_document_uploaded')</div>
                                 @endif

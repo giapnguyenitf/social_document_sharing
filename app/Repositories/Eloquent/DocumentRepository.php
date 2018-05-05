@@ -15,12 +15,12 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
 
     public function getUploadedDocument($userID)
     {
-        return $this->model->where('user_id', $userID)->paginate(config('settings.document.uploaded.paginate'));
+        return $this->where('user_id', $userID)->paginate(config('settings.document.uploaded.paginate'));
     }
 
     public function getNewests()
     {
-        return $this->model->where('status', config('settings.document.status.is_published'))
+        return $this->where('status', config('settings.document.status.is_published'))
             ->orderBy('created_at', 'desc')
             ->take(config('settings.document.top_new'))
             ->get();
@@ -28,7 +28,7 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
 
     public function getTopViews()
     {
-        return $this->model->where('status', config('settings.document.status.is_published'))
+        return $this->where('status', config('settings.document.status.is_published'))
             ->orderBy('views', 'asc')
             ->take(config('settings.document.top_views'))
             ->get();
@@ -36,24 +36,24 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
 
     public function getAll()
     {
-        return $this->model->where('status', config('settings.document.status.is_published'))
+        return $this->where('status', config('settings.document.status.is_published'))
             ->orderBy('created_at', 'desc')
             ->paginate(config('settings.document.paginate_per_page'));
     }
 
     public function countAll()
     {
-        return $this->model->where('status', config('settings.document.status.is_published'))->count();
+        return $this->where('status', config('settings.document.status.is_published'))->count();
     }
 
     public function allViews()
     {
-        return $this->model->where('status', config('settings.document.status.is_published'))->sum('views');
+        return $this->where('status', config('settings.document.status.is_published'))->sum('views');
     }
 
     public function searchByName($keyword)
     {
-        return $this->model->where('status', config('settings.document.status.is_published'))
+        return $this->where('status', config('settings.document.status.is_published'))
             ->where('name', 'like', '%' . $keyword . '%')
             ->with('user', 'category')
             ->paginate(config('settings.document.paginate_per_page'));
@@ -61,7 +61,7 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
 
     public function searchByCategory($keyword, $categoryId)
     {
-        return $this->model->where('status', config('settings.document.status.is_published'))
+        return $this->where('status', config('settings.document.status.is_published'))
             ->whereIn('category_id', function ($query) use ($categoryId) {
                 $query->select('id')->from('categories')->where('parent_id', $categoryId);
             })
@@ -71,17 +71,22 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
 
     public function getBySubCategory($categoryId)
     {
-        return $this->model->where('category_id', $categoryId)
+        return $this->where('category_id', $categoryId)
             ->where('status', config('settings.document.status.is_published'))
             ->paginate(config('settings.document.paginate_per_page'));
     }
 
     public function getByParentCategory($categoryId)
     {
-        return $this->model->where('status', config('settings.document.status.is_published'))
+        return $this->where('status', config('settings.document.status.is_published'))
             ->whereIn('category_id', function($query) use ($categoryId) {
                 $query->select('id')->from('categories')->where('parent_id', $categoryId);
             })
             ->paginate(config('settings.document.paginate_per_page'));
+    }
+
+    public function getDocument($id)
+    {
+        return $this->where('status', config('settings.document.status.is_published'))->with('user', 'comments')->find($id);
     }
 }

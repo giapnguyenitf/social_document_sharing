@@ -76,10 +76,18 @@ class UploadedDocumentController extends Controller
      */
     public function edit($id)
     {
-        $document = $this->documentRepository->find($id);
-        $parentCategories = $this->categoryRepository->where('parent_id', '=', config('settings.category.is_parent'))->get();
+        try {
+            $document = $this->documentRepository->findOrFail($id);
+            if ($document->user_id == Auth::user()->id) {
+                $parentCategories = $this->categoryRepository->where('parent_id', '=', config('settings.category.is_parent'))->get();
 
-        return view('user.pages.edit-document', compact('document', 'parentCategories'));
+                return view('user.pages.edit-document', compact('document', 'parentCategories'));
+            } else {
+                return back()->with('messageError', trans('user.document.you_are_not_allowed_edit_this_document'));
+            }
+        } catch(Exception $e) {
+            return back()->with('messageError', trans('user.document.document_not_found'));
+        }
     }
 
     /**
@@ -92,25 +100,29 @@ class UploadedDocumentController extends Controller
     public function update(UpdateDocumentRequest $request, $id)
     {
         try {
-            $document = $request->only([
-                'name',
-                'description',
-            ]);
-            $document['category_id'] = $request->child_category;
-            $document['tag'] = $request->tag ? $request->tag : ' ';
+            $document = $this->documentRepository->findOrFail($id);
 
-            if ($request->thumbnail) {
-                $document['thumbnail'] = $request->thumbnail;
+            if ($document->user_id == Auth::user()->id) {
+                $document = $request->only([
+                    'name',
+                    'description',
+                ]);
+                $document['category_id'] = $request->child_category;
+                $document['tag'] = $request->tag ? $request->tag : ' ';
+
+                if ($request->thumbnail) {
+                    $document['thumbnail'] = $request->thumbnail;
+                }
+
+                $this->documentRepository->update($id, $document);
+
+                return redirect()->route('uploaded-document.index')->with('messageSuccess', trans('user.document.update_success'));
+            } else {
+                return back()->with('messageError', trans('user.document.you_are_not_allowed_edit_this_document'));
             }
-
-            $this->documentRepository->update($id, $document);
-
-            return redirect()->route('uploaded-document.index')->with('messageSuccess', trans('user.document.update_success'));
         } catch(Exception $e) {
-            return redirect()->route('uploaded-document.index')->with('messageError', trans('user.document.update_fail'));
+            return back()->with('messageError', trans('user.document.update_fail'));
         }
-
-        
     }
 
     /**
@@ -122,11 +134,18 @@ class UploadedDocumentController extends Controller
     public function destroy($id)
     {
         try {
-            $this->documentRepository->destroy($id);
+            $userId = Auth::user()->id;
+            $document = $this->documentRepository->findOrFail($id);
 
-            return back()->with('message_success', trans('user.document.delete_success'));
+            if ($document->user_id == $userId) {
+                $this->documentRepository->destroy($id);
+
+                return back()->with('messageSuccess', trans('user.document.delete_success'));
+            } else {
+                return back()->with('messageError', trans('user.document.you_are_not_allowed_delete_this_document'));
+            }
         } catch(Exception $e) {
-            return back()->with('message_fail', trans('user.delete_fail'));
+            return back()->with('messageError', trans('user.document.document_not_found'));
         }
     }
 }

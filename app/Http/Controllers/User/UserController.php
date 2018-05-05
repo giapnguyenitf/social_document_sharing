@@ -24,10 +24,14 @@ class UserController extends Controller
 
     public function index()
     {
-        $authUser = Auth::user();
-        $user = $this->userRepository->find($authUser->id);
-        
-        return view('user.pages.profile', compact('user'));
+       try {
+            $authUser = Auth::user();
+            $user = $this->userRepository->find($authUser->id);
+
+            return view('user.pages.profile', compact('user'));
+       } catch(Exception $e) {
+           return back();
+       }
     }
 
     public function update(UpdateProfileRequest $request)
