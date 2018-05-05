@@ -44,4 +44,13 @@ class LoginController extends Controller
 
         return redirect()->route('home');
     }
+
+    public function authenticated($request, $user)
+    {
+        if ($user->isAdmin() || $user->isModerator()) {
+            return redirect()->route('dashboard.index');
+        }
+
+        return redirect()->route('home');
+    }
 }

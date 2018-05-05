@@ -18,5 +18,8 @@
     "/css/bootstrap-tagsinput-typeahead.css": "/css/bootstrap-tagsinput-typeahead.css",
     "/css/bootstrap-datepicker.min.css": "/css/bootstrap-datepicker.min.css",
     "/js/bootstrap-datepicker.min.js": "/js/bootstrap-datepicker.min.js",
-    "/js/sweetalert.min.js": "/js/sweetalert.min.js"
+    "/js/sweetalert.min.js": "/js/sweetalert.min.js",
+    "/js/jquery.dataTables.js": "/js/jquery.dataTables.js",
+    "/css/dataTables.bootstrap.css": "/css/dataTables.bootstrap.css",
+    "/js/dataTables.bootstrap.js": "/js/dataTables.bootstrap.js"
 }

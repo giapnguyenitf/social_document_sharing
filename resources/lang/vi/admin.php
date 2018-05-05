@@ -6,7 +6,7 @@ return [
     'members' => 'Thành viên',
     'documents' => 'Tài liệu',
     'categories' => 'Danh mục tài liệu',
-    'partners' => 'Cộng tác viên',
+    'moderators' => 'Cộng tác viên',
     'new_documents' => 'Tài liệu mới',
     'public_documents' => 'Tài liệu đã công khai',
     'illegal_documents' => 'Tài liệu vi phạm',
@@ -82,4 +82,14 @@ return [
     'new_parent_category' => 'Thêm mới danh mục cha',
     'new_sub_category' => 'Thêm mới danh mục con',
     'cancel' => 'Hủy',
+    'member_since' => 'Gia nhập từ',
+    'analysis' => [
+        'new_documents' => 'Tài liệu mới đăng',
+        'more_info' => 'Thông tin chi tiết',
+        'user_registrations' => 'Thành viên đăng ký',
+        'views' => 'Lượt xem',
+        'downloads' => 'Lượt tải xuống',
+    ],
+    'user_type' => 'Loại tài khoản',
+    'normal' => 'Thường',
 ];

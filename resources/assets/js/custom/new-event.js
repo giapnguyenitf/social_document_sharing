@@ -344,4 +344,19 @@ $(document).ready(function () {
         $('#comment-messages').val('');
         $('.btn-group-comment-input').addClass('hidden');
     });
+
+    // datatables
+    $(function () {
+        $('#user-tables').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': true
+        });
+        $('#new-document-tables').DataTable();
+        $('#published-document-tables').DataTable();
+        $('#illegal-document-tables').DataTable();
+    });
 });

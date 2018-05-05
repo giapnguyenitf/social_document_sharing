@@ -48,4 +48,7 @@
         'comment' => [
             'paginate' => 10,
         ],
+        'user' => [
+            'paginate' => 10,
+        ]
     ];

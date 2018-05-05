@@ -12,6 +12,7 @@
         {{ Html::style('css/AdminLTE.min.css') }}
         {{ Html::style('css/_all-skins.min.css') }}
         {{ Html::style('css/new-style.css') }}
+        {{ Html::style('css/dataTables.bootstrap.css') }}
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         @yield('css')
     </head>
@@ -106,36 +107,23 @@
                             </li>
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="{{ asset('images/user_default.png') }}" class="user-image" alt="User Image">
-                                    <span class="hidden-xs">Giapnguyen</span>
+                                    <img src="{{ Auth::user()->avatar }}" class="user-image" alt="User Image">
+                                    <span class="hidden-xs">{{ Auth::user()->name }}</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li class="user-header">
-                                        <img src="{{ asset('images/user_default.png') }}" class="img-circle" alt="User Image">
+                                        <img src="{{ Auth::user()->avatar }}" class="img-circle" alt="User Image">
                                         <p>
-                                            Giapnguyen - Web Developer
-                                            <small>Member since Nov. 2013</small>
+                                            {{ Auth::user()->name }}
+                                            <small>@lang('admin.member_since')&nbsp;{{ Auth::user()->created_at->format('d/m/Y') }}</small>
                                         </p>
-                                    </li>
-                                    <li class="user-body">
-                                        <div class="row">
-                                            <div class="col-xs-4 text-center">
-                                                <a href="#">@lang('admin.followers')</a>
-                                            </div>
-                                            <div class="col-xs-4 text-center">
-                                                <a href="#">Sales</a>
-                                            </div>
-                                            <div class="col-xs-4 text-center">
-                                                <a href="#">@lang('admin.friends')</a>
-                                            </div>
-                                        </div>
                                     </li>
                                     <li class="user-footer">
                                         <div class="pull-left">
                                             <a href="#" class="btn btn-default btn-flat">@lang('admin.profile')</a>
                                         </div>
                                         <div class="pull-right">
-                                            <a href="#" class="btn btn-default btn-flat">@lang('admin.sign_out')</a>
+                                            <a href="{{ route('logout') }}" class="btn btn-default btn-flat">@lang('admin.sign_out')</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -151,10 +139,10 @@
                 <section class="sidebar">
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="{{ asset('images/user_default.png') }}" class="img-circle" alt="User Image">
+                            <img src="{{ Auth::user()->avatar }}" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
-                            <p>Giapnguyen</p>
+                            <p>{{ Auth::user()->name }}</p>
                             <a href="#"><i class="fa fa-circle text-success"></i> @lang('admin.online')</a>
                         </div>
                     </div>
@@ -168,13 +156,13 @@
                     </form>
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="header">@lang('admin.main_navigation')</li>
-                        <li class="treeview">
-                            <a href="#">
-                            <i class="fa fa-dashboard"></i> <span>@lang('admin.dashboard')</span>
+                        <li class="">
+                            <a href="{{ route('dashboard.index') }}">
+                                <i class="fa fa-dashboard"></i> <span>@lang('admin.dashboard')</span>
                             </a>
                         </li>
-                        <li class="treeview">
-                            <a href="#">
+                        <li class="">
+                            <a href="{{ route('manage-users.index') }}">
                                 <i class="fa fa-users"></i>
                                 <span>@lang('admin.members')</span>
                                 <span class="pull-right-container">
@@ -191,21 +179,21 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href=""><i class="fa fa-circle-o text-red"></i> @lang('admin.new_documents')</a></li>
-                                <li><a href=""><i class="fa fa-circle-o text-yellow"></i> @lang('admin.public_documents')</a></li>
-                                <li><a href=""><i class="fa fa-circle-o text-aqua"></i> @lang('admin.illegal_documents')</a></li>
+                                <li><a href="{{ route('manage-document.index') }}"><i class="fa fa-circle-o text-red"></i> @lang('admin.new_documents')</a></li>
+                                <li><a href="{{ route('manage-document.published') }}"><i class="fa fa-circle-o text-yellow"></i> @lang('admin.public_documents')</a></li>
+                                <li><a href="{{ route('manage-document.illegal') }}"><i class="fa fa-circle-o text-aqua"></i> @lang('admin.illegal_documents')</a></li>
                             </ul>
                         </li>
                         <li class="header">@lang('admin.sub_navigation')</li>
-                        <li class="treeview">
-                            <a href="#">
+                        <li class="">
+                            <a href="{{ route('manage-category.index') }}">
                                 <i class="fa fa-laptop"></i>
                                 <span>@lang('admin.categories')</span>
                             </a>
                         </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-key"></i> <span>@lang('admin.partners')</span>
+                        <li class="">
+                            <a href="{{ route('manage-moderator.index') }}">
+                                <i class="fa fa-key"></i> <span>@lang('admin.moderators')</span>
                             </a>
                         </li>
                     </ul>
@@ -329,10 +317,12 @@
         {{ Html::script('js/adminlte.min.js') }}
         {{ Html::script('js/demo.js') }}
         {{ Html::script('js/new-event.js') }}
+        {{ Html::script('js/jquery.dataTables.js') }}
+        {{ Html::script('js/dataTables.bootstrap.js') }}
         @yield('js')
         <script>
             $(document).ready(function () {
-                $('.sidebar-menu').tree()
+                $('.sidebar-menu').tree();
             });
         </script>
     </body>
