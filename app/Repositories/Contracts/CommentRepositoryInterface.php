@@ -6,5 +6,5 @@ use App\Repositories\Contracts\RepositoryInterface;
 
 interface CommentRepositoryInterface extends RepositoryInterface
 {
-    
+    public function getComment($documentId);
 }

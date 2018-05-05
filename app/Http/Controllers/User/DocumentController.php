@@ -14,6 +14,7 @@ use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Contracts\BookmarkRepositoryInterface;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Repositories\Contracts\DocumentRepositoryInterface;
+use App\Repositories\Contracts\CommentRepositoryInterface;
 
 
 class DocumentController extends Controller
@@ -24,17 +25,20 @@ class DocumentController extends Controller
     protected $categoryRepository;
     protected $documentRepository;
     protected $bookmarkRepository;
+    protected $commentRepository;
 
     public function __construct(
         UserRepositoryInterface $userRepository,
         CategoryRepositoryInterface $categoryRepository,
         DocumentRepositoryInterface $documentRepository,
-        BookmarkRepositoryInterface  $bookmarkRepository
+        BookmarkRepositoryInterface  $bookmarkRepository,
+        CommentRepositoryInterface $commentRepository
     ) {
         $this->userRepository = $userRepository;
         $this->categoryRepository = $categoryRepository;
         $this->documentRepository = $documentRepository;
         $this->bookmarkRepository = $bookmarkRepository;
+        $this->commentRepository = $commentRepository;
     }
 
     /**
@@ -104,14 +108,15 @@ class DocumentController extends Controller
     {
         try {
             $document = $this->documentRepository->getDocument($id);
-
+            $comments = $this->commentRepository->getComment($id);
+            
             if (Session::has('recently_view')) {
                 $recentlyView = Session::get('recently_view');
                 if (!in_array($id, $recentlyView)) {
                     $views = $document->views + 1;
                     $this->documentRepository->update($id, ['views' => $views]);
                     Session::push('recently_view', $document->id);
-                }
+                } 
             } else {
                 $views = $document->views + 1;
                 $this->documentRepository->update($id, ['views' => $views]);
@@ -130,7 +135,7 @@ class DocumentController extends Controller
                 $isBookmark = config('settings.document.is_bookmark.false');
             }
 
-            return view('user.pages.view-document', compact('document', 'relatedDocuments', 'authorUploaded', 'isBookmark'));
+            return view('user.pages.view-document', compact('document', 'relatedDocuments', 'authorUploaded', 'isBookmark', 'comments'));
         } catch(Exception $e) {
             return back()->with('messageError', trans('user.document.document_not_found'));
         }

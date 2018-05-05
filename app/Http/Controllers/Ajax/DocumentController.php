@@ -6,15 +6,19 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\BookmarkRepositoryInterface;
+use App\Repositories\Contracts\CommentRepositoryInterface;
 
 class DocumentController extends Controller
 {
     protected $bookmarkRepository;
+    protected $commentRepository;
 
     public function __construct(
-        BookmarkRepositoryInterface  $bookmarkRepository
+        BookmarkRepositoryInterface  $bookmarkRepository,
+        CommentRepositoryInterface $commentRepository
     ) {
         $this->bookmarkRepository = $bookmarkRepository;
+        $this->commentRepository = $commentRepository;
     }
 
     public function bookmark(Request $request) {
@@ -50,7 +54,28 @@ class DocumentController extends Controller
         ]);
     }
 
-    public function comment() {
+    public function comment(Request $request) {
+        if ($request->ajax() && Auth::check()) {
+            $comment['user_id'] = Auth::user()->id;
+            $comment['document_id'] = $request->document_id;
+            $comment['messages'] = $request->messages;
+            $comment = $this->commentRepository->create($comment);
+            $comment = $this->commentRepository->with('user')->find($comment->id);
+            
+            if ($comment) {
+                return response()->json([
+                    'success' => true,
+                    'comment' => $comment,
+                ]);
+            }
 
+            return response()->json([
+                'success' => false,
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+        ]);
     }
 }

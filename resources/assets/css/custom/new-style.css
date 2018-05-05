@@ -314,6 +314,10 @@
     color: #00b5ad;
 }
 
-.btn-group-commnet-input {
+.btn-group-comment-input {
     padding-top: 10px;
+}
+
+.messages-validate-comment {
+    color: #e62910;
 }
