@@ -58,4 +58,9 @@ class Document extends Model
                 return trans('user.document.status.is_published');
         }
     }
+
+    public function getDownloadLinkAttribute()
+    {
+        return public_path($this->file_name);
+    }
 }

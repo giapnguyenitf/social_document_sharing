@@ -76,7 +76,7 @@
                             @endguest
                             <ul class="custom-menu">
                                 <li><a href="{{ route('manage-profile') }}" class="text-lowercase"><i class="fa fa-user"></i> @lang('user.my_account')</a></li>
-                                <li><a href="#" class="text-lowercase"><i class="fa fa-heart"></i> @lang('user.document_bookmarks')</a></li>
+                                <li><a href="{{ route('bookmark-document.index') }}" class="text-lowercase"><i class="fa fa-heart"></i> @lang('user.document_bookmarks')</a></li>
                                 <li><a href="{{ route('document.index') }}" class="text-lowercase"><i class="fa fa-cloud-upload"></i> @lang('user.upload')</a></li>
                                 <li><a href="{{ route('logout') }}" class="text-lowercase"><i class="glyphicon glyphicon-off"></i> @lang('user.logout')</a></li>
                             </ul>
@@ -225,6 +225,7 @@
     {{ Html::script('js/jquery.zoom.min.js') }}
     {{ Html::script('messages.js') }}
     {{ Html::script('js/main.js') }}
+    {{ Html::script('js/sweetalert.min.js') }}
     @stack('js')
     {{ Html::script('js/new-event.js') }}
 </body>

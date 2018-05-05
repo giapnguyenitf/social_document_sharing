@@ -38,7 +38,7 @@ Route::namespace('User')->group(function () {
         'uses' => 'SearchController@search',
         'as' => 'search-document',
     ]);
-    Route::get('document/{id}', [
+    Route::get('document/show/{id}', [
         'uses' => 'DocumentController@show',
         'as' => 'view-document',
     ]);
@@ -49,6 +49,10 @@ Route::namespace('User')->group(function () {
     Route::get('parent-category/{id}', [
         'uses' => 'SearchController@showBySubCategory',
         'as' => 'show-by-parent-category',
+    ]);
+    Route::get('document/download/{id}', [
+        'uses' => 'DocumentController@download',
+        'as' => 'download-document',
     ]);
 });
 
@@ -62,8 +66,27 @@ Route::middleware('auth')->group(function () {
             'as' => 'update-profile',
             'uses' => 'UserController@update',
         ]);
-        Route::resource('document', 'DocumentController');
-        Route::resource('uploaded-document', 'UploadedDocumentController');
+        Route::resource('document', 'DocumentController')->except([
+            'update',
+            'create',
+        ]);
+        Route::resource('uploaded-document', 'UploadedDocumentController')->except([
+            'create',
+            'store',
+            'show',
+        ]);
+        Route::get('bookmark-document', [
+            'uses' => 'BookmarkDocumentController@index',
+            'as' => 'bookmark-document.index',
+        ]);
+        Route::get('delete-bookmark-document/{documentId}', [
+            'uses' => 'BookmarkDocumentController@delete',
+            'as' => 'bookmark-document.delete',
+        ]);
+        Route::get('downloaded-document', [
+            'uses' => 'DocumentController@showDownloaded',
+            'as' => 'downloaded-document.show',
+        ]);
     });
 });
 
@@ -79,6 +102,14 @@ Route::namespace('Ajax')->group(function () {
     Route::post('live-search', [
         'uses' => 'SearchController@search',
         'as' => 'ajax-live-search',
+    ]);
+    Route::post('bookmark-document', [
+        'uses' => 'DocumentController@bookmark',
+        'as' => 'ajax-bookmark-document',
+    ]);
+     Route::post('cancel-bookmark-document', [
+        'uses' => 'DocumentController@cancelBookmark',
+        'as' => 'ajax-cancel-bookmark-document',
     ]);
 });
 

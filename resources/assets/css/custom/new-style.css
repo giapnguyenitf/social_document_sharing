@@ -56,19 +56,19 @@
 
 .sidebar-panel li>a>i {
     width: 25px;
-    color: #2cb1e9;
+    color: #00b5ad;
 }
 
 .user-avatar {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    border: 2px solid #2cb1e9;
+    border: 2px solid #00b5ad;
     overflow: hidden;
 }
 
 .sidebar-profile .panel .panel-heading {
-    background: #2cb1e9;
+    background: #00b5ad;
     color: #fff;
 }
 
@@ -91,7 +91,7 @@
 }
 
 .manage-user-info .panel .panel-heading {
-    background: #2cb1e9;
+    background: #00b5ad;
     color: #fff;
 }
 
@@ -110,12 +110,12 @@
 }
 
 .user-upload-document .panel .panel-heading {
-    background: #2cb1e9;
+    background: #00b5ad;
     color: #fff;
 } 
 
 .link {
-    color: #2cb1e9 !important;
+    color: #00b5ad !important;
 }
 
 .label-thin {
@@ -177,9 +177,9 @@
 
 .btn-upload-thumbnail {
     cursor: pointer;
-    background: #2cb1e9;
+    background: #00b5ad;
     color: #fff;
-    border-color: #2cb1e9;
+    border-color: #00b5ad;
 }
 
 .preview-message {
@@ -220,5 +220,100 @@
 .author .name p {
     font-size: 12px;
     position: absolute;
-    top: 61px;
+    top: 23px;
+}
+
+.view-info {
+    padding-bottom: 15px;
+}
+
+.document-action {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.analysis {
+    text-align: left;
+}
+
+.document-action a {
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+
+.pagination {
+    margin: 0px;
+}
+
+.paginate {
+    text-align: right;
+}
+
+ .label.ribbon {
+    background: #E8E8E8;
+    color: rgba(0,0,0,0.65);
+    padding: 5px 20px 5px 20px;
+    font-size: 1.1em;
+}
+
+.label.ribbon:after {
+    position: absolute;
+    content: "";
+    border-right-width: 1em;
+    border-right-style: solid;
+    border-bottom: 1em solid transparent;
+    border-left: 0em solid transparent;
+    top: 108%;
+    left: 15px;
+    color: #E8E8E8;
+}
+
+.comment-ui {
+    margin-top: 3em;
+}
+
+.comment-box-row {
+    margin-top: 40px;
+}
+
+.avatar-user-comment {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.sharing-row {
+    margin-top: 20px;
+}
+
+.sharing-btn-group {
+    text-align: right;
+}
+
+.sharing-title {
+    text-align: right;
+    line-height: 2.4;
+}
+
+.show-comment {
+    margin-top: 40px;
+}
+
+.comment-item {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.comment-time {
+    font-size: 12px;
+    color: #8c8787;
+}
+
+.user-name {
+    color: #00b5ad;
+}
+
+.btn-group-commnet-input {
+    padding-top: 10px;
 }

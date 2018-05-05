@@ -25,4 +25,6 @@ interface DocumentRepositoryInterface extends RepositoryInterface
     public function getBySubCategory($categoryId);
 
     public function getByParentCategory($categoryId);
+
+    public function getDocument($id);
 }

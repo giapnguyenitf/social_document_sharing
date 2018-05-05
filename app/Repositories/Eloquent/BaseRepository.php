@@ -69,7 +69,7 @@ abstract class BaseRepository implements RepositoryInterface
         return $this->model->paginate($limit, $columns);
     }
 
-    public function findOrFail($id, $column = ['*'])
+    public function findOrFail($id, $columns = ['*'])
     {
         $model = $this->model->findOrFail($id, $columns);
         $this->resetModel();
@@ -122,14 +122,14 @@ abstract class BaseRepository implements RepositoryInterface
         return $this;
     }
 
-    public function where($column, $operator = null, $condition)
+    public function where($column, $operator = null, $condition = null)
     {
         $this->model = $this->model->where($column, $operator, $condition);
 
         return $this;
     }
 
-    public function whereIn($olumn, $values)
+    public function whereIn($column, $values)
     {
         $values = is_array($values) ? $values : [$values];
         $this->model = $this->model->whereIn($column, $values);

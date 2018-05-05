@@ -4,53 +4,154 @@
         <div class="container">
            <div class="row">
                 <div class="col-md-9" id="main">
-                    <div class="store-filter clearfix">
-                        <div class="pull-left">
-                            <h3 class="aside-title">{{ $document->name }}</h3>
+                    <div class="view-info">
+                        <div class="row">
+                            <div class="col-md-12 document-name">
+                                <h3>{{ $document->name }}</h3>
+                               
+                            </div>
                         </div>
-                    </div>
-                    <div class="store-filter clearfix">
-                        <div class="pull-left">
-                            <div class="author">
-                                <div class="avatar">
-                                    <a href=""><img class="img-responsive" src="{{ $document->user->avatar }}" alt=""></a>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="author">
+                                    <div class="avatar">
+                                        <a href=""><img class="img-responsive" src="{{ $document->user->avatar }}" alt=""></a>
+                                    </div>
+                                    <div class="name">
+                                        <a href="">{{ $document->user->name }}</a>
+                                        <p>@lang('user.document.upload') <span>{{ $authorUploaded }}</span> @lang('user.document.document')</p>
+                                    </div>
                                 </div>
-                                <div class="name">
-                                    <a href="">{{ $document->user->name }}</a>
-                                    <p>Tải lên <span>1240</span> tài liệu</p>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="analysis">
+                                    <span><i class="fa fa-download"></i>&nbsp;{{ $document->downloads }}</span>
+                                    <span><i class="fa fa-eye"></i>&nbsp;{{ $document->views }}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="document-action">
+                                    <a href="{{ route('download-document', $document->id) }}" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-download"></i>&nbsp;@lang('user.document.download')
+                                    </a>
+                                    @if (Auth::check())
+                                        @if ($isBookmark)
+                                            <a href="" class="btn btn-success btn-sm" id="btn-cancel-bookmark-document" data-id="{{ $document->id }}" data-url="{{ route('ajax-cancel-bookmark-document') }}">
+                                                <i class="fa fa-heart"></i>&nbsp;@lang('user.document.cancel_bookmark')
+                                            </a>
+                                            <a href="" class="btn btn-success btn-sm hidden" id="btn-bookmark-document" data-id="{{ $document->id }}" data-url="{{ route('ajax-bookmark-document') }}">
+                                                <i class="fa fa-heart"></i>&nbsp;@lang('user.document.bookmark')
+                                            </a>
+                                        @else
+                                            <a href="" class="btn btn-success btn-sm hidden" id="btn-cancel-bookmark-document" data-id="{{ $document->id }}" data-url="{{ route('ajax-cancel-bookmark-document') }}">
+                                                <i class="fa fa-heart"></i>&nbsp;@lang('user.document.cancel_bookmark')
+                                            </a>
+                                            <a href="" class="btn btn-success btn-sm" id="btn-bookmark-document" data-id="{{ $document->id }}" data-url="{{ route('ajax-bookmark-document') }}">
+                                                <i class="fa fa-heart"></i>&nbsp;@lang('user.document.bookmark')
+                                            </a>
+                                        @endif
+                                    @endif
+                                    <a href="" class="btn btn-warning btn-sm">
+                                        <i class="fa fa-times"></i>&nbsp;@lang('user.document.report_illegal')
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="pull-right">
-                             <div class="analysis">
-                                <span><i class="fa fa-file"></i>&nbsp;{{ $document->file_size }}MB</span>
-                                <span><i class="fa fa-download"></i>&nbsp;{{ $document->downloads }}</span>
-                                <span><i class="fa fa-eye"></i>&nbsp;{{ $document->views }}</span>
-                             </div>
-                        </div>
                     </div>
-                    <div id="store">
+                    <div id="viewer">
                         <div class="row">
                             <iframe class="col-md-12 col-xs-12 no-padding" height="800px" src="{{ $document->file_name }}" frameborder="0">
                             </iframe>
                         </div>
-                    </div>
-                    <div class="store-filter clearfix">
-                        <div class="pull-right">
+                        <div class="row sharing-row">
+                            <div class="col-md-4 col-md-offset-3">
+                                <div class="sharing-title">
+                                    <i class="fa fa-share"></i> <span>@lang('user.sharing_title')</span>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="sharing-btn-group">
+                                    <a href="" class="btn btn-primary"><i class="fa fa-facebook"></i> Facebook</a>
+                                    <a href="" class="btn btn-danger"><i class="fa fa-google"></i> Google</a>
+                                    <a href="" class="btn btn-info"><i class="fa fa-twitter"></i> Twitter</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="comment-ui">
+                                     <div class="label ribbon">
+                                        @lang('user.comment.comment')
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row comment-box-row">
+                            <div class="col-md-12">
+                                <div class="comment-box">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            @auth
+                                                <div class="avatar-user-comment">
+                                                    <img class="img-responsive" src="{{ Auth::user()->avatar }}" alt="">
+                                                </div>
+                                            @else
+                                                <div class="avatar-user-comment">
+                                                    <img class="img-responsive" src="{{ asset('images/male_avatar.png') }}" alt="">
+                                                </div>
+                                            @endauth
+                                        </div>
+                                        <div class="col-md-11">
+                                            <div class="comment-input">
+                                                <textarea placeholder="@lang('user.comment.leave_a_comment')" class="form-control" rows="2" name="comment" id="comment" ></textarea>
+                                            </div>
+                                            <div class="btn-group-commnet-input">
+                                                <a href="" id="btn-send-comment" class="btn btn-info btn-sm">@lang('user.comment.send')</a>
+                                                <a href="" id="btn-cancel-comment" class="btn btn-default btn-sm">@lang('user.comment.cancel')</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="comment-ui">
+                                     <div class="label ribbon">
+                                        @lang('user.comment.other_comments')
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row show-comment">
+                            <div class="col-md-12">
+                                <div class="row comment-item">
+                                    <div class="col-md-1">
+                                        <div class="avatar-user-comment">
+                                            <img class="img-responsive" src="{{ asset('images/male_avatar.png') }}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-11">
+                                        <div class="comment-user-name">
+                                            <h4><a class="user-name" href=""></a> <span class="comment-time"></span></h4> 
+                                        </div>
+                                        <div class="comment-message"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="col-md-3" id="aside">
                     <div class="aside related-document">
                         <h3 class="aside-title">@lang('user.related_document')</h3>
                         @foreach ($relatedDocuments  as $relatedDocument)
                             <div class="product product-widget">
                                 <div class="product-thumb">
-                                    <img class="img-responsive" src="{{ $relatedDocument->thumbnail }}" alt="">
+                                    <a href="{{ route('view-document', $relatedDocument->id) }}"><img class="img-responsive" src="{{ $relatedDocument->thumbnail }}" alt=""></a>
                                 </div>
                                 <div class="product-body">
-                                    <h2 class="product-name"><a href="#">{{ $relatedDocument->name }}</a></h2>
+                                    <h2 class="product-name"><a href="{{ route('view-document', $relatedDocument->id) }}">{{ $relatedDocument->name }}</a></h2>
                                     <div class="product-info">
                                         <ul class="product-bts">
                                             <li><i class="fa fa-eye"></i> {{ $relatedDocument->views }}</li>

@@ -10,4 +10,9 @@ class Bookmark extends Model
         'user_id',
         'document_id',
     ];
+
+    public function document()
+    {
+        return $this->belongsTo(Document::class)->withTrashed();
+    }
 }
