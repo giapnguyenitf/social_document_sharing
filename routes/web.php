@@ -67,20 +67,19 @@ Route::middleware('auth')->group(function () {
             'uses' => 'UserController@update',
         ]);
         Route::resource('document', 'DocumentController')->except([
-            'update',
             'create',
-        ]);
-        Route::resource('uploaded-document', 'UploadedDocumentController')->except([
-            'create',
-            'store',
             'show',
         ]);
+        Route::get('uploaded-document', [
+            'uses' => 'UploadedController@index',
+            'as' => 'uploaded-document.index',
+        ]);
         Route::get('bookmark-document', [
-            'uses' => 'BookmarkDocumentController@index',
+            'uses' => 'BookmarkController@index',
             'as' => 'bookmark-document.index',
         ]);
-        Route::get('delete-bookmark-document/{documentId}', [
-            'uses' => 'BookmarkDocumentController@delete',
+        Route::get('delete-bookmark-document/{id}', [
+            'uses' => 'BookmarkController@delete',
             'as' => 'bookmark-document.delete',
         ]);
         Route::get('downloaded-document', [

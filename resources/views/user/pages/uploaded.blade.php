@@ -40,8 +40,8 @@
                                                         <td>{{ $document->status }}</td>
                                                         <td class="btn-action-group">
                                                             <a class="btn btn-success btn-sm" href="{{ route('view-document', $document->id) }}"><i class="fa fa-eye"></i></a>
-                                                            <a class="btn btn-info btn-sm" href="{{ route('uploaded-document.edit', ['id' => $document->id]) }}"><i class="fa fa-pencil"></i></a>
-                                                            <form action="{{ route('uploaded-document.destroy', ['id' => $document->id]) }}" method="POST" class="form-delete-uploaded-document">
+                                                            <a class="btn btn-info btn-sm" href="{{ route('document.edit', ['id' => $document->id]) }}"><i class="fa fa-pencil"></i></a>
+                                                            <form action="{{ route('document.destroy', ['id' => $document->id]) }}" method="POST" class="form-delete-uploaded-document">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button class="btn btn-danger btn-sm btn-delete-uploaded-document" type="button"><i class="fa fa-trash"></i></button>

@@ -37,7 +37,7 @@
                                                     <td>{{ $bookmarkDocument->document->file_type }}</td>
                                                     <td class="btn-action-group">
                                                         <a class="btn btn-success btn-sm" href="{{ route('view-document', $bookmarkDocument->document->id) }}"><i class="fa fa-eye"></i></a>
-                                                        <a class="btn btn-danger btn-sm btn-delete-bookmark-document" href="{{ route('bookmark-document.delete', $bookmarkDocument->document_id) }}"><i class="fa fa-trash"></i></a>
+                                                        <a class="btn btn-danger btn-sm btn-delete-bookmark-document" href="{{ route('bookmark-document.delete', $bookmarkDocument->id) }}"><i class="fa fa-trash"></i></a>
                                                     </td>
                                                 </tr>
                                             @endforeach
