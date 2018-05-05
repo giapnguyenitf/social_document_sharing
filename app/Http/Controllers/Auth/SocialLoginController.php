@@ -31,6 +31,10 @@ class SocialLoginController extends Controller
             $user = Socialite::driver($provider)->user();
             $authUser = $this->findOrCreateUser($user, $provider);
             Auth::login($authUser, true);
+
+            if ($authUser->isAdmin() || $authUser->isModerator()) {
+                return redirect()->route('dashboard.index');
+            }
             
             return redirect()->route('home');
         } catch(Exception $e) {

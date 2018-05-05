@@ -53,4 +53,23 @@ class User extends Authenticatable
     {
         return $this->hasMany(Bookmark::class);
     }
+
+    public function isAdmin()
+    {
+        return $this->rules == config('settings.rules.is_admin');
+    }
+
+    public function isModerator()
+    {
+        return $this->rules == config('settings.rules.is_moderator');
+    }
+
+    public function getUserTypeAttribute()
+    {
+        if ($this->provider) {
+            return $this->provider;
+        }
+
+        return trans('admin.normal');
+    }
 }

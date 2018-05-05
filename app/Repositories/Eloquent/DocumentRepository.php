@@ -89,4 +89,25 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
     {
         return $this->with('user')->find($id);
     }
+
+    public function getPublished()
+    {
+        return $this->where('status', config('settings.document.status.is_published'))
+            ->with(['user', 'category'])
+            ->get();
+    }
+
+    public function getChecking()
+    {
+        return $this->where('status', config('settings.document.status.is_checking'))
+            ->with(['user', 'category'])
+            ->get();
+    }
+
+    public function getIllegal()
+    {
+        return $this->where('status', config('settings.document.status.is_illegal'))
+            ->with(['user', 'category'])
+            ->get();
+    }
 }

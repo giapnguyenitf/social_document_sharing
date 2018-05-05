@@ -19,66 +19,40 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <div>Công nghệ thông tin</div>
-                                        <a class="bt-edit-category" href="">@lang('admin.edit_category')</a>&emsp;<a class="bt-delete-category" href="">@lang('admin.delete_category')</a>
-                                    </td>
-                                    <td>
-                                        <ul class="sub-category">
-                                            <li>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div>Kỹ thuật lập trình</div>
+                                @foreach ($categories as $category)
+                                    <tr>
+                                        <td>
+                                            <div>{{ $category->name }}</div>
+                                            <a class="bt-edit-category" href="">@lang('admin.edit_category')</a>&emsp;<a class="bt-delete-category" href="">@lang('admin.delete_category')</a>
+                                        </td>
+                                        <td>
+                                            <ul class="sub-category">
+                                                @foreach ($category->subCategories as $subCategory)
+                                                    <li>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div>{{ $subCategory->name }}</div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <a class="bt-edit-category" href="">@lang('admin.edit_category')</a>&emsp;<a class="bt-delete-category" href="">@lang('admin.delete_category')</a>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                @endforeach
+                                                <li>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div><input name="new_sub_category" type="text" class="form-control input-sm" placeholder="@lang('admin.add_new_category')"></div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div><a href="" class="btn btn-info btn-sm bt-edit-category">@lang('admin.add_new')</a></div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <a class="bt-edit-category" href="">@lang('admin.edit_category')</a>&emsp;<a class="bt-delete-category" href="">@lang('admin.delete_category')</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div>Kỹ thuật lập trình</div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <a class="bt-edit-category" href="">@lang('admin.edit_category')</a>&emsp;<a class="bt-delete-category" href="">@lang('admin.delete_category')</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div>Kỹ thuật lập trình</div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <a class="bt-edit-category" href="">@lang('admin.edit_category')</a>&emsp;<a class="bt-delete-category" href="">@lang('admin.delete_category')</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div>Kỹ thuật lập trình</div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <a class="bt-edit-category" href="">@lang('admin.edit_category')</a>&emsp;<a class="bt-delete-category" href="">@lang('admin.delete_category')</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div><input name="new_sub_category" type="text" class="form-control input-sm" placeholder="@lang('admin.add_new_category')"></div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div><a href="" class="btn btn-info btn-sm bt-edit-category">@lang('admin.add_new')</a></div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

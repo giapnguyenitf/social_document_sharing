@@ -321,3 +321,11 @@
 .messages-validate-comment {
     color: #e62910;
 }
+
+.wrap-add-new-user {
+    text-align: right;
+}
+
+.new-parent-category {
+    text-align: right;
+}

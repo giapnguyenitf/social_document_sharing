@@ -56,37 +56,35 @@ Route::namespace('User')->group(function () {
     ]);
 });
 
-Route::middleware('auth')->group(function () {
-    Route::namespace('User')->group(function () {
-        Route::get('manage-profile', [
-            'as' => 'manage-profile',
-            'uses' => 'UserController@index',
-        ]);
-        Route::post('update-profile', [
-            'as' => 'update-profile',
-            'uses' => 'UserController@update',
-        ]);
-        Route::resource('document', 'DocumentController')->except([
-            'create',
-            'show',
-        ]);
-        Route::get('uploaded-document', [
-            'uses' => 'UploadedController@index',
-            'as' => 'uploaded-document.index',
-        ]);
-        Route::get('bookmark-document', [
-            'uses' => 'BookmarkController@index',
-            'as' => 'bookmark-document.index',
-        ]);
-        Route::get('delete-bookmark-document/{id}', [
-            'uses' => 'BookmarkController@delete',
-            'as' => 'bookmark-document.delete',
-        ]);
-        Route::get('downloaded-document', [
-            'uses' => 'DocumentController@showDownloaded',
-            'as' => 'downloaded-document.show',
-        ]);
-    });
+Route::middleware('auth')->namespace('User')->group(function () {
+    Route::get('manage-profile', [
+        'as' => 'manage-profile',
+        'uses' => 'UserController@index',
+    ]);
+    Route::post('update-profile', [
+        'as' => 'update-profile',
+        'uses' => 'UserController@update',
+    ]);
+    Route::resource('document', 'DocumentController')->except([
+        'create',
+        'show',
+    ]);
+    Route::get('uploaded-document', [
+        'uses' => 'UploadedController@index',
+        'as' => 'uploaded-document.index',
+    ]);
+    Route::get('bookmark-document', [
+        'uses' => 'BookmarkController@index',
+        'as' => 'bookmark-document.index',
+    ]);
+    Route::get('delete-bookmark-document/{id}', [
+        'uses' => 'BookmarkController@delete',
+        'as' => 'bookmark-document.delete',
+    ]);
+    Route::get('downloaded-document', [
+        'uses' => 'DocumentController@showDownloaded',
+        'as' => 'downloaded-document.show',
+    ]);
 });
 
 Route::namespace('Ajax')->group(function () {
@@ -116,6 +114,30 @@ Route::namespace('Ajax')->group(function () {
     ]);
 });
 
-Route::get('view', function () {
-    return view('user.pages.viewer');
+Route::middleware('auth')->namespace('Admin')->group(function () {
+    Route::get('dashboard', [
+        'uses' => 'DashboardController@index',
+        'as' => 'dashboard.index',
+    ]);
+    Route::resource('manage-users', 'UserController');
+    Route::resource('manage-document', 'DocumentController')->except([
+        'create',
+        'store',
+    ]);
+    Route::get('published-document', [
+        'uses' => 'DocumentController@showPublished',
+        'as' => 'manage-document.published',
+    ]);
+    Route::get('illegal-document', [
+        'uses' => 'DocumentController@showIllegal',
+        'as' => 'manage-document.illegal',
+    ]);
+    Route::get('manage-category', [
+        'uses' => 'CategoryController@index',
+        'as' => 'manage-category.index',
+    ]);
+    Route::get('manage-moderator', [
+        'uses' => 'UserController@showModerator',
+        'as' => 'manage-moderator.index',
+    ]);
 });

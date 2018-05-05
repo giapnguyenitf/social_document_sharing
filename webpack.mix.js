@@ -50,5 +50,7 @@ mix.copy('node_modules/jquery/dist/jquery.min.js', 'public/js')
     .copy('node_modules/pdfjs-dist/lib', 'public/viewer/lib')
     .copy('node_modules/pdfjs-dist/web', 'public/viewer/web')
     .copy('node_modules/sweetalert/dist/sweetalert.min.js', 'public/js')
+    .copy('node_modules/datatables.net/js/jquery.dataTables.js', 'public/js')
+    .copy('node_modules/datatables.net-bs/css/dataTables.bootstrap.css', 'public/css')
+    .copy('node_modules/datatables.net-bs/js/dataTables.bootstrap.js', 'public/js')
     .copy('resources/assets/images', 'public/images');
-    
