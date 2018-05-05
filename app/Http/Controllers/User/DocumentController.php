@@ -9,12 +9,13 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Traits\UploadFileTrait;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateDocumentRequest;
 use App\Http\Requests\UploadDocumentRequest;
 use App\Repositories\Contracts\UserRepositoryInterface;
+use App\Repositories\Contracts\CommentRepositoryInterface;
 use App\Repositories\Contracts\BookmarkRepositoryInterface;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Repositories\Contracts\DocumentRepositoryInterface;
-use App\Repositories\Contracts\CommentRepositoryInterface;
 
 
 class DocumentController extends Controller
@@ -48,10 +49,9 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
         $parentCategories = $this->categoryRepository->where('parent_id', '=', config('settings.category.is_parent'))->get();
-
-        return view('user.pages.upload', compact('user', 'parentCategories'));
+        
+        return view('user.pages.upload', compact('parentCategories'));
     }
 
     /**
@@ -151,14 +151,17 @@ class DocumentController extends Controller
     {
         try {
             $document = $this->documentRepository->findOrFail($id);
+            $user = Auth::user();
 
-            if ($document->user_id == Auth::user()->id) {
-                return view('user.pages.edit-document', compact('document'));
+            if ($user->can('edit', $document)) {
+                $parentCategories = $this->categoryRepository->where('parent_id', '=', config('settings.category.is_parent'))->get();
+
+                return view('user.pages.edit-document', compact('document', 'parentCategories'));
+            } else {
+                return back()->with('messageError', trans('user.document.you_are_not_allowed_edit_this_document'));
             }
-
-            return back();
-        } catch(Excepion $e) {
-            return back();
+        } catch(Exception $e) {
+            return back()->with('messageError', trans('user.document.document_not_found'));
         }
     }
 
@@ -171,7 +174,31 @@ class DocumentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $document = $this->documentRepository->findOrFail($id);
+            $user = Auth::user();
+
+            if ($user->can('update', $document)) {
+                $document = $request->only([
+                    'name',
+                    'description',
+                ]);
+                $document['category_id'] = $request->child_category;
+                $document['tag'] = $request->tag ? $request->tag : ' ';
+
+                if ($request->thumbnail) {
+                    $document['thumbnail'] = $request->thumbnail;
+                }
+
+                $this->documentRepository->update($id, $document);
+
+                return redirect()->route('uploaded-document.index')->with('messageSuccess', trans('user.document.update_success'));
+            } else {
+                return back()->with('messageError', trans('user.document.you_are_not_allowed_edit_this_document'));
+            }
+        } catch(Exception $e) {
+            return back()->with('messageError', trans('user.document.update_fail'));
+        }
     }
 
     /**
@@ -183,17 +210,18 @@ class DocumentController extends Controller
     public function destroy($id)
     {
         try {
+            $user = Auth::user();
             $document = $this->documentRepository->findOrFail($id);
 
-            if ($document->user_id == Auth::user()->id) {
-                $this->documentRepository->delete($id);
+            if ($user->can('delete', $document)) {
+                $this->documentRepository->destroy($id);
 
                 return back()->with('messageSuccess', trans('user.document.delete_success'));
+            } else {
+                return back()->with('messageError', trans('user.document.you_are_not_allowed_delete_this_document'));
             }
-
-            return back()->with('messagesError', trans('user.document.delete_fail'));
         } catch(Exception $e) {
-            return back()->with('messagesError', trans('user.document.delete_fail'));
+            return back()->with('messageError', trans('user.document.document_not_found'));
         }
     }
 

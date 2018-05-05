@@ -309,6 +309,9 @@ $(document).ready(function () {
                                 </div>
                             </div>
                         `).insertBefore(firstComment);
+
+                        $('#comment-messages').val('');
+                        $('.btn-group-comment-input').addClass('hidden');
                     } else {
                         $('.row.show-comment .col-md-12.wrap-comment-item').append(`
                             <div class="row comment-item">
@@ -325,6 +328,8 @@ $(document).ready(function () {
                                 </div>
                             </div>
                         `);
+                        $('#comment-messages').val('');
+                        $('.btn-group-comment-input').addClass('hidden');
                     }
                 }
             });
