@@ -107,9 +107,13 @@ Route::namespace('Ajax')->group(function () {
         'uses' => 'DocumentController@bookmark',
         'as' => 'ajax-bookmark-document',
     ]);
-     Route::post('cancel-bookmark-document', [
+    Route::post('cancel-bookmark-document', [
         'uses' => 'DocumentController@cancelBookmark',
         'as' => 'ajax-cancel-bookmark-document',
+    ]);
+    Route::post('comment-document', [
+        'uses' => 'DocumentController@comment',
+        'as' => 'ajax-comment-document',
     ]);
 });
 

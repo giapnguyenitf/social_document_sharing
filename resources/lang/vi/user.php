@@ -167,6 +167,10 @@ return [
         'cancel' => 'Hủy',
         'comment' => 'Bình luận',
         'other_comments' => 'Bình luận khác',
+        'hours_ago' => 'Giờ trước',
+        'days_ago' => 'Ngày trước',
+        'minutes_ago' => 'Phút trước',
+        'comment_is_required' => 'Nội dung bình luận không được để trống',
     ],
     'sharing_title' => 'Chia sẻ tài liệu này cho bạn bè nữa nhé!',
 ];

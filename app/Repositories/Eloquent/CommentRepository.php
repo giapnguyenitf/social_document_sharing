@@ -10,6 +10,11 @@ class CommentRepository extends BaseRepository implements CommentRepositoryInter
 {
     public function getModel()
     {
-        return Document::class;
+        return Comment::class;
+    }
+
+    public function getComment($documentId)
+    {
+        return $this->where('document_id', $documentId)->orderBy('created_at','desc')->paginate(config('settings.comment.paginate'));
     }
 }

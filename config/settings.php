@@ -45,4 +45,7 @@
         'search' => [
             'by_name' => 0,
         ],
+        'comment' => [
+            'paginate' => 10,
+        ],
     ];

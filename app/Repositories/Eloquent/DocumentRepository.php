@@ -87,6 +87,6 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
 
     public function getDocument($id)
     {
-        return $this->where('status', config('settings.document.status.is_published'))->with('user', 'comments')->find($id);
+        return $this->with('user')->find($id);
     }
 }

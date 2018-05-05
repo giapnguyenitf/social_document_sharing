@@ -103,11 +103,12 @@
                                         </div>
                                         <div class="col-md-11">
                                             <div class="comment-input">
-                                                <textarea placeholder="@lang('user.comment.leave_a_comment')" class="form-control" rows="2" name="comment" id="comment" ></textarea>
+                                                <textarea placeholder="@lang('user.comment.leave_a_comment')" class="form-control comment-messages" rows="2" name="comment-messages" id="comment-messages" ></textarea>
                                             </div>
-                                            <div class="btn-group-commnet-input">
-                                                <a href="" id="btn-send-comment" class="btn btn-info btn-sm">@lang('user.comment.send')</a>
+                                            <div class="btn-group-comment-input hidden">
+                                                <a href="" id="btn-send-comment" data-document-id="{{ $document->id }}" data-url="{{ route('ajax-comment-document') }}" class="btn btn-info btn-sm">@lang('user.comment.send')</a>
                                                 <a href="" id="btn-cancel-comment" class="btn btn-default btn-sm">@lang('user.comment.cancel')</a>
+                                                <a class="messages-validate-comment"></a>
                                             </div>
                                         </div>
                                     </div>
@@ -117,27 +118,32 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="comment-ui">
-                                     <div class="label ribbon">
+                                    <div class="label ribbon">
                                         @lang('user.comment.other_comments')
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row show-comment">
-                            <div class="col-md-12">
-                                <div class="row comment-item">
-                                    <div class="col-md-1">
-                                        <div class="avatar-user-comment">
-                                            <img class="img-responsive" src="{{ asset('images/male_avatar.png') }}" alt="">
+                            <div class="col-md-12 wrap-comment-item">
+                                @foreach ($comments as $comment)
+                                    <div class="row comment-item">
+                                        <div class="col-md-1">
+                                            <div class="avatar-user-comment">
+                                                <img class="img-responsive" src="{{ $comment->user->avatar }}" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <div class="comment-user-name">
+                                                <h4><a class="user-name" href="">{{ $comment->user->name }}</a> <span class="comment-time">{{ $comment->comment_at }}</span></h4> 
+                                            </div>
+                                            <div class="comment-message">{{ $comment->messages }}</div>
                                         </div>
                                     </div>
-                                    <div class="col-md-11">
-                                        <div class="comment-user-name">
-                                            <h4><a class="user-name" href=""></a> <span class="comment-time"></span></h4> 
-                                        </div>
-                                        <div class="comment-message"></div>
-                                    </div>
-                                </div>
+                                @endforeach
+                            </div>
+                            <div class="col-md-12 paginate-comment">
+                                {{ $comments->links() }}
                             </div>
                         </div>
                     </div>

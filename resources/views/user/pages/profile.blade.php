@@ -108,32 +108,34 @@
                                         </div>
                                     </div>
                                 </form>
-                                <hr>
-                                <form action="" method="post" class="form-horizontal">
-                                     <div class="form-group">
-                                        <label class="control-label col-md-3 label-thin" for="">@lang('user.current_password')</label>
-                                        <div class="col-md-9">
-                                            <input class="form-control input-no-border" type="password" name="old_password">
+                                @if (!$user->provider)
+                                    <hr>
+                                    <form action="" method="post" class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 label-thin" for="">@lang('user.current_password')</label>
+                                            <div class="col-md-9">
+                                                <input class="form-control input-no-border" type="password" name="old_password">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3 label-thin" for="">@lang('user.new_password')</label>
-                                        <div class="col-md-9">
-                                            <input class="form-control input-no-border" type="password" name="password">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 label-thin" for="">@lang('user.new_password')</label>
+                                            <div class="col-md-9">
+                                                <input class="form-control input-no-border" type="password" name="password">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3 label-thin" for="">@lang('user.confirm_new_password')</label>
-                                        <div class="col-md-9">
-                                            <input class="form-control input-no-border" type="password" name="password_confirmation">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 label-thin" for="">@lang('user.confirm_new_password')</label>
+                                            <div class="col-md-9">
+                                                <input class="form-control input-no-border" type="password" name="password_confirmation">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-md-9 col-md-offset-3">
-                                            <button class="btn btn-info input-no-border" type="submit">@lang('user.change_password')</button>
+                                        <div class="form-group">
+                                            <div class="col-md-9 col-md-offset-3">
+                                                <button class="btn btn-info input-no-border" type="submit">@lang('user.change_password')</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                @endif
                             </div>
                         </div>
                     </div>

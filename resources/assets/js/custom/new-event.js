@@ -268,4 +268,75 @@ $(document).ready(function () {
         });
     });
 
+    $('.comment-messages').focus(function (e) {
+        $('.btn-group-comment-input').removeClass('hidden');
+    });
+
+    // send comment
+    $('#btn-send-comment').click(function (e) {
+        e.preventDefault();
+        let messages = $('#comment-messages').val();
+        let docuemntId = $(this).data('document-id');
+        let url = $(this).data('url');
+
+        if (messages && docuemntId) {
+            $.ajax({
+                method: 'POST',
+                dataType: 'json',
+                url: url,
+                data: {
+                    document_id: docuemntId,
+                    messages: messages,
+                }
+            })
+            .done(function (response) {
+                if (response.success) {
+                    let comment = response.comment;
+                    let firstComment = $('.show-comment').find('.row.comment-item').first();
+                    if (firstComment.length) {
+                        $(`
+                            <div class="row comment-item">
+                                <div class="col-md-1">
+                                    <div class="avatar-user-comment">
+                                        <img class="img-responsive" src="${comment.user.avatar}" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-md-11">
+                                    <div class="comment-user-name">
+                                        <h4><a class="user-name" href="">${comment.user.name}</a> <span class="comment-time">${comment.comment_at}</span></h4> 
+                                    </div>
+                                    <div class="comment-message">${comment.messages}</div>
+                                </div>
+                            </div>
+                        `).insertBefore(firstComment);
+                    } else {
+                        $('.row.show-comment .col-md-12.wrap-comment-item').append(`
+                            <div class="row comment-item">
+                                <div class="col-md-1">
+                                    <div class="avatar-user-comment">
+                                        <img class="img-responsive" src="${comment.user.avatar}" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-md-11">
+                                    <div class="comment-user-name">
+                                        <h4><a class="user-name" href="">${comment.user.name}</a> <span class="comment-time">${comment.comment_at}</span></h4> 
+                                    </div>
+                                    <div class="comment-message">${comment.messages}</div>
+                                </div>
+                            </div>
+                        `);
+                    }
+                }
+            });
+        } else {
+            $('.messages-validate-comment').text(Lang.get('user.comment.comment_is_required'));
+        }
+    });
+
+    // cancel comment
+    $('#btn-cancel-comment').click(function (e) {
+        e.preventDefault();
+        $('#comment-messages').val('');
+        $('.btn-group-comment-input').addClass('hidden');
+    });
 });
