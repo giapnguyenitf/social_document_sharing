@@ -19,7 +19,7 @@
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
             <header class="main-header">
-                <a href="" class="logo">
+                <a href="{{ route('home') }}" class="logo">
                     <span class="logo-lg"><b>@lang('admin.admin')</span></b>
                 </a>
                 <nav class="navbar navbar-static-top">
@@ -165,9 +165,6 @@
                             <a href="{{ route('manage-users.index') }}">
                                 <i class="fa fa-users"></i>
                                 <span>@lang('admin.members')</span>
-                                <span class="pull-right-container">
-                                    <span class="label label-primary pull-right">4</span>
-                                </span>
                             </a>
                         </li>
                         <li class="treeview">
@@ -310,15 +307,31 @@
             </aside>
             <div class="control-sidebar-bg"></div>
         </div>
+        <div class="notifications-admin">
+            @if (Session::has('notificationError'))
+                <div class="alert alert-danger alert-dismissible wrap-alert-message-error" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>{{ session('notificationError') }}</strong>
+                </div>
+            @endif
+            @if (Session::has('notificationSuccess'))
+                <div class="alert alert-success alert-dismissible wrap-alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong> {{ session('notificationSuccess') }}</strong>
+                </div>
+            @endif
+        </div>
         {{ Html::script('js/jquery.min.js') }}
         {{ Html::script('js/bootstrap.min.js') }}
         {{ Html::script('js/jquery.slimscroll.min.js') }}
         {{ Html::script('js/fastclick.js') }}
         {{ Html::script('js/adminlte.min.js') }}
         {{ Html::script('js/demo.js') }}
-        {{ Html::script('js/new-event.js') }}
+        {{ Html::script('messages.js') }}
         {{ Html::script('js/jquery.dataTables.js') }}
         {{ Html::script('js/dataTables.bootstrap.js') }}
+        {{ Html::script('js/sweetalert.min.js') }}
+        {{ Html::script('js/new-event.js') }}
         @yield('js')
         <script>
             $(document).ready(function () {

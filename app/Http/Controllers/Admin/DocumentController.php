@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Auth;
+// use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\DocumentRepositoryInterface;
@@ -67,7 +69,19 @@ class DocumentController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $user = Auth::user();
+            $document = $this->documentRepository->getDocument($id);
+
+            if ($user->can('edit', $document)) {
+                return view('admin.pages.editInfoDocument', compact('document'));
+            }
+
+            return back()->with('notificationError', trans('admin.notifications.you_are_not_allowed_to_edit_this_document'));
+        } catch (Exception $e) {
+            return back()->with('messageError', trans('admin.notifications.document_not_found'));
+        }
+       
     }
 
     /**
@@ -79,7 +93,29 @@ class DocumentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $document = $this->documentRepository->getDocument($id);
+            $user = Auth::user();
+            $data = $request->only([
+                'name',
+                'description',
+                'file_name',
+                'thumbnail',
+                'category_id',
+                'status',
+            ]);
+
+            if ($user->can('update', $document)) {
+                $this->documentRepository->update($id, $data);
+
+                return redirect()->route('manage-document.index')
+                    ->with('notificationSuccess', trans('admin.notifications.update_document_success'));
+            }
+
+            return back()->with('notificationError', trans('admin.notifications.you_are_not_allowed_to_edit_this_document'));
+        } catch (Exception $e) {
+            return back()->with('notificationError', trans('admin.notifications.document_not_found'));
+        }
     }
 
     /**
@@ -90,7 +126,20 @@ class DocumentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $document = $this->documentRepository->getDocument($id);
+            $user = Auth::user();
+
+            if ($user->can('delete', $document)) {
+                $this->documentRepository->destroy($id);
+
+                return back()->with('notificationSuccess', trans('admin.notifications.delete_document_success'));
+            }
+
+            return back()->with('notificationError', trans('admin.notifications.you_are_not_allowed_to_delete_this_document'));
+        } catch (Exception $e) {
+            return back()->with('messageError', trans('admin.notifications.document_not_found'));
+        }
     }
 
     public function showPublished()

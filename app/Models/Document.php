@@ -45,7 +45,7 @@ class Document extends Model
         return $this->hasMany(Bookmark::class);
     }
 
-    public function getStatusAttribute()
+    public function getStatusNameAttribute()
     {
         switch ($this->attributes['status']) {
             case config('settings.document.status.is_illegal'):
@@ -62,5 +62,20 @@ class Document extends Model
     public function getDownloadLinkAttribute()
     {
         return public_path($this->file_name);
+    }
+
+     public function isChecking()
+    {
+        return $this->status == config('settings.document.status.is_checking');
+    }
+
+    public function isPublished()
+    {
+        return $this->status == config('settings.document.status.is_published');
+    }
+
+    public function isIllegal()
+    {
+        return $this->status == config('settings.document.status.is_illegal');
     }
 }

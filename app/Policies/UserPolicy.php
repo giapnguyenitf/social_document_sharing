@@ -55,4 +55,12 @@ class UserPolicy
     {
         //
     }
+
+    public function before(User $user)
+    {
+        if ($user->isAdmin() || $user->isModerator())
+        {
+            return true;
+        }
+    }
 }

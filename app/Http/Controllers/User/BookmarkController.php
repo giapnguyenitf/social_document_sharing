@@ -46,7 +46,7 @@ class BookmarkController extends Controller
                 return back()->with('messageSuccess', trans('user.document.delete_bookmark_success'));
             }
 
-            return back()->with('messageError', trans('user.document.you_are_not_allow_delete_this_bookmark'));
+            return back()->with('messageError', trans('user.document.you_are_not_allowed_to_delete_this_bookmark'));
         } catch(Exception $e) {
             return back()->with('messageError', trans('user.document.document_not_found'));
         }

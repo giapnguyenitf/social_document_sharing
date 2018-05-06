@@ -87,7 +87,7 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
 
     public function getDocument($id)
     {
-        return $this->with('user')->find($id);
+        return $this->with('user')->findOrFail($id);
     }
 
     public function getPublished()

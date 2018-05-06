@@ -37,15 +37,23 @@
                                                         <td>{{ $document->created_at }}</td>
                                                         <td>{{ $document->views }}</td>
                                                         <td>{{ $document->downloads }}</td>
-                                                        <td>{{ $document->status }}</td>
+                                                        <td>{{ $document->status_name }}</td>
                                                         <td class="btn-action-group">
-                                                            <a class="btn btn-success btn-sm" href="{{ route('view-document', $document->id) }}"><i class="fa fa-eye"></i></a>
-                                                            <a class="btn btn-info btn-sm" href="{{ route('document.edit', ['id' => $document->id]) }}"><i class="fa fa-pencil"></i></a>
-                                                            <form action="{{ route('document.destroy', ['id' => $document->id]) }}" method="POST" class="form-delete-uploaded-document">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button class="btn btn-danger btn-sm btn-delete-uploaded-document" type="button"><i class="fa fa-trash"></i></button>
-                                                            </form>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <a class="btn btn-success btn-sm" href="{{ route('view-document', $document->id) }}"><i class="fa fa-eye"></i></a>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <a class="btn btn-info btn-sm" href="{{ route('document.edit', $document->id) }}"><i class="fa fa-pencil"></i></a>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <form action="{{ route('document.destroy', ['id' => $document->id]) }}" method="POST" class="form-delete-uploaded-document">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button class="btn btn-danger btn-sm btn-delete-uploaded-document" type="button"><i class="fa fa-trash"></i></button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 @endforeach

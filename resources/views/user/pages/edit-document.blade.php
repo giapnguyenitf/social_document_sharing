@@ -13,7 +13,7 @@
                         </div>
                         <div class="panel-body">
                             <div class="form-upload-document">
-                                <form action="{{ route('uploaded-document.update', ['id' => $document->id]) }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+                                <form action="{{ route('document.update', $document->id) }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
@@ -77,7 +77,7 @@
                                         <label class="control-label col-md-3 label-thin" for="">@lang('user.thumbnail')</label>
                                         <div class="col-md-6">
                                            <div class="input-group">
-                                                <input class="form-control input-no-border input-url-thumbnail-image" type="text" name="thumbnail">
+                                                <input class="form-control input-no-border input-url-thumbnail-image" type="text" name="thumbnail" readonly>
                                                 <a href="#modal-upload-image" data-toggle="modal" class="btn btn-primary input-group-addon">@lang('user.document.upload_image')</a>
                                             </div>
                                         </div>

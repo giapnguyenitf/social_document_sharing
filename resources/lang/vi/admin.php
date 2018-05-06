@@ -92,4 +92,31 @@ return [
     ],
     'user_type' => 'Loại tài khoản',
     'normal' => 'Thường',
+    'list_moderators' => 'Danh sách cộng tác viên',
+    'add_new_moderator' => 'Thêm mới',
+    'pulish_document' => 'Phát hành tài liệu',
+    'notifications' => [
+        'publish_document_success' => 'Phát hành tài liệu thành công',
+        'publish_document_fail' => 'Phát hành tài liệu thất bại',
+        'delete_document_success' => 'Xóa tài liệu thành công',
+        'delete_document_fail' => 'Xóa tài liệu thất bại',
+        'update_document_success' => 'Cập nhật tài liệu thành công',
+        'update_document_fail' => 'Cập nhật tài liệu thất bại',
+        'document_not_found' => 'Tài liệu không tồn tại hoặc đã bị xóa',
+        'you_are_not_allowed_to_edit_this_document' => 'Bạn không được phép chỉnh sửa tài liệu này!',
+        'you_are_not_allowed_to_delete_this_document' => 'Bạn không được phép xóa tài liệu này!',
+    ],
+    'modal' => [
+        'publish_document_notification' => 'Bạn đã kiểm tra kĩ tài liệu rồi chứ!',
+        'delete_document_message' => 'Bạn chắc chắn muốn xóa tài liệu này chứ?',
+        'bt_cancel_text' => 'Hủy',
+        'bt_ok_text' => 'Ok',
+    ],
+    'document' => [
+        'status' => [
+            'is_illegal' => 'Tài liệu vi phạm',
+            'is_published' => 'Tài liệu đã phát hành',
+            'is_checking' => 'Tài liệu đang được kiểm tra',
+        ]
+    ]
 ];
