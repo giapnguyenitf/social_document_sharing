@@ -33,17 +33,24 @@ class Comment extends Model
             $now = Carbon::now();
             $commentAt = Carbon::parse($this->created_at);
             $minutes = $now->diffInMinutes($commentAt);
+            $hours = $now->diffInHours($commentAt);
+            $days = $now->diffInDays($commentAt);
+            $weeks = $now->diffInWeeks($commentAt);
+            $months = $now->diffInMonths($commentAt);
+            $years = $now->diffInYears($commentAt);
 
             if ($minutes < 60) {
                 return $minutes . ' ' . trans('user.comment.minutes_ago');
+            } else if ($hours < 24) {
+                return $hours . ' ' . trans('user.comment.hours_ago');
+            } else if ($days < 7) {
+                return $days . ' ' . trans('user.comment.days_ago');
+            } else if ($weeks < 4) {
+                return $weeks . ' ' . trans('user.comment.weeks_ago');
+            } else if ($months < 12) {
+                return $months . ' ' . trans('user.comment.months_ago');
             } else {
-                $hour = $now->diffInHours($commentAt);
-
-                if ($hour <24 ) {
-                    return $hour . ' ' . trans('user.comment.hours_ago');
-                }
-
-                return $hour/24 . ' ' . trans('user.comment.days_ago');
+                return $years. ' ' . trans('user.commet.years_ago');
             }
         }
 

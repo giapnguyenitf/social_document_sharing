@@ -11,4 +11,9 @@ interface UserRepositoryInterface extends RepositoryInterface
     public function getAllUsers();
 
     public function getAllModerators();
+
+    public function getAllBlockedUsers();
+
+    public function getAllBlockedMods();
+    
 }

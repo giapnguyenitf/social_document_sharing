@@ -54,6 +54,10 @@ Route::namespace('User')->group(function () {
         'uses' => 'DocumentController@download',
         'as' => 'download-document',
     ]);
+    Route::get('user-profile/{id}', [
+        'uses' => 'UserController@show',
+        'as' => 'user-profile.show',
+    ]);
 });
 
 Route::middleware('auth')->namespace('User')->group(function () {
@@ -69,10 +73,6 @@ Route::middleware('auth')->namespace('User')->group(function () {
         'create',
         'show',
     ]);
-    Route::get('uploaded-document', [
-        'uses' => 'UploadedController@index',
-        'as' => 'uploaded-document.index',
-    ]);
     Route::get('bookmark-document', [
         'uses' => 'BookmarkController@index',
         'as' => 'bookmark-document.index',
@@ -81,8 +81,12 @@ Route::middleware('auth')->namespace('User')->group(function () {
         'uses' => 'BookmarkController@delete',
         'as' => 'bookmark-document.delete',
     ]);
+    Route::get('uploaded-document', [
+        'uses' => 'UserController@showUploaded',
+        'as' => 'uploaded-document.show',
+    ]);
     Route::get('downloaded-document', [
-        'uses' => 'DocumentController@showDownloaded',
+        'uses' => 'UserController@showDownloaded',
         'as' => 'downloaded-document.show',
     ]);
 });
@@ -119,7 +123,30 @@ Route::middleware('adminAuth')->namespace('Admin')->group(function () {
         'uses' => 'DashboardController@index',
         'as' => 'dashboard.index',
     ]);
-    Route::resource('manage-users', 'UserController');
+    Route::get('manage-users', [
+        'uses' => 'UserController@index',
+        'as' => 'manage-users.index',
+    ]);
+    Route::get('manage-blocked-users', [
+        'uses' => 'UserController@showBlockedUsers',
+        'as' => 'manage-users.showBlockedUsers',
+    ]);
+    Route::get('manage-blocked-mods', [
+        'uses' => 'UserController@showBlockedMods',
+        'as' => 'manage-users.showBlockedMods',
+    ]);
+    Route::get('manage-users/show/{id}', [
+        'uses' => 'UserController@show',
+        'as' => 'manage-users.show',
+    ]);
+    Route::get('manage-users/block/{id}', [
+        'uses' => 'UserController@block',
+        'as' => 'manage-users.block',
+    ]);
+    Route::get('manage-users/unblock/{id}', [
+        'uses' => 'UserController@unblock',
+        'as' => 'manage-users.unblock',
+    ]);
     Route::resource('manage-document', 'DocumentController')->except([
         'create',
         'store',

@@ -5,8 +5,8 @@
             <div class="col-md-3">
                 <div class="box box-primary">
                     <div class="box-body box-profile">
-                        <img class="profile-user-img img-responsive img-circle" src="{{ Auth::user()->avatar }}" alt="">
-                        <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
+                        <img class="profile-user-img img-responsive img-circle" src="{{ $user->avatar }}" alt="">
+                        <h3 class="profile-username text-center">{{ $user->name }}</h3>
                         <p class="text-muted text-center"></p>
                         <ul class="list-group list-group-unbordered">
                             <li class="list-group-item">
@@ -19,21 +19,56 @@
                                 <b>@lang('admin.user.followers')</b> <a class="pull-right">13,287</a>
                             </li>
                         </ul>
-                        <a href="#" class="btn btn-info btn-block btn-no-radius"><i class="fa fa-edit"></i> <b>@lang('user.edit_info')</b></a>
+                        <a href="#" class="btn btn-info btn-block btn-no-radius"><i class="fa fa-heart"></i> <b>@lang('user.follow')</b></a>
                     </div>
                 </div>
             </div>
             <div class="col-md-9">
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li><a href="{{ route('manage-profile') }}">@lang('user.user_info')</a></li>
-                        <li><a href="{{ route('bookmark-document.index') }}" >@lang('user.bookmark')</a></li>
-                        <li class="active"><a href="#uploaded-document" data-toggle="tab">@lang('user.uploaded')</a></li>
-                        <li><a href="{{ route('downloaded-document.show') }}">@lang('user.downloaded')</a></li>
-                        <li><a href="{{ route('document.index') }}">@lang('user.upload')</a></li>
+                        <li class="active"><a href="#user-profile" data-toggle="tab">@lang('user.user_info')</a></li>
+                        <li><a href="#uploaded-document" data-toggle="tab">@lang('user.uploaded')</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div class="active tab-pane" id="uploaded-document">
+                        <div class="active tab-pane" id="user-profile">
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 label-thin" for="">@lang('user.name')</label>
+                                <div class="col-md-9">
+                                    <p>{{ $user->name }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 label-thin" for="">@lang('user.email')</label>
+                                <div class="col-md-9">
+                                    <p>{{ $user->email }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 label-thin" for="">@lang('user.date_of_birth')</label>
+                                <div class="col-md-9">
+                                    <p>{{ $user->date_of_birth }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 label-thin" for="">@lang('user.address')</label>
+                                <div class="col-md-9">
+                                    <p>{{ $user->address }}</p>
+                                </div>
+                            </div>
+                                <div class="form-group row">
+                                <label class="control-label col-md-3 label-thin" for="">@lang('user.gender')</label>
+                                <div class="col-md-9">
+                                    <p>{{ $user->gender_name }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 label-thin" for="">@lang('user.phone')</label>
+                                <div class="col-md-9">
+                                    <p>{{ $user->phone }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="uploaded-document">
                             <div class="document-uploaded-info">
                                 <div class="notifications">
                                     @include('user.layouts.alert-success')
@@ -47,7 +82,6 @@
                                                 <th>@lang('user.views')</th>
                                                 <th>@lang('user.downloads')</th>
                                                 <th>@lang('user.status')</th>
-                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -57,30 +91,7 @@
                                                         <td><a class="text-link" href="{{ route('view-document', $uploaded->id) }}">{{ $uploaded->name }}</a></td>
                                                         <td>{{ $uploaded->views }}</td>
                                                         <td>{{ $uploaded->downloads }}</td>
-                                                        
-                                                        <td>
-                                                            @if ($uploaded->status == config('settings.document.status.is_illegal'))
-                                                                <span class="label label-danger">{{ $uploaded->status_name }}</span>
-                                                            @elseif ($uploaded->status == config('settings.document.status.is_checking'))
-                                                                <span class="label label-info">{{ $uploaded->status_name }}</span>
-                                                            @else
-                                                                <span class="label label-success">{{ $uploaded->status_name }}</span>
-                                                            @endif
-                                                        </td>
-                                                        <td class="btn-action-group">
-                                                            <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <a class="btn btn-info btn-sm" href="{{ route('document.edit', $uploaded->id) }}"><i class="fa fa-pencil"></i></a>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <form action="{{ route('document.destroy', ['id' => $uploaded->id]) }}" method="POST" class="form-delete-uploaded-document">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button class="btn btn-danger btn-sm btn-delete-uploaded-document" type="button"><i class="fa fa-trash"></i></button>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </td>
+                                                        <td><span class="label label-info">{{ $uploaded->status_name }}</span></td>
                                                     </tr>
                                                 @endforeach
                                             @endif

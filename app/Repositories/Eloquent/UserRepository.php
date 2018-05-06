@@ -20,11 +20,29 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function getAllUsers()
     {
-        return $this->where('rules', config('settings.rules.is_user'))->paginate(config('settings.user.paginate'));
+        return $this->where('is_ban', config('settings.is_ban.false'))
+            ->where('rules', config('settings.rules.is_user'))
+            ->get();
     }
 
     public function getAllModerators()
     {
-        return $this->where('rules', config('settings.rules.is_moderator'))->paginate(config('settings.user.paginate'));
+        return $this->where('rules', config('settings.rules.is_moderator'))
+            ->where('is_ban', config('settings.is_ban.false'))
+            ->get();
+    }
+
+    public function getAllBlockedUsers()
+    {
+        return $this->where('is_ban', config('settings.is_ban.true'))
+            ->where('rules', config('settings.rules.is_user'))
+            ->get();
+    }
+
+    public function getAllBlockedMods()
+    {
+        return $this->where('rules', config('settings.rules.is_moderator'))
+            ->where('is_ban', config('settings.is_ban.true'))
+            ->get();
     }
 }

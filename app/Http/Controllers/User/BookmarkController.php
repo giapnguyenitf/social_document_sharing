@@ -24,14 +24,14 @@ class BookmarkController extends Controller
 
     public function index()
     {
-       try {
-            $userId = Auth::user()->id;
-            $bookmarkDocuments = $this->bookmarkRepository->getByUser($userId);
+        try {
+            $user = Auth::user();
+            $bookmarks = $this->bookmarkRepository->getByUser($user->id);
 
-            return view('user.pages.bookmark', compact('bookmarkDocuments'));
-       } catch(Exception $e) {
-           return back();
-       }
+            return view('user.pages.bookmark', compact('bookmarks'));
+        } catch(Exception $e) {
+            return back();
+        }
     }
 
     public function delete($id)

@@ -6,7 +6,7 @@ use App\Repositories\Contracts\RepositoryInterface;
 
 interface DocumentRepositoryInterface extends RepositoryInterface
 {
-    public function getUploadedDocument($userID);
+    public function getUploadedDocument($userId);
 
     public function getNewests();
 

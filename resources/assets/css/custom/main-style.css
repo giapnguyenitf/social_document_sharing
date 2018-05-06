@@ -1701,3 +1701,8 @@ textarea.input {
     width: 100%;
   }
 }
+
+.form-control {
+  box-shadow: none;
+  border-color: #d2d6de;
+}

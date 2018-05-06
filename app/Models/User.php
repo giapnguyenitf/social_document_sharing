@@ -77,4 +77,13 @@ class User extends Authenticatable
 
         return trans('admin.normal');
     }
+
+    public function getGenderNameAttribute()
+    {
+        if ($this->gender == config('settings.gender.female')) {
+            return trans('user.genders.female');
+        }
+
+        return trans('user.genders.male');
+    }
 }

@@ -15,10 +15,10 @@
                             <div class="col-md-3">
                                 <div class="author">
                                     <div class="avatar">
-                                        <a href=""><img class="img-responsive" src="{{ $document->user->avatar }}" alt=""></a>
+                                        <a href="{{ route('user-profile.show', $document->user->id) }}"><img class="img-responsive" src="{{ $document->user->avatar }}" alt=""></a>
                                     </div>
                                     <div class="name">
-                                        <a href="">{{ $document->user->name }}</a>
+                                        <a href="{{ route('user-profile.show', $document->user->id) }}">{{ $document->user->name }}</a>
                                         <p>@lang('user.document.upload') <span>{{ $authorUploaded }}</span> @lang('user.document.document')</p>
                                     </div>
                                 </div>

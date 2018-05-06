@@ -1,61 +1,84 @@
 @extends('user.layouts.master')
 @section('content')
-  <div class="container">
-        <div class="row">
+    <div class="container">
+        <div class="row user-profile">
             <div class="col-md-3">
-                @include('user.layouts.sidebar')
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+                        <img class="profile-user-img img-responsive img-circle" src="{{ Auth::user()->avatar }}" alt="">
+                        <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
+                        <p class="text-muted text-center"></p>
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b class="text-blue">@lang('admin.user.uploaded')</b> <a class="pull-right">123</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>@lang('admin.user.following')</b> <a class="pull-right">543</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>@lang('admin.user.followers')</b> <a class="pull-right">13,287</a>
+                            </li>
+                        </ul>
+                        <a href="#" class="btn btn-info btn-block btn-no-radius"><i class="fa fa-edit"></i> <b>@lang('user.edit_info')</b></a>
+                    </div>
+                </div>
             </div>
             <div class="col-md-9">
-                <div class="manage-user-info">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">@lang('user.list_document_bookmark')</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="document-uploaded-info">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li><a href="{{ route('manage-profile') }}">@lang('user.user_info')</a></li>
+                        <li class="active"><a href="#bookmark-document" data-toggle="tab">@lang('user.bookmark')</a></li>
+                        <li><a href="{{ route('uploaded-document.show') }}">@lang('user.uploaded')</a></li>
+                        <li><a href="{{ route('downloaded-document.show') }}">@lang('user.downloaded')</a></li>
+                        <li><a href="{{ route('document.index') }}">@lang('user.upload')</a></li>
+                    </ul>
+                    <div class="tab-content">
+                         <div class="active tab-pane" id="bookmark-document">
+                            <div class="document-bookmark-info">
                                 <div class="notifications">
                                     @include('user.layouts.alert-success')
                                     @include('user.layouts.alert-error')
                                 </div>
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-hover">
+                                <div class="">
+                                    <table id="user-bookmarks-table" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
                                                 <th>@lang('user.title')</th>
-                                                <th>@lang('user.description')</th>
+                                                <th>@lang('user.category')</th>
                                                 <th>@lang('user.date_bookmark')</th>
-                                                <th>@lang('user.document_type')</th>
+                                                <th>@lang('user.uploader')</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($bookmarkDocuments as $bookmarkDocument)
+                                            @foreach ($bookmarks as $bookmark)
                                                 <tr>
-                                                    <td>{{ $bookmarkDocument->document->name }}</td>
-                                                    <td>{{ $bookmarkDocument->document->description }}</td>
-                                                    <td>{{ $bookmarkDocument->created_at }}</td>
-                                                    <td>{{ $bookmarkDocument->document->file_type }}</td>
+                                                    <td><a class="text-link" href="{{ route('view-document', $bookmark->document->id) }}">{{ $bookmark->document->name }}</a></td>
+                                                    <td>{{ $bookmark->document->category->name }}</td>
+                                                    <td>{{ $bookmark->created_at->format('d/m/Y') }}</td>
+                                                    <td><a href="">{{ $bookmark->document->user->name }}</a></td>
                                                     <td class="btn-action-group">
-                                                        <a class="btn btn-success btn-sm" href="{{ route('view-document', $bookmarkDocument->document->id) }}"><i class="fa fa-eye"></i></a>
-                                                        <a class="btn btn-danger btn-sm btn-delete-bookmark-document" href="{{ route('bookmark-document.delete', $bookmarkDocument->id) }}"><i class="fa fa-trash"></i></a>
+                                                        <a class="btn btn-danger btn-sm btn-delete-bookmark-document" href="{{ route('bookmark-document.delete', $bookmark->id) }}"><i class="fa fa-trash"></i></a>
                                                     </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
                                 </div>
-                                 @if (count($bookmarkDocuments))
-                                    <div class="paginate">
-                                        {{ $bookmarkDocuments->links() }}
-                                    </div>
-                                @else
-                                    <div class="no-document-upload">@lang('user.document.no_bookmark_document')</div>
-                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-  </div>
+    </div>
 @endsection
+@push('css')
+    {{ Html::style('css/bootstrap-datepicker.min.css') }}
+    {{ Html::style('css/dataTables.bootstrap.css') }}
+@endpush
+@push('js')
+    {{ Html::script('js/bootstrap-datepicker.min.js') }}
+    {{ Html::script('js/jquery.dataTables.js') }}
+    {{ Html::script('js/dataTables.bootstrap.js') }}
+@endpush
