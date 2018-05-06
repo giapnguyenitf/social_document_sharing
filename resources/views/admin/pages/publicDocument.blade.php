@@ -16,7 +16,6 @@
                                     <th>@lang('admin.category')</th>
                                     <th>@lang('admin.views')</th>
                                     <th>@lang('admin.downloads')</th>
-                                    <th>@lang('admin.status')</th>
                                     <th>@lang('admin.options')</th>
                                 </tr>
                             </thead>
@@ -28,11 +27,22 @@
                                         <td>{{ $document->category->name }}</td>
                                         <td>{{ $document->views }}</td>
                                         <td>{{ $document->downloads }}</td>
-                                        <td><label class="label label-success">{{ $document->status }}</label></td>
                                         <td>
-                                            <a href="" class="btn btn-primary btn-sm" title="@lang('admin.view_document')"><i class="fa fa-eye"></i></a>
-                                            <a href="" class="btn btn-info btn-sm" title="@lang('admin.edit_document')"><i class="fa fa-pencil"></i></a>
-                                            <a href="" class="btn btn-danger btn-sm" title="@lang('admin.delete_document')"><i class="fa fa-trash"></i></a>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <a href="{{ route('view-document', $document->id) }}" class="btn btn-primary btn-sm" title="@lang('admin.view_document')"><i class="fa fa-eye"></i></a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a href="{{ route('manage-document.edit', $document->id) }}" class="btn btn-info btn-sm" title="@lang('admin.edit_document')"><i class="fa fa-pencil"></i></a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <form action="{{ route('manage-document.destroy', $document->id) }}" method="POST" class="form-delete-document">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-danger btn-sm btn-admin-delete-document" type="button"><i class="fa fa-trash"></i></button>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

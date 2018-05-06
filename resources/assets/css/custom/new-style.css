@@ -329,3 +329,14 @@
 .new-parent-category {
     text-align: right;
 }
+
+.wrap-add-new-moderator {
+    text-align: right;
+}
+
+.notifications-admin {
+    position: absolute;
+    z-index: 2000;
+    top: 5em;
+    right: 20px;
+}

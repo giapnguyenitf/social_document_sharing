@@ -109,6 +109,12 @@ class DocumentController extends Controller
         try {
             $document = $this->documentRepository->getDocument($id);
             $comments = $this->commentRepository->getComment($id);
+            $relatedDocuments = $this->documentRepository->where('category_id', $document->category_id)
+                ->where('id', '!=', $document->id)
+                ->with('user')->get()->take(10);
+            $authorUploaded = $this->documentRepository->where('status',config('settings.document.status.is_published'))
+                ->where('user_id', $document->user->id)->count();
+            $isBookmark = config('settings.document.is_bookmark.false');
             
             if (Session::has('recently_view')) {
                 $recentlyView = Session::get('recently_view');
@@ -123,19 +129,20 @@ class DocumentController extends Controller
                 Session::push('recently_view', $document->id);
             }
 
-            $relatedDocuments = $this->documentRepository->where('category_id', $document->category_id)
-                ->where('id', '!=', $document->id)
-                ->with('user')->get()->take(10);
-            $authorUploaded = $this->documentRepository->where('status',config('settings.document.status.is_published'))
-                ->where('user_id', $document->user->id)->count();
-
             if (Auth::check()) {
-                $isBookmark = $this->bookmarkRepository->isBookmark(Auth::user()->id, $id);
-            } else {
-                $isBookmark = config('settings.document.is_bookmark.false');
+                $user = Auth::user();
+                $isBookmark = $this->bookmarkRepository->isBookmark($user->id, $id);
+
+                if ( $user->can('view', $document)) {
+                    return view('user.pages.view-document', compact('document', 'relatedDocuments', 'authorUploaded', 'isBookmark', 'comments'));
+                }
+
+                return back()->with('messageError', trans('user.document.document_not_found'));
+            } else if ($document->isPublished()){
+                return view('user.pages.view-document', compact('document', 'relatedDocuments', 'authorUploaded', 'isBookmark', 'comments'));
             }
 
-            return view('user.pages.view-document', compact('document', 'relatedDocuments', 'authorUploaded', 'isBookmark', 'comments'));
+            return back()->with('messageError', trans('user.document.document_not_found'));
         } catch(Exception $e) {
             return back()->with('messageError', trans('user.document.document_not_found'));
         }
@@ -157,9 +164,9 @@ class DocumentController extends Controller
                 $parentCategories = $this->categoryRepository->where('parent_id', '=', config('settings.category.is_parent'))->get();
 
                 return view('user.pages.edit-document', compact('document', 'parentCategories'));
-            } else {
-                return back()->with('messageError', trans('user.document.you_are_not_allowed_edit_this_document'));
             }
+
+            return back()->with('messageError', trans('user.document.you_are_not_allowed_to_edit_this_document'));
         } catch(Exception $e) {
             return back()->with('messageError', trans('user.document.document_not_found'));
         }
@@ -172,7 +179,7 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateDocumentRequest $request, $id)
     {
         try {
             $document = $this->documentRepository->findOrFail($id);
@@ -194,7 +201,7 @@ class DocumentController extends Controller
 
                 return redirect()->route('uploaded-document.index')->with('messageSuccess', trans('user.document.update_success'));
             } else {
-                return back()->with('messageError', trans('user.document.you_are_not_allowed_edit_this_document'));
+                return back()->with('messageError', trans('user.document.you_are_not_allowed_to_edit_this_document'));
             }
         } catch(Exception $e) {
             return back()->with('messageError', trans('user.document.update_fail'));
@@ -218,7 +225,7 @@ class DocumentController extends Controller
 
                 return back()->with('messageSuccess', trans('user.document.delete_success'));
             } else {
-                return back()->with('messageError', trans('user.document.you_are_not_allowed_delete_this_document'));
+                return back()->with('messageError', trans('user.document.you_are_not_allowed_to_delete_this_document'));
             }
         } catch(Exception $e) {
             return back()->with('messageError', trans('user.document.document_not_found'));

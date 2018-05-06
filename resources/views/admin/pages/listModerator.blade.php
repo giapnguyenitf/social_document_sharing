@@ -5,7 +5,14 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">@lang('admin.list_users')</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3 class="box-title">@lang('admin.list_moderators')</h3>
+                            </div>
+                            <div class="col-md-6 wrap-add-new-moderator">
+                                <a href="" class="btn btn-success btn-sm"><i class="fa fa-plus"></i>&nbsp;@lang('admin.add_new_moderator')</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="box-body">
                         <table id="example2" class="table table-bordered table-hover">

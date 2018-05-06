@@ -359,4 +359,46 @@ $(document).ready(function () {
         $('#published-document-tables').DataTable();
         $('#illegal-document-tables').DataTable();
     });
+
+    // confirm admin delete document
+    $('.btn-admin-delete-document').on('click', function (e) {
+        var form = $(this).closest('.form-delete-document');
+        
+        swal({
+            title: "Are you sure?",
+            text: Lang.get('admin.modal.delete_document_message'),
+            icon: "warning",
+            dangerMode: true,
+            buttons: {
+                cancel: Lang.get('user.modal.bt_cancel_text'),
+                ok: Lang.get('user.modal.bt_delete_text'),
+            },
+        })
+        .then((value) => {
+            if (value == "ok") {
+                $(form).submit();
+            }
+        });
+    });
+
+    // confirm admin publish document
+    $('.btn-admin-publish-document').on('click', function (e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
+        swal({
+            title: "Are you sure?",
+            text: Lang.get('admin.modal.publish_document_notification'),
+            icon: "warning",
+            dangerMode: true,
+            buttons: {
+                cancel: Lang.get('admin.modal.bt_cancel_text'),
+                ok: Lang.get('admin.modal.bt_ok_text'),
+            },
+        })
+        .then((value) => {
+            if (value == 'ok') {
+                window.location = href;
+            }
+        });
+    });
 });

@@ -114,7 +114,7 @@ Route::namespace('Ajax')->group(function () {
     ]);
 });
 
-Route::middleware('auth')->namespace('Admin')->group(function () {
+Route::middleware('adminAuth')->namespace('Admin')->group(function () {
     Route::get('dashboard', [
         'uses' => 'DashboardController@index',
         'as' => 'dashboard.index',
@@ -139,5 +139,9 @@ Route::middleware('auth')->namespace('Admin')->group(function () {
     Route::get('manage-moderator', [
         'uses' => 'UserController@showModerator',
         'as' => 'manage-moderator.index',
+    ]);
+    Route::get('publish-document/{id}', [
+        'uses' => 'NewDocumentController@publishDocument',
+        'as' => 'new-documents.published',
     ]);
 });

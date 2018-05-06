@@ -70,16 +70,20 @@
                                     </div>
                                     <strong class="menu-profile">@lang('user.my_account') <i class="fa fa-caret-down"></i></strong>
                                 </div>
-                            @endauth
-                            @guest
-                                <i class="fa fa-user-o">&nbsp;</i><a href="{{ route('login') }}" class="">@lang('user.sign_in')</a> / <a href="{{ route('register') }}" class="">@lang('user.register')</a>
-                            @endguest
-                            <ul class="custom-menu">
+                                <ul class="custom-menu">
+                                @if (Auth::user()->isAdmin() || Auth::user()->isModerator())
+                                    <li><a href="{{ route('dashboard.index') }}" class="text-lowercase"><i class="fa fa-university"></i> @lang('admin.dashboard')</a></li>
+                                @endif
                                 <li><a href="{{ route('manage-profile') }}" class="text-lowercase"><i class="fa fa-user"></i> @lang('user.my_account')</a></li>
                                 <li><a href="{{ route('bookmark-document.index') }}" class="text-lowercase"><i class="fa fa-heart"></i> @lang('user.document_bookmarks')</a></li>
                                 <li><a href="{{ route('document.index') }}" class="text-lowercase"><i class="fa fa-cloud-upload"></i> @lang('user.upload')</a></li>
                                 <li><a href="{{ route('logout') }}" class="text-lowercase"><i class="glyphicon glyphicon-off"></i> @lang('user.logout')</a></li>
                             </ul>
+                            @endauth
+                            @guest
+                                <i class="fa fa-user-o">&nbsp;</i><a href="{{ route('login') }}" class="">@lang('user.sign_in')</a> / <a href="{{ route('register') }}" class="">@lang('user.register')</a>
+                            @endguest
+                           
                         </li>
                         <li class="nav-toggle">
                             <button class="nav-toggle-btn main-btn icon-btn"><i class="fa fa-bars"></i></button>
