@@ -70,11 +70,7 @@
                         </div>
                         <div class="tab-pane" id="uploaded-document">
                             <div class="document-uploaded-info">
-                                <div class="notifications">
-                                    @include('user.layouts.alert-success')
-                                    @include('user.layouts.alert-error')
-                                </div>
-                                <div class="">
+                                <div class="table-uploaded">
                                     <table id="user-uploadeds-table" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>

@@ -223,7 +223,10 @@
             </div>
         </div>
     </footer>
-
+    <div class="notifications-user">
+        @include('user.layouts.alert-success')
+        @include('user.layouts.alert-error')
+    </div>
     {{ Html::script('js/jquery.min.js') }}
     {{ Html::script('js/bootstrap.min.js') }}
     {{ Html::script('js/slick.min.js') }}

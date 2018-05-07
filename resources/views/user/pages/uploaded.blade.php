@@ -19,7 +19,7 @@
                                 <b>@lang('admin.user.followers')</b> <a class="pull-right">13,287</a>
                             </li>
                         </ul>
-                        <a href="#" class="btn btn-info btn-block btn-no-radius"><i class="fa fa-edit"></i> <b>@lang('user.edit_info')</b></a>
+                        <a href="{{ route('manage-profile') }}" class="btn btn-info btn-block btn-no-radius"><i class="fa fa-edit"></i> <b>@lang('user.edit_info')</b></a>
                     </div>
                 </div>
             </div>
@@ -35,11 +35,7 @@
                     <div class="tab-content">
                         <div class="active tab-pane" id="uploaded-document">
                             <div class="document-uploaded-info">
-                                <div class="notifications">
-                                    @include('user.layouts.alert-success')
-                                    @include('user.layouts.alert-error')
-                                </div>
-                                <div class="">
+                                <div class="table-uploaded">
                                     <table id="user-uploadeds-table" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
