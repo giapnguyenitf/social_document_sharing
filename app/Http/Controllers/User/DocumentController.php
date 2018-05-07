@@ -199,7 +199,7 @@ class DocumentController extends Controller
 
                 $this->documentRepository->update($id, $document);
 
-                return redirect()->route('uploaded-document.index')->with('messageSuccess', trans('user.document.update_success'));
+                return redirect()->route('uploaded-document.show')->with('messageSuccess', trans('user.document.update_success'));
             } else {
                 return back()->with('messageError', trans('user.document.you_are_not_allowed_to_edit_this_document'));
             }

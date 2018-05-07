@@ -100,7 +100,7 @@
                                         <label class="control-label col-md-3 label-thin" for="">@lang('user.thumbnail')</label>
                                         <div class="col-md-6">
                                            <div class="input-group">
-                                                <input class="form-control input-no-border input-url-thumbnail-image" type="text" name="thumbnail" readonly>
+                                                <input class="form-control input-no-border input-url-thumbnail-image" value="{{ $document->thumbnail }}" type="text" name="thumbnail" readonly>
                                                 <a href="#modal-upload-image" data-toggle="modal" class="btn btn-primary input-group-addon">@lang('user.document.upload_image')</a>
                                             </div>
                                         </div>
@@ -126,12 +126,3 @@
     </div>
     @include('user.layouts.modal-upload-image')
 @endsection
-@push('css')
-    {{ Html::style('css/bootstrap-datepicker.min.css') }}
-    {{ Html::style('css/dataTables.bootstrap.css') }}
-@endpush
-@push('js')
-    {{ Html::script('js/bootstrap-datepicker.min.js') }}
-    {{ Html::script('js/jquery.dataTables.js') }}
-    {{ Html::script('js/dataTables.bootstrap.js') }}
-@endpush
