@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers\Admin;
 
+// use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\UserRepositoryInterface;
+use App\Repositories\Contracts\DocumentRepositoryInterface;
 
 class UserController extends Controller
 {
     protected $userRepository;
+    protected $documentRepository;
     
     public function __construct(
-        UserRepositoryInterface $userRepository
+        UserRepositoryInterface $userRepository,
+        DocumentRepositoryInterface $documentRepository
     ) {
         $this->userRepository = $userRepository;
+        $this->documentRepository = $documentRepository;
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $users = $this->userRepository->getAllUsers();
@@ -27,72 +28,21 @@ class UserController extends Controller
         return view('admin.pages.listUser', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
-    }
+        try {
+            $user = $this->userRepository->with('documents')->findOrFail($id);
+            $uploadeds = $this->documentRepository->getUploadedDocument($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $user = $this->userRepository->find($id);
-
-        return view('admin.pages.editInfoUser', $user);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+            return view('admin.pages.viewInfoUser', compact('user', 'uploadeds'));
+        } catch (Exception $e) {
+            return back()->with('notificationError', trans('admin.notifications.user_not_found'));
+        }
     }
 
     public function showModerator()
@@ -100,5 +50,43 @@ class UserController extends Controller
         $moderators = $this->userRepository->getAllModerators();
 
         return view('admin.pages.listModerator', compact('moderators'));
+    }
+
+    public function block($id)
+    {
+        try {
+            $user = $this->userRepository->findOrFail($id);
+            $this->userRepository->update($id, ['is_ban' => config('settings.is_ban.true')]);
+
+            return back()->with('notificationSuccess', trans('admin.notifications.block_user_success', ['user' => $user->name]));
+        } catch (Exception $e) {
+            return back()->with('notificationError', trans('admin.notifications.user_not_found'));
+        }
+    }
+
+    public function unblock($id)
+    {
+        try {
+            $user = $this->userRepository->findOrFail($id);
+            $this->userRepository->update($id, ['is_ban' => config('settings.is_ban.false')]);
+
+            return back()->with('notificationSuccess', trans('admin.notifications.unblock_user_success', ['user' => $user->name]));
+        } catch (Exception $e) {
+            return back()->with('notificationError', trans('admin.notifications.user_not_found'));
+        }
+    }
+
+    public function showBlockedUsers()
+    {
+        $blockedUsers = $this->userRepository->getAllBlockedUsers();
+
+        return view('admin.pages.listBlockedUser', compact('blockedUsers'));
+    }
+
+    public function showBlockedMods()
+    {
+        $blockedMods = $this->userRepository->getAllBlockedMods();
+
+        return view('admin.pages.listBlockedMod', compact('blockedMods'));
     }
 }

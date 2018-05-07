@@ -358,6 +358,24 @@ $(document).ready(function () {
         $('#new-document-tables').DataTable();
         $('#published-document-tables').DataTable();
         $('#illegal-document-tables').DataTable();
+        $('#tables-user-uploaded').DataTable();
+        $('#user-downloadeds-table').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': false,
+            'autoWidth': false,
+        });
+        $('#user-bookmarks-table').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': false,
+            'autoWidth': false,
+        });
+        $('#user-uploadeds-table').DataTable();
     });
 
     // confirm admin delete document

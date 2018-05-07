@@ -161,11 +161,18 @@
                                 <i class="fa fa-dashboard"></i> <span>@lang('admin.dashboard')</span>
                             </a>
                         </li>
-                        <li class="">
-                            <a href="{{ route('manage-users.index') }}">
+                        <li class="treeview">
+                            <a href="#">
                                 <i class="fa fa-users"></i>
                                 <span>@lang('admin.members')</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
                             </a>
+                            <ul class="treeview-menu">
+                                <li><a href="{{ route('manage-users.index') }}"><i class="fa fa-circle-o text-red"></i> @lang('admin.user.user_actived')</a></li>
+                                <li><a href="{{ route('manage-users.showBlockedUsers') }}"><i class="fa fa-circle-o text-yellow"></i> @lang('admin.user.user_blocked')</a></li>
+                            </ul>
                         </li>
                         <li class="treeview">
                             <a href="#">
@@ -176,9 +183,9 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="{{ route('manage-document.index') }}"><i class="fa fa-circle-o text-red"></i> @lang('admin.new_documents')</a></li>
-                                <li><a href="{{ route('manage-document.published') }}"><i class="fa fa-circle-o text-yellow"></i> @lang('admin.public_documents')</a></li>
-                                <li><a href="{{ route('manage-document.illegal') }}"><i class="fa fa-circle-o text-aqua"></i> @lang('admin.illegal_documents')</a></li>
+                                <li><a href="{{ route('manage-document.index') }}"><i class="fa fa-circle-o text-red"></i> @lang('admin.document.not_checking')</a></li>
+                                <li><a href="{{ route('manage-document.published') }}"><i class="fa fa-circle-o text-yellow"></i> @lang('admin.document.published')</a></li>
+                                <li><a href="{{ route('manage-document.illegal') }}"><i class="fa fa-circle-o text-aqua"></i> @lang('admin.document.illegal')</a></li>
                             </ul>
                         </li>
                         <li class="header">@lang('admin.sub_navigation')</li>
@@ -188,10 +195,18 @@
                                 <span>@lang('admin.categories')</span>
                             </a>
                         </li>
-                        <li class="">
-                            <a href="{{ route('manage-moderator.index') }}">
-                                <i class="fa fa-key"></i> <span>@lang('admin.moderators')</span>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-key"></i>
+                                <span>@lang('admin.moderators')</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
                             </a>
+                            <ul class="treeview-menu">
+                                <li><a href="{{ route('manage-moderator.index') }}"><i class="fa fa-circle-o text-red"></i> @lang('admin.user.user_actived')</a></li>
+                                <li><a href="{{ route('manage-users.showBlockedMods') }}"><i class="fa fa-circle-o text-yellow"></i> @lang('admin.user.user_blocked')</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </section>

@@ -19,9 +19,9 @@
                 </li>
                 <li class=""><a href="{{ route('manage-profile') }}"><i class="fa fa-user"></i>@lang('user.user_infomation')</a></li>
                 <li class=""><a href="{{ route('document.index') }}"><i class="glyphicon glyphicon-cloud-upload"></i>@lang('user.upload')</a></li>
-                <li class=""><a href="{{ route('uploaded-document.index') }}"><i class="glyphicon glyphicon-open-file"></i>@lang('user.uploaded')</a></li>
-                <li class=""><a href="{{ route('downloaded-document.show') }}"><i class="glyphicon glyphicon-cloud-download"></i>@lang('user.downloaded')</a></li>
-                <li class=""><a href="{{ route('bookmark-document.index') }}"><i class="glyphicon glyphicon-heart"></i>@lang('user.bookmark_document')</a></li>
+                <li class=""><a href=""><i class="glyphicon glyphicon-open-file"></i>@lang('user.uploaded')</a></li>
+                <li class=""><a href=""><i class="glyphicon glyphicon-cloud-download"></i>@lang('user.downloaded')</a></li>
+                <li class=""><a href=""><i class="glyphicon glyphicon-heart"></i>@lang('user.bookmark_document')</a></li>
             </ul>
         </div>
     </div>

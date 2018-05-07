@@ -264,18 +264,4 @@ class DocumentController extends Controller
             return back();
         }
     }
-
-    public function showDownloaded()
-    {
-        try {
-            $user = Auth::user();
-            $downloadedDocument = explode(',', $user->downloaded);
-            $downloadedDocuments = $this->documentRepository->withTrashed()->whereIn('id', $downloadedDocument)
-                ->paginate(config('settings.document.downloaded.paginate'));
-
-            return view('user.pages.downloaded', compact('downloadedDocuments'));
-        } catch(Exception $e) {
-            return back();
-        }
-    }
 }

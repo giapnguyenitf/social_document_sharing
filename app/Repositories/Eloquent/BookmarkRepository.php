@@ -23,6 +23,6 @@ class BookmarkRepository extends BaseRepository implements BookmarkRepositoryInt
     {
         return $this->model->where('user_id', $userId)
             ->with('document')
-            ->paginate(config('settings.document.bookmark.paginate'));
+            ->get();
     }
 }

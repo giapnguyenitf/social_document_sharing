@@ -26,42 +26,48 @@
             <div class="col-md-9">
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li><a href="{{ route('manage-profile') }}">@lang('user.user_info')</a></li>
+                        <li class="active"><a href="#user-profile" data-toggle="tab">@lang('user.user_info')</a></li>
                         <li><a href="{{ route('bookmark-document.index') }}">@lang('user.bookmark')</a></li>
                         <li><a href="{{ route('uploaded-document.show') }}">@lang('user.uploaded')</a></li>
-                        <li class="active"><a href="#downloaded-document" data-toggle="tab">@lang('user.downloaded')</a></li>
+                        <li><a href="{{ route('downloaded-document.show') }}">@lang('user.downloaded')</a></li>
                         <li><a href="{{ route('document.index') }}">@lang('user.upload')</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div class="active tab-pane" id="downloaded-document">
-                            <div class="document-downloaded-info">
-                                <div class="notifications">
-                                    @include('user.layouts.alert-success')
-                                    @include('user.layouts.alert-error')
+                        <div class="active tab-pane" id="user-profile">
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 label-thin" for="">@lang('user.name')</label>
+                                <div class="col-md-9">
+                                    <p>{{ Auth::user()->name }}</p>
                                 </div>
-                                <div class="">
-                                    <table id="user-downloadeds-table" class="table table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>@lang('user.title')</th>
-                                                <th>@lang('user.category')</th>
-                                                <th>@lang('user.document_size')</th>
-                                                <th>@lang('user.uploader')</th>
-                                                <th>@lang('user.date_download')</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($downloadeds as $downloaded)
-                                                <tr>
-                                                    <td><a class="text-link" href="{{ route('view-document', $downloaded->id) }}">{{ $downloaded->name }}</a></td>
-                                                    <td>{{ $downloaded->category->name }}</td>
-                                                    <td>{{ $downloaded->file_size }}</td>
-                                                    <td><a href="">{{ $downloaded->user->name }}</a></td>
-                                                    <td>{{ $downloaded->created_at->format('d/m/Y') }}</td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 label-thin" for="">@lang('user.email')</label>
+                                <div class="col-md-9">
+                                    <p>{{ Auth::user()->email }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 label-thin" for="">@lang('user.date_of_birth')</label>
+                                <div class="col-md-9">
+                                    <p>{{ Auth::user()->date_of_birth }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 label-thin" for="">@lang('user.address')</label>
+                                <div class="col-md-9">
+                                    <p>{{ Auth::user()->address }}</p>
+                                </div>
+                            </div>
+                                <div class="form-group row">
+                                <label class="control-label col-md-3 label-thin" for="">@lang('user.gender')</label>
+                                <div class="col-md-9">
+                                    <p>{{ Auth::user()->gender_name }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 label-thin" for="">@lang('user.phone')</label>
+                                <div class="col-md-9">
+                                    <p>{{ Auth::user()->phone }}</p>
                                 </div>
                             </div>
                         </div>

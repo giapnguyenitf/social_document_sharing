@@ -7,10 +7,7 @@
                     <div class="box-header">
                         <div class="row">
                             <div class="col-md-6">
-                                <h3 class="box-title">@lang('admin.list_moderators')</h3>
-                            </div>
-                            <div class="col-md-6 wrap-add-new-moderator">
-                                <a href="" class="btn btn-success btn-sm"><i class="fa fa-plus"></i>&nbsp;@lang('admin.add_new_moderator')</a>
+                                <h3 class="box-title">@lang('admin.list_blocked_moderators')</h3>
                             </div>
                         </div>
                     </div>
@@ -26,15 +23,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($moderators as $moderator)
+                                @foreach ($blockedMods as $blockedMod)
                                     <tr>
-                                        <td>{{ $moderator->name }}</td>
-                                        <td>{{ $moderator->email }}</td>
-                                        <td>{{ $moderator->user_type }}</td>
-                                        <td>{{ $moderator->created_at->format('d/m/Y') }}</td>
+                                        <td>{{ $blockedMod->name }}</td>
+                                        <td>{{ $blockedMod->email }}</td>
+                                        <td>{{ $blockedMod->user_type }}</td>
+                                        <td>{{ $blockedMod->created_at->format('d/m/Y') }}</td>
                                         <td>
-                                            <a href="{{ route('manage-users.show', $moderator->id) }}" class="btn btn-success btn-sm" title="@lang('admin.view_user_info')"><i class="fa fa-eye"></i> @lang('admin.view_user_info')</a>
-                                            <a href="{{ route('manage-users.block', $moderator->id) }}" class="btn btn-danger btn-sm" title="@lang('admin.ban_user')"><i class="fa fa-times"></i> @lang('admin.block_user')</a>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <a href="{{ route('manage-users.show', $blockedMod->id) }}" class="btn btn-success btn-sm" title="@lang('admin.view_user_info')"><i class="fa fa-eye"></i> @lang('admin.view_user_info')</a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a href="{{ route('manage-users.unblock', $blockedMod->id) }}" class="btn btn-danger btn-sm" title="@lang('admin.ban_user')"><i class="fa fa-times"></i> @lang('admin.user.unblock_user')</a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

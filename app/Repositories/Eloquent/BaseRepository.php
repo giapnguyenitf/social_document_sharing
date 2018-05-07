@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositories\Contracts\RepositoryInterface;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 abstract class BaseRepository implements RepositoryInterface
 {
