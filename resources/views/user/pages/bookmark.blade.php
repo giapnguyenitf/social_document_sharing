@@ -73,12 +73,3 @@
         </div>
     </div>
 @endsection
-@push('css')
-    {{ Html::style('css/bootstrap-datepicker.min.css') }}
-    {{ Html::style('css/dataTables.bootstrap.css') }}
-@endpush
-@push('js')
-    {{ Html::script('js/bootstrap-datepicker.min.js') }}
-    {{ Html::script('js/jquery.dataTables.js') }}
-    {{ Html::script('js/dataTables.bootstrap.js') }}
-@endpush

@@ -14,6 +14,8 @@
     {{ Html::style('css/slick-theme.css') }}
     {{ Html::style('css/nouislider.min.css') }}
     {{ Html::style('css/main-style.css') }}
+    {{ Html::style('css/bootstrap-datepicker.min.css') }}
+    {{ Html::style('css/dataTables.bootstrap.css') }}
     {{ Html::style('css/new-style.css') }}
     @stack('css')
 </head>
@@ -230,6 +232,9 @@
     {{ Html::script('messages.js') }}
     {{ Html::script('js/main.js') }}
     {{ Html::script('js/sweetalert.min.js') }}
+    {{ Html::script('js/bootstrap-datepicker.min.js') }}
+    {{ Html::script('js/jquery.dataTables.js') }}
+    {{ Html::script('js/dataTables.bootstrap.js') }}
     @stack('js')
     {{ Html::script('js/new-event.js') }}
 </body>

@@ -8,7 +8,9 @@
                         <div class="row">
                             <div class="col-md-12 document-name">
                                 <h3>{{ $document->name }}</h3>
-                               
+                            </div>
+                            <div class="col-md-12 document-description">
+                                <p>{{ $document->description }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -50,6 +52,10 @@
                                                 <i class="fa fa-heart"></i>&nbsp;@lang('user.document.bookmark')
                                             </a>
                                         @endif
+                                    @else
+                                        <a href="{{ route('login') }}" class="btn btn-success btn-sm">
+                                            <i class="fa fa-heart"></i>&nbsp;@lang('user.document.bookmark')
+                                        </a>
                                     @endif
                                     <a href="" class="btn btn-warning btn-sm">
                                         <i class="fa fa-times"></i>&nbsp;@lang('user.document.report_illegal')
@@ -57,6 +63,7 @@
                                 </div>
                             </div>
                         </div>
+                       
                     </div>
                     <div id="viewer">
                         <div class="row">
@@ -108,7 +115,11 @@
                                             <div class="btn-group-comment-input hidden">
                                                 <a href="" id="btn-send-comment" data-document-id="{{ $document->id }}" data-url="{{ route('ajax-comment-document') }}" class="btn btn-info btn-sm">@lang('user.comment.send')</a>
                                                 <a href="" id="btn-cancel-comment" class="btn btn-default btn-sm">@lang('user.comment.cancel')</a>
-                                                <a class="messages-validate-comment"></a>
+                                                <a class="messages-validate-comment">
+                                                    @if (!Auth::check())
+                                                        @lang('user.comment.you_must_login_before_comment')
+                                                    @endif
+                                                </a>
                                             </div>
                                         </div>
                                     </div>

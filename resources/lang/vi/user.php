@@ -177,6 +177,7 @@ return [
         'weeks_ago' => 'Tuần trước',
         'months_ago' => 'Tháng trước',
         'years_ago' => 'Năm trước',
+        'you_must_login_before_comment' => 'Bạn phải đăng nhập mới có thể bình luận!',
     ],
     'sharing_title' => 'Chia sẻ tài liệu này cho bạn bè nữa nhé!',
     'follow' => 'Theo dõi',

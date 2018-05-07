@@ -1,28 +1,19 @@
-<div class="sidebar-profile">
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <h3 class="panel-title">@lang('user.member')</h3>
-        </div>
-        <div class="panel-body">
-            <ul class="sidebar-panel">
-                <li class"avatar">
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <div class="user-avatar">
-                                <img class="img-responsive" src="{{ Auth::user()->avatar }}" alt="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <h4 class="user-name">{{ Auth::user()->name }}</h4>
-                        </div>
-                    </div>
-                </li>
-                <li class=""><a href="{{ route('manage-profile') }}"><i class="fa fa-user"></i>@lang('user.user_infomation')</a></li>
-                <li class=""><a href="{{ route('document.index') }}"><i class="glyphicon glyphicon-cloud-upload"></i>@lang('user.upload')</a></li>
-                <li class=""><a href=""><i class="glyphicon glyphicon-open-file"></i>@lang('user.uploaded')</a></li>
-                <li class=""><a href=""><i class="glyphicon glyphicon-cloud-download"></i>@lang('user.downloaded')</a></li>
-                <li class=""><a href=""><i class="glyphicon glyphicon-heart"></i>@lang('user.bookmark_document')</a></li>
-            </ul>
-        </div>
+<div class="box box-primary">
+    <div class="box-body box-profile">
+        <img class="profile-user-img img-responsive img-circle" src="{{ Auth::user()->avatar }}" alt="">
+        <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
+        <p class="text-muted text-center"></p>
+        <ul class="list-group list-group-unbordered">
+            <li class="list-group-item">
+                <b class="text-blue">@lang('admin.user.uploaded')</b> <a class="pull-right">123</a>
+            </li>
+            <li class="list-group-item">
+                <b>@lang('admin.user.following')</b> <a class="pull-right">543</a>
+            </li>
+            <li class="list-group-item">
+                <b>@lang('admin.user.followers')</b> <a class="pull-right">13,287</a>
+            </li>
+        </ul>
+        <a href="#" class="btn btn-info btn-block btn-no-radius"><i class="fa fa-edit"></i> <b>@lang('user.edit_info')</b></a>
     </div>
 </div>
