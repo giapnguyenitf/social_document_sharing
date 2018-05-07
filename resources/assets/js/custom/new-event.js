@@ -376,6 +376,13 @@ $(document).ready(function () {
             'autoWidth': false,
         });
         $('#user-uploadeds-table').DataTable();
+        // hidden notifications after 2 seconds
+        setTimeout(function () {
+            $(".notifications-admin").fadeOut('slow');
+        }, 2000);
+        setTimeout(function () {
+            $(".notifications-user").fadeOut('slow');
+        }, 2000);
     });
 
     // confirm admin delete document
@@ -418,5 +425,13 @@ $(document).ready(function () {
                 window.location = href;
             }
         });
+    });
+
+    // enable edit profile
+    $('#btn-edit-profile'). click(function (e) {
+        e.preventDefault();
+        $('.form-edit-profile').find('.form-control').removeAttr('disabled');
+        $('.form-edit-profile').find('.gender-user').removeClass('p-locked');
+        $('.form-edit-profile').find('#btn-save-edit-profile').removeClass('hidden');
     });
 });

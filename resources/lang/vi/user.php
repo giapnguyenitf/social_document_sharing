@@ -106,6 +106,7 @@ return [
     'date_of_birth' => 'Ngày sinh',
     'profile' => [
         'update_success' => 'Cập nhật thông tin thành công!',
+        'update_fail' => 'Cập nhật thông tin thất bại!',
     ],
     'required_agree_with_term' => 'Bạn phải đông ý với điều khoản và điều kiện trước khi tải lên',
     'thumbnail' => 'Hình minh họa',
@@ -187,4 +188,5 @@ return [
         'male' => 'Nam',
         'female' => 'Nữ',
     ],
+    'save' => 'Lưu',
 ];

@@ -19,7 +19,7 @@
                                 <b>@lang('admin.user.followers')</b> <a class="pull-right">13,287</a>
                             </li>
                         </ul>
-                        <a href="#" class="btn btn-info btn-block btn-no-radius"><i class="fa fa-edit"></i> <b>@lang('user.edit_info')</b></a>
+                        <a href="#" class="btn btn-info btn-block btn-no-radius" id="btn-edit-profile" ><i class="fa fa-edit"></i> <b>@lang('user.edit_info')</b></a>
                     </div>
                 </div>
             </div>
@@ -33,43 +33,88 @@
                         <li><a href="{{ route('document.index') }}">@lang('user.upload')</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div class="active tab-pane" id="user-profile">
-                            <div class="form-group row">
-                                <label class="control-label col-md-3 label-thin" for="">@lang('user.name')</label>
-                                <div class="col-md-9">
-                                    <p>{{ Auth::user()->name }}</p>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-md-3 label-thin" for="">@lang('user.email')</label>
-                                <div class="col-md-9">
-                                    <p>{{ Auth::user()->email }}</p>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-md-3 label-thin" for="">@lang('user.date_of_birth')</label>
-                                <div class="col-md-9">
-                                    <p>{{ Auth::user()->date_of_birth }}</p>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-md-3 label-thin" for="">@lang('user.address')</label>
-                                <div class="col-md-9">
-                                    <p>{{ Auth::user()->address }}</p>
-                                </div>
-                            </div>
+                        <div class="active tab-pane" id="user-profile" enctype="multipart/form-data">
+                            <form action="{{ route('update-profile') }}" method="POST" class="form-edit-profile">
+                                @csrf
                                 <div class="form-group row">
-                                <label class="control-label col-md-3 label-thin" for="">@lang('user.gender')</label>
-                                <div class="col-md-9">
-                                    <p>{{ Auth::user()->gender_name }}</p>
+                                    <label class="control-label col-md-3 label-thin" for="">@lang('user.name')</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" name="name" value="{{ Auth::user()->name }}" disabled>
+                                        @if ($errors->has('name'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('name') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-md-3 label-thin" for="">@lang('user.phone')</label>
-                                <div class="col-md-9">
-                                    <p>{{ Auth::user()->phone }}</p>
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3 label-thin" for="">@lang('user.email')</label>
+                                    <div class="col-md-6">
+                                        <input type="email" class="form-control" value="{{ Auth::user()->email }}" disabled>
+                                        @if ($errors->has('email'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3 label-thin" for="">@lang('user.date_of_birth')</label>
+                                    <div class="col-md-6">
+                                        <input type="text" data-date-format="yyyy-mm-dd" name="date_of_birth" data-provide="datepicker" class="form-control" value="{{ Auth::user()->date_of_birth }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3 label-thin" for="">@lang('user.address')</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" value="{{ Auth::user()->address }}" disabled>
+                                        @if ($errors->has('address'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('address') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                    <div class="form-group row">
+                                    <label class="control-label col-md-3 label-thin" for="">@lang('user.gender')</label>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                               <div class="pretty p-default p-curve gender-user p-locked">
+                                                    <input type="radio" value="1" class="form-control" name="gender" {{ Auth::user()->gender == 1 ? 'checked' : '' }} />
+                                                    <div class="state p-primary-o">
+                                                        <label>@lang('user.genders.male')</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                               <div class="pretty p-default p-curve gender-user p-locked">
+                                                    <input type="radio" value="0" class="form-control" name="gender" {{ Auth::user()->gender == 0 ? 'checked' : '' }} />
+                                                    <div class="state p-primary-o">
+                                                        <label>@lang('user.genders.female')</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3 label-thin" for="">@lang('user.phone')</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" value="{{ Auth::user()->phone }}" disabled>
+                                        @if ($errors->has('phone'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('phone') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-2 col-md-offset-3">
+                                        <button class="btn btn-info btn-block btn-sm hidden" id="btn-save-edit-profile">@lang('user.save')</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

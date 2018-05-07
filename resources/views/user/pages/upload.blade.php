@@ -19,7 +19,7 @@
                                 <b>@lang('admin.user.followers')</b> <a class="pull-right">13,287</a>
                             </li>
                         </ul>
-                        <a href="#" class="btn btn-info btn-block btn-no-radius"><i class="fa fa-edit"></i> <b>@lang('user.edit_info')</b></a>
+                        <a href="{{ route('manage-profile') }}" class="btn btn-info btn-block btn-no-radius"><i class="fa fa-edit"></i> <b>@lang('user.edit_info')</b></a>
                     </div>
                 </div>
             </div>
@@ -37,12 +37,6 @@
                             <div class="form-upload-document">
                                 <form action="{{ route('document.store') }}" method="POST" class="form-horizontal form-upload-document" enctype="multipart/form-data" files="true">
                                     @csrf
-                                    <div class="form-group">
-                                        <div class="col-md-8 col-md-offset-3">
-                                            @include('user.layouts.alert-success')
-                                            @include('user.layouts.alert-error')
-                                        </div>
-                                    </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 label-thin" for="">@lang('user.document_name')</label>
                                         <div class="col-md-8">
