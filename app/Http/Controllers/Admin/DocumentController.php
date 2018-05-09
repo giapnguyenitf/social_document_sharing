@@ -106,7 +106,7 @@ class DocumentController extends Controller
             ]);
 
             if ($user->can('update', $document)) {
-                $this->documentRepository->update($id, $data);
+                $this->documentRepository->where('id', $id)->update($data);
 
                 return redirect()->route('manage-document.index')
                     ->with('notificationSuccess', trans('admin.notifications.update_document_success'));

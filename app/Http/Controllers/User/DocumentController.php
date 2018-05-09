@@ -77,18 +77,15 @@ class DocumentController extends Controller
                 'name',
                 'description',
                 'tag',
+                'thumbnail',
             ]);
 
             $file = $request->file('document');
-            $thumbnail = $request->file('thumbnail');
             $filePath = $this->uploadFile(config('settings.document.path_store'), $file);
-            $thumbnailPath = $this->uploadFile(config('settings.document.path_thumbnail'), $thumbnail);
-            
             $document['file_name'] = $filePath;
             $document['file_size'] = round($file->getClientSize()/(1024*1024), 2);
             $document['file_type'] = $file->extension();
             $document['category_id'] = $request->input('child_category');
-            $document['thumbnail'] = $thumbnailPath;
             $document['user_id'] = Auth::user()->id;
             $this->documentRepository->create($document);
 
@@ -120,12 +117,12 @@ class DocumentController extends Controller
                 $recentlyView = Session::get('recently_view');
                 if (!in_array($id, $recentlyView)) {
                     $views = $document->views + 1;
-                    $this->documentRepository->update($id, ['views' => $views]);
+                    $this->documentRepository->where('id', $id)->update(['views' => $views]);
                     Session::push('recently_view', $document->id);
                 } 
             } else {
                 $views = $document->views + 1;
-                $this->documentRepository->update($id, ['views' => $views]);
+                $this->documentRepository->where('id', $id)->update(['views' => $views]);
                 Session::push('recently_view', $document->id);
             }
 
@@ -197,7 +194,7 @@ class DocumentController extends Controller
                     $document['thumbnail'] = $request->thumbnail;
                 }
 
-                $this->documentRepository->update($id, $document);
+                $this->documentRepository->where('id', $id)->update($document);
 
                 return redirect()->route('uploaded-document.show')->with('messageSuccess', trans('user.document.update_success'));
             } else {
@@ -242,7 +239,7 @@ class DocumentController extends Controller
 
             if ($exist) {
                 $downloads = $document->downloads + 1;
-                $this->documentRepository->update($id, ['downloads' => $downloads]);
+                $this->documentRepository->where('id', $id)->update(['downloads' => $downloads]);
 
                 if (Auth::check()) {
                     $downloadedDocument = Auth::user()->downloaded;

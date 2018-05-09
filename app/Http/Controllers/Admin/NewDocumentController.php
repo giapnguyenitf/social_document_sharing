@@ -21,7 +21,7 @@ class NewDocumentController extends Controller
     {
         try {
             $this->documentRepository->findOrFail($id);
-            $this->documentRepository->update($id, ['status' => config('settings.document.status.is_published')]);
+            $this->documentRepository->where('id', $id)->update(['status' => config('settings.document.status.is_published')]);
 
             return back()->with('notificationSuccess', trans('admin.notifications.publish_document_success'));
         } catch (Exception $e) {

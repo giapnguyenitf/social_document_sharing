@@ -28,7 +28,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">@lang('user.document.cancel')</button>
-                <button type="button" class="btn btn-primary btn-save-image" data-dismiss="modal">@lang('user.document.save')</button>
+                <button type="button" class="btn btn-info btn-save-image" data-dismiss="modal">@lang('user.document.save')</button>
             </div>
         </div>
     </div>

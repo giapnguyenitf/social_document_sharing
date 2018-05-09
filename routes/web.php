@@ -116,6 +116,14 @@ Route::namespace('Ajax')->group(function () {
         'uses' => 'DocumentController@comment',
         'as' => 'ajax-comment-document',
     ]);
+    Route::get('count-new-document', [
+        'uses' => 'DocumentController@countNewDocuments',
+        'as' => 'ajax-count-new-document',
+    ]);
+    Route::post('add-sub-category', [
+        'uses' => 'CategoryController@create',
+        'as' => 'ajax-add-sub-category',
+    ]);
 });
 
 Route::middleware('adminAuth')->namespace('Admin')->group(function () {
@@ -170,5 +178,17 @@ Route::middleware('adminAuth')->namespace('Admin')->group(function () {
     Route::get('publish-document/{id}', [
         'uses' => 'NewDocumentController@publishDocument',
         'as' => 'new-documents.published',
+    ]);
+    Route::post('add-new-category', [
+        'uses' => 'CategoryController@create',
+        'as' => 'category.add',
+    ]);
+    Route::post('update-category',[
+        'uses' => 'CategoryController@update',
+        'as' => 'category.update'
+    ]);
+    Route::delete('delete-category/{id}', [
+        'uses' => 'CategoryController@delete',
+        'as' => 'category.delete',
     ]);
 });

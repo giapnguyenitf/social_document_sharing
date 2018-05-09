@@ -79,7 +79,7 @@ class UserController extends Controller
                 }
             }
 
-            $this->userRepository->update($authUser->id ,$user);
+            $this->userRepository->where('id', $authUser->id )->update($user);
 
             return back()->with('messageSuccess', trans('user.profile.update_success'));
 

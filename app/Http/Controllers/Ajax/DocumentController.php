@@ -7,18 +7,22 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\BookmarkRepositoryInterface;
 use App\Repositories\Contracts\CommentRepositoryInterface;
+use App\Repositories\Contracts\DocumentRepositoryInterface;
 
 class DocumentController extends Controller
 {
     protected $bookmarkRepository;
     protected $commentRepository;
+    protected $documentRepository;
 
     public function __construct(
         BookmarkRepositoryInterface  $bookmarkRepository,
-        CommentRepositoryInterface $commentRepository
+        CommentRepositoryInterface $commentRepository,
+        DocumentRepositoryInterface $documentRepository
     ) {
         $this->bookmarkRepository = $bookmarkRepository;
         $this->commentRepository = $commentRepository;
+        $this->documentRepository = $documentRepository;
     }
 
     public function bookmark(Request $request) {
@@ -71,6 +75,22 @@ class DocumentController extends Controller
 
             return response()->json([
                 'success' => false,
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+        ]);
+    }
+
+    public function countNewDocuments(Request $request)
+    {
+        if ($request->ajax()) {
+            $newDocument = $this->documentRepository->getChecking()->count();
+
+            return response()->json([
+                'success' => true,
+                'data' => $newDocument,
             ]);
         }
 

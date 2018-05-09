@@ -101,7 +101,7 @@
                                         <div class="col-md-6">
                                            <div class="input-group">
                                                 <input class="form-control input-no-border input-url-thumbnail-image" value="{{ $document->thumbnail }}" type="text" name="thumbnail" readonly>
-                                                <a href="#modal-upload-image" data-toggle="modal" class="btn btn-primary input-group-addon">@lang('user.document.upload_image')</a>
+                                                <a href="#modal-upload-image" data-toggle="modal" class="btn btn-primary input-group-addon btn-change-thumbnail"><i class="fa fa-image"></i>&nbsp;@lang('user.document.change_thumbnail')</a>
                                             </div>
                                         </div>
                                     </div>

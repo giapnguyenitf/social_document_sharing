@@ -114,7 +114,6 @@
                             </div>
                         </div>
                         <div class="pull-right">
-                            {{ $allDocuments->links() }}
                         </div>
                     </div>
 

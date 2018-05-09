@@ -56,7 +56,7 @@ class UserController extends Controller
     {
         try {
             $user = $this->userRepository->findOrFail($id);
-            $this->userRepository->update($id, ['is_ban' => config('settings.is_ban.true')]);
+            $this->userRepository->where('id', $id)->update(['is_ban' => config('settings.is_ban.true')]);
 
             return back()->with('notificationSuccess', trans('admin.notifications.block_user_success', ['user' => $user->name]));
         } catch (Exception $e) {
@@ -68,7 +68,7 @@ class UserController extends Controller
     {
         try {
             $user = $this->userRepository->findOrFail($id);
-            $this->userRepository->update($id, ['is_ban' => config('settings.is_ban.false')]);
+            $this->userRepository->where('id', $id)->update(['is_ban' => config('settings.is_ban.false')]);
 
             return back()->with('notificationSuccess', trans('admin.notifications.unblock_user_success', ['user' => $user->name]));
         } catch (Exception $e) {
