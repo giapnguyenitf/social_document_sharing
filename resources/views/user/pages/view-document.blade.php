@@ -63,11 +63,11 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                     </div>
                     <div id="viewer">
                         <div class="row">
-                            <iframe class="col-md-12 col-xs-12 no-padding" height="800px" src="{{ $document->file_name }}" frameborder="0">
+                            <iframe class="col-md-12 col-xs-12 no-padding" height="800px" src="{{ $urlViewer }}" frameborder="0">
                             </iframe>
                         </div>
                         <div class="row sharing-row">
@@ -146,7 +146,7 @@
                                         </div>
                                         <div class="col-md-11">
                                             <div class="comment-user-name">
-                                                <h4><a class="user-name" href="">{{ $comment->user->name }}</a> <span class="comment-time">{{ $comment->comment_at }}</span></h4> 
+                                                <h4><a class="user-name" href="">{{ $comment->user->name }}</a> <span class="comment-time">{{ $comment->comment_at }}</span></h4>
                                             </div>
                                             <div class="comment-message">{{ $comment->messages }}</div>
                                         </div>

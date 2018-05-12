@@ -192,3 +192,7 @@ Route::middleware('adminAuth')->namespace('Admin')->group(function () {
         'as' => 'category.delete',
     ]);
 });
+
+Route::get('viewer.html', function () {
+    return view('user.pages.viewer');
+})->name('viewer');
