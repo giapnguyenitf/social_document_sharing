@@ -112,7 +112,7 @@
 .user-upload-document .panel .panel-heading {
     background: #00b5ad;
     color: #fff;
-} 
+}
 
 .link {
     color: #00b5ad !important;
@@ -546,4 +546,34 @@
 
 .text-white {
     color: #fff;
+}
+
+.btn-change-thumbnail {
+    background: #00b5ad;
+    color: #fff;
+}
+
+.btn-login {
+    border-radius: 5px !important;
+}
+
+.box-edit-category {
+    display: none;
+}
+
+.box-add-new-category {
+    display: none;
+}
+
+.category-paginate {
+    padding-top: 20px;
+}
+
+.loader-3 .dot {
+    width: 10px;
+    height: 10px;
+    background: #00e676;
+    border-radius: 50%;
+    position: absolute;
+    top: calc(50% - 5px);
 }

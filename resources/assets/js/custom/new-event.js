@@ -5,13 +5,7 @@ $(document).ready(function () {
         }
     });
 
-    $('#bt-add-new-category').on('click', function () {
-        $('.js-add-new-category').removeClass('hidden');
-    });
 
-    $('#bt-cancel-add-new-category').on('click', function () {
-        $('.js-add-new-category').addClass('hidden');
-    });
 
     $('#parent-category').click(function () {
         $('#child-category').empty();
@@ -303,7 +297,7 @@ $(document).ready(function () {
                                 </div>
                                 <div class="col-md-11">
                                     <div class="comment-user-name">
-                                        <h4><a class="user-name" href="">${comment.user.name}</a> <span class="comment-time">${comment.comment_at}</span></h4> 
+                                        <h4><a class="user-name" href="">${comment.user.name}</a> <span class="comment-time">${comment.comment_at}</span></h4>
                                     </div>
                                     <div class="comment-message">${comment.messages}</div>
                                 </div>
@@ -322,7 +316,7 @@ $(document).ready(function () {
                                 </div>
                                 <div class="col-md-11">
                                     <div class="comment-user-name">
-                                        <h4><a class="user-name" href="">${comment.user.name}</a> <span class="comment-time">${comment.comment_at}</span></h4> 
+                                        <h4><a class="user-name" href="">${comment.user.name}</a> <span class="comment-time">${comment.comment_at}</span></h4>
                                     </div>
                                     <div class="comment-message">${comment.messages}</div>
                                 </div>
@@ -376,19 +370,35 @@ $(document).ready(function () {
             'autoWidth': false,
         });
         $('#user-uploadeds-table').DataTable();
+        $('#table-list-category').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': false,
+            'autoWidth': false,
+            "pageLength": 1,
+            "lengthMenu": [1, 5, 10, 25, 50],
+        });
+
         // hidden notifications after 2 seconds
         setTimeout(function () {
             $(".notifications-admin").fadeOut('slow');
         }, 2000);
+
         setTimeout(function () {
             $(".notifications-user").fadeOut('slow');
         }, 2000);
+
+        $('html, body').animate({
+            scrollTop: 0
+        }, 800);
     });
 
     // confirm admin delete document
     $('.btn-admin-delete-document').on('click', function (e) {
         var form = $(this).closest('.form-delete-document');
-        
+
         swal({
             title: "Are you sure?",
             text: Lang.get('admin.modal.delete_document_message'),
@@ -433,5 +443,112 @@ $(document).ready(function () {
         $('.form-edit-profile').find('.form-control').removeAttr('disabled');
         $('.form-edit-profile').find('.gender-user').removeClass('p-locked');
         $('.form-edit-profile').find('#btn-save-edit-profile').removeClass('hidden');
+    });
+
+    // delete category
+    $('body').on('click', '.bt-delete-category', function (e) {
+        e.preventDefault();
+        let form = $(this).closest('.form-delete-category');
+        swal({
+            title: "Are you sure?",
+            text: Lang.get('admin.modal.delete_category_message'),
+            icon: "warning",
+            dangerMode: true,
+            buttons: {
+                cancel: Lang.get('user.modal.bt_cancel_text'),
+                ok: Lang.get('user.modal.bt_delete_text'),
+            },
+        })
+        .then((value) => {
+            if (value == "ok") {
+                $(form).submit();
+            }
+        });
+    });
+
+    //  live loading new document upload
+    setInterval(function () {
+        let url = $('.number-new-document-upload').data('url');
+        $.ajax({
+            method: 'GET',
+            url: url,
+        })
+        .done(function (response) {
+            if (response.success) {
+                $('.number-new-document-upload').text(response.data);
+            }
+        });
+    }, 60000);
+
+    // edit category
+    $('body').on('click', '.bt-edit-category', function (e) {
+        e.preventDefault();
+        let parentId = $(this).data('parent-id');
+        let categoryName = $(this).data('category-name');
+        let categoryId = $(this).data('category-id');
+
+        $('.box-edit-category').show(300);
+        goToByScroll('form-edit-category');
+        $('.form-edit-info-category').find('.input-name-category').val(categoryName);
+        $('.form-edit-info-category').find('.input-category-id').val(categoryId);
+        $('.form-edit-info-category').find('.select-parent-id').val(parentId);
+    });
+
+    // hidden the div edit category
+    $('#bt-cancel-edit-category').click(function (e) {
+        $('.box-edit-category').hide(1000);
+        $('html, body').animate({
+            scrollTop: 0
+        }, 800);
+    });
+
+    // add new category
+    $('#bt-add-new-category').click(function (e) {
+        e.preventDefault();
+        $('.box-add-new-category').show(1000);
+        goToByScroll('form-add-new-category');
+    });
+
+    // scroll to a div
+    function goToByScroll(id) {
+        var x = $('#'+id).position();
+        $('html, body').animate({
+            scrollTop: $('#'+id).offset().top
+        }, 2000);
+    }
+
+    // hide box add new category
+    $('#bt-cancel-add-new-category').on('click', function () {
+        $('.box-add-new-category').hide(1000);
+        $('html, body').animate({
+            scrollTop: 0
+        }, 800);
+    });
+
+    // add sub category
+    $('.btn-add-subcategory').click(function (e) {
+        let url = $(this).data('url');
+        let li = $(this).closest('.add-sub-category');
+        let form = $(this).closest('.form-add-sub-category');
+        let formData = new FormData();
+        formData.append('name', $(form).find("input[name='name']").val());
+        formData.append('parent_id', $(form).find("input[name='parent_id']").val());
+
+        $.ajax({
+            url: url,
+            method: 'POST',
+            dataType: 'json',
+            data: formData,
+            contentType: false,
+            cache: false,
+            processData: false,
+        })
+        .done (function (response) {
+            console.log(response);
+            if (response.success) {
+                $(response.html).insertBefore(li);
+                $(form).find("input[name='name']").val('');
+            }
+        });
     });
 });

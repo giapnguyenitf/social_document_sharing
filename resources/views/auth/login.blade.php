@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <div class="col-xs-4 pull-right">
-                            <button type="submit" class="btn btn-primary btn-block btn-flat">@lang('user.sign_in')</button>
+                            <button type="submit" class="btn btn-info btn-block btn-flat btn-login">@lang('user.sign_in')</button>
                         </div>
                     </div>
                 </form>

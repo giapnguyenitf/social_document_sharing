@@ -8,13 +8,13 @@
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-aqua">
                     <div class="inner">
-                        <h3>{{ $numberNewDocuments }}</h3>
+                        <h3 class="number-new-document-upload" data-url="{{ route('ajax-count-new-document') }}">{{ $numberNewDocuments }}</h3>
                         <p>@lang('admin.analysis.new_documents')</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="#" class="small-box-footer">@lang('admin.analysis.more_info') <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('manage-document.index') }}" class="small-box-footer">@lang('admin.analysis.more_info') <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-xs-6">
@@ -26,7 +26,7 @@
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="#" class="small-box-footer">@lang('admin.analysis.more_info') <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('manage-users.index') }}" class="small-box-footer">@lang('admin.analysis.more_info') <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-xs-6">

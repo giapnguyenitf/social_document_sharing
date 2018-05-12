@@ -19,6 +19,8 @@
         ],
         'category' => [
             'is_parent' => 0,
+            'category_default' => 1,
+            'per_page' => 1,
         ],
         'document' => [
             'path_store' => 'public/uploads/documents',
@@ -29,7 +31,7 @@
                 'is_published' => 2,
             ],
             'uploaded' => [
-                'paginate' => 4, 
+                'paginate' => 4,
             ],
             'top_new' => 10,
             'paginate_per_page' => 8,

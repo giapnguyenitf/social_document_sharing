@@ -101,13 +101,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 label-thin" for="">@lang('user.thumbnail')</label>
-                                        <div class="col-md-8">
-                                            <input class="form-control input-no-border" type="file" name="thumbnail" accept="image/*">
-                                            @if ($errors->has('thumbnail'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('thumbnail') }}</strong>
-                                                </span>
-                                            @endif
+                                        <div class="col-md-6">
+                                           <div class="input-group">
+                                                <input class="form-control input-no-border input-url-thumbnail-image" value="" type="text" name="thumbnail" readonly>
+                                                <a href="#modal-upload-image" data-toggle="modal" class="btn btn-primary input-group-addon btn-change-thumbnail"><i class="fa fa-image"></i>&nbsp;@lang('user.document.upload_thumbnail')</a>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -140,4 +138,5 @@
             </div>
         </div>
     </div>
+    @include('user.layouts.modal-upload-image')
 @endsection

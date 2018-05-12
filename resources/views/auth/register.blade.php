@@ -65,7 +65,7 @@
                     </div>
                     </div>
                     <div class="col-xs-4 pull-right">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">@lang('user.register')</button>
+                        <button type="submit" class="btn btn-info btn-block btn-flat">@lang('user.register')</button>
                     </div>
                 </div>
             </form>

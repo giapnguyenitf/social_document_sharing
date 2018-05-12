@@ -94,9 +94,9 @@ abstract class BaseRepository implements RepositoryInterface
         return $this->model->create($attributes);
     }
 
-    public function update($id, array $attributes)
+    public function update(array $attributes)
     {
-        return $this->model->where('id', $id)->update($attributes);
+        return $this->model->update($attributes);
     }
 
     public function delete()

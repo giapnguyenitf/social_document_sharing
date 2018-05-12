@@ -264,7 +264,7 @@
                                 </a>
                             </li>
                         </ul>
-                        
+
                     </div>
                     <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
                     <div class="tab-pane" id="control-sidebar-settings-tab">
