@@ -50,7 +50,7 @@ class DocumentController extends Controller
     public function index()
     {
         $parentCategories = $this->categoryRepository->where('parent_id', '=', config('settings.category.is_parent'))->get();
-        
+
         return view('user.pages.upload', compact('parentCategories'));
     }
 
@@ -112,14 +112,14 @@ class DocumentController extends Controller
             $authorUploaded = $this->documentRepository->where('status',config('settings.document.status.is_published'))
                 ->where('user_id', $document->user->id)->count();
             $isBookmark = config('settings.document.is_bookmark.false');
-            
+
             if (Session::has('recently_view')) {
                 $recentlyView = Session::get('recently_view');
                 if (!in_array($id, $recentlyView)) {
                     $views = $document->views + 1;
                     $this->documentRepository->where('id', $id)->update(['views' => $views]);
                     Session::push('recently_view', $document->id);
-                } 
+                }
             } else {
                 $views = $document->views + 1;
                 $this->documentRepository->where('id', $id)->update(['views' => $views]);
@@ -131,7 +131,9 @@ class DocumentController extends Controller
                 $isBookmark = $this->bookmarkRepository->isBookmark($user->id, $id);
 
                 if ( $user->can('view', $document)) {
-                    return view('user.pages.view-document', compact('document', 'relatedDocuments', 'authorUploaded', 'isBookmark', 'comments'));
+                    $urlViewer = route('viewer').'?file='.$document->file_name;
+
+                    return view('user.pages.view-document', compact('document', 'urlViewer', 'relatedDocuments', 'authorUploaded', 'isBookmark', 'comments'));
                 }
 
                 return back()->with('messageError', trans('user.document.document_not_found'));
@@ -244,7 +246,7 @@ class DocumentController extends Controller
                 if (Auth::check()) {
                     $downloadedDocument = Auth::user()->downloaded;
                     $downloadedDocument = explode(',', $downloadedDocument);
-                    
+
                     if (!in_array($id, $downloadedDocument)) {
                         array_push($downloadedDocument, $id);
                     }
