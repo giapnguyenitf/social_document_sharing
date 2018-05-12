@@ -577,3 +577,11 @@
     position: absolute;
     top: calc(50% - 5px);
 }
+
+.input-radius {
+    border-radius: 5px !important;
+}
+
+.btn-radius {
+    border-radius: 5px !important;
+}

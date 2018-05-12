@@ -98,7 +98,7 @@ class UserController extends Controller
 
             return view('user.pages.uploaded', compact('uploadeds'));
         } catch (Exception $e) {
-            return back();
+            return view('errors.404');
         }
     }
 
@@ -113,7 +113,7 @@ class UserController extends Controller
 
             return view('user.pages.downloaded', compact('downloadeds'));
         } catch(Exception $e) {
-            return back();
+            return view('errors.404');
         }
     }
 }

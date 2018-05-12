@@ -106,12 +106,11 @@ class DocumentController extends Controller
         try {
             $document = $this->documentRepository->getDocument($id);
             $comments = $this->commentRepository->getComment($id);
-            $relatedDocuments = $this->documentRepository->where('category_id', $document->category_id)
-                ->where('id', '!=', $document->id)
-                ->with('user')->get()->take(10);
+            $relatedDocuments = $this->documentRepository->getRelatedCategory($document->id, $document->category_id);
             $authorUploaded = $this->documentRepository->where('status',config('settings.document.status.is_published'))
                 ->where('user_id', $document->user->id)->count();
             $isBookmark = config('settings.document.is_bookmark.false');
+            $urlViewer = route('viewer') . '?file=' . $document->file_name;
 
             if (Session::has('recently_view')) {
                 $recentlyView = Session::get('recently_view');
@@ -131,19 +130,31 @@ class DocumentController extends Controller
                 $isBookmark = $this->bookmarkRepository->isBookmark($user->id, $id);
 
                 if ( $user->can('view', $document)) {
-                    $urlViewer = route('viewer').'?file='.$document->file_name;
-
-                    return view('user.pages.view-document', compact('document', 'urlViewer', 'relatedDocuments', 'authorUploaded', 'isBookmark', 'comments'));
+                    return view('user.pages.view-document', compact(
+                        'document',
+                        'urlViewer',
+                        'relatedDocuments',
+                        'authorUploaded',
+                        'isBookmark',
+                        'comments')
+                    );
                 }
 
                 return back()->with('messageError', trans('user.document.document_not_found'));
             } else if ($document->isPublished()){
-                return view('user.pages.view-document', compact('document', 'relatedDocuments', 'authorUploaded', 'isBookmark', 'comments'));
+                return view('user.pages.view-document', compact(
+                    'document',
+                    'urlViewer',
+                    'relatedDocuments',
+                    'authorUploaded',
+                    'isBookmark',
+                    'comments')
+                );
             }
 
             return back()->with('messageError', trans('user.document.document_not_found'));
         } catch(Exception $e) {
-            return back()->with('messageError', trans('user.document.document_not_found'));
+            return view('errors.404');
         }
     }
 

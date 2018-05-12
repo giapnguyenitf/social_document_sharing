@@ -81,7 +81,7 @@ class DocumentController extends Controller
         } catch (Exception $e) {
             return back()->with('messageError', trans('admin.notifications.document_not_found'));
         }
-       
+
     }
 
     /**
@@ -136,7 +136,7 @@ class DocumentController extends Controller
                 return back()->with('notificationSuccess', trans('admin.notifications.delete_document_success'));
             }
 
-            return back()->with('notificationError', trans('admin.notifications.you_are_not_allowed_to_delete_this_document'));
+            return view('errors.403');
         } catch (Exception $e) {
             return back()->with('messageError', trans('admin.notifications.document_not_found'));
         }

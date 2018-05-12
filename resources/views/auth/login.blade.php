@@ -23,7 +23,7 @@
                 <form action="{{ route('login') }}" method="post">
                     @csrf
                     <div class="form-group has-feedback">
-                        <input name="email" type="email" class="form-control" placeholder="@lang('user.email')" value="{{ old('email')}}" required>
+                        <input name="email" type="email" class="form-control input-radius" placeholder="@lang('user.email')" value="{{ old('email')}}" required>
                         <span class="fa fa-envelope form-control-feedback"></span>
                         @if ($errors->has('email'))
                             <span class="help-block">
@@ -31,9 +31,9 @@
                             </span>
                         @endif
                     </div>
-                    
+
                     <div class="form-group has-feedback">
-                        <input name="password" type="password" class="form-control" placeholder="@lang('user.password')" required>
+                        <input name="password" type="password" class="form-control input-radius" placeholder="@lang('user.password')" required>
                         <span class="fa fa-lock form-control-feedback"></span>
                         @if ($errors->has('password'))
                             <span class="help-block">
@@ -54,11 +54,11 @@
                 </form>
                 <div class="social-auth-links text-center">
                     <p>- @lang('user.or') -</p>
-                    <a href="{{ route('redirect', ['provider' => 'facebook']) }}" class="btn btn-block btn-social btn-facebook btn-flat">
+                    <a href="{{ route('redirect', ['provider' => 'facebook']) }}" class="btn btn-block btn-social btn-facebook btn-flat btn-radius">
                         <i class="fa fa-facebook"></i>
                         @lang('user.sign_up_with_facebook')
                     </a>
-                    <a href="{{ route('redirect', ['provider' => 'google']) }}" class="btn btn-block btn-social btn-google btn-flat">
+                    <a href="{{ route('redirect', ['provider' => 'google']) }}" class="btn btn-block btn-social btn-google btn-flat btn-radius">
                         <i class="fa fa-google"></i>
                         @lang('user.sign_up_with_google')
                     </a>
