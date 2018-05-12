@@ -33,4 +33,6 @@ interface DocumentRepositoryInterface extends RepositoryInterface
     public function getChecking();
 
     public function getIllegal();
+
+    public function getRelatedCategory($id, $categoryId);
 }

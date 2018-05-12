@@ -110,4 +110,14 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
             ->with(['user', 'category'])
             ->get();
     }
+
+    public function getRelatedCategory($id, $categoryId)
+    {
+        return $this->model->where('category_id', $categoryId)
+                ->where('status',config('settings.document.status.is_published'))
+                ->where('id', '!=', $id)
+                ->with('user')
+                ->take(config('settings.top_related_document'))
+                ->get();
+    }
 }

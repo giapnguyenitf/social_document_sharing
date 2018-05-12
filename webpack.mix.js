@@ -48,7 +48,6 @@ mix.copy('node_modules/jquery/dist/jquery.min.js', 'public/js')
     .copy('node_modules/datatables.net/js/jquery.dataTables.js', 'public/js')
     .copy('node_modules/datatables.net-bs/css/dataTables.bootstrap.css', 'public/css')
     .copy('node_modules/datatables.net-bs/js/dataTables.bootstrap.js', 'public/js')
-    .copyDirectory('node_modules/pdfjs-dist/cmaps', 'public/viewer/web')
     .copy('resources/assets/viewer/web', 'public/viewer/web')
     .copy('resources/assets/viewer/build', 'public/viewer/build')
     .copy('resources/assets/images', 'public/images');

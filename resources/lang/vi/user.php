@@ -191,4 +191,17 @@ return [
         'female' => 'Nữ',
     ],
     'save' => 'Lưu',
+    'error' => [
+        '403' => '403 ERROR',
+        '404' => '404 ERROR',
+        'home' => 'Trang chủ',
+        'about' => 'Về chúng tôi',
+        'contact_us' => 'Liên hệ',
+        '403_messages' => 'Oooooops! Bạn không được phép thực hiện truy cập này!',
+        '404_messages' => 'Oooooops! Trang bạn truy cập không tồn tại!',
+        'type_here' => 'Nhập phản hồi vào đây...',
+        '403_page' => '403 page',
+        '404_page' => '404 page',
+        'send' => 'Gửi',
+    ],
 ];

@@ -52,5 +52,6 @@
         ],
         'user' => [
             'paginate' => 10,
-        ]
+        ],
+        'top_related_document' => 10,
     ];

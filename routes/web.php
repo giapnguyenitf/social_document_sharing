@@ -193,6 +193,4 @@ Route::middleware('adminAuth')->namespace('Admin')->group(function () {
     ]);
 });
 
-Route::get('viewer.html', function () {
-    return view('user.pages.viewer');
-})->name('viewer');
+Route::view('viewer.html', 'user.pages.viewer')->name('viewer');

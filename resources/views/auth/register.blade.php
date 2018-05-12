@@ -23,7 +23,7 @@
             <form action="{{ route('register') }}" method="post">
                 @csrf
                 <div class="form-group has-feedback">
-                    <input name="name" type="text" class="form-control" value="{{ old('name')}}" placeholder="@lang('user.name')" required>
+                    <input name="name" type="text" class="form-control input-radius" value="{{ old('name')}}" placeholder="@lang('user.name')" required>
                     <span class="fa fa-user form-control-feedback"></span>
                     @if ($errors->has('name'))
                         <span class="help-block">
@@ -32,7 +32,7 @@
                     @endif
                 </div>
                 <div class="form-group has-feedback">
-                    <input name="email" type="email" class="form-control" placeholder="@lang('user.email')" value="{{ old('email')}}" required>
+                    <input name="email" type="email" class="form-control input-radius" placeholder="@lang('user.email')" value="{{ old('email')}}" required>
                     <span class="fa fa-envelope form-control-feedback"></span>
                     @if ($errors->has('email'))
                         <span class="help-block">
@@ -41,7 +41,7 @@
                     @endif
                 </div>
                 <div class="form-group has-feedback">
-                    <input name="password" type="password" class="form-control" placeholder="@lang('user.password')" required>
+                    <input name="password" type="password" class="form-control input-radius" placeholder="@lang('user.password')" required>
                     <span class="fa fa-lock form-control-feedback"></span>
                     @if ($errors->has('password'))
                         <span class="help-block">
@@ -50,7 +50,7 @@
                     @endif
                 </div>
                 <div class="form-group has-feedback">
-                    <input name="password_confirmation" type="password" class="form-control" placeholder="@lang('user.confirm_password')" required>
+                    <input name="password_confirmation" type="password" class="form-control input-radius" placeholder="@lang('user.confirm_password')" required>
                     <span class="fa fa-lock form-control-feedback"></span>
                     @if ($errors->has('password_confirmation'))
                         <span class="help-block">
@@ -65,18 +65,18 @@
                     </div>
                     </div>
                     <div class="col-xs-4 pull-right">
-                        <button type="submit" class="btn btn-info btn-block btn-flat">@lang('user.register')</button>
+                        <button type="submit" class="btn btn-info btn-block btn-flat btn-radius">@lang('user.register')</button>
                     </div>
                 </div>
             </form>
             <div class="social-auth-links text-center">
             <p>- @lang('user.or') -</p>
-            <a href="{{ route('redirect', ['provider' => 'facebook']) }}" class="btn btn-block btn-social btn-facebook btn-flat">
+            <a href="{{ route('redirect', ['provider' => 'facebook']) }}" class="btn btn-block btn-social btn-facebook btn-flat btn-radius">
                 <i class="fa fa-facebook"></i>
                 @lang('user.sign_up_with_facebook')
-                
+
             </a>
-            <a href="{{ route('redirect', ['provider' => 'google']) }}" class="btn btn-block btn-social btn-google btn-flat">
+            <a href="{{ route('redirect', ['provider' => 'google']) }}" class="btn btn-block btn-social btn-google btn-flat btn-radius">
                 <i class="fa fa-google"></i>
                 @lang('user.sign_up_with_google')
             </a>

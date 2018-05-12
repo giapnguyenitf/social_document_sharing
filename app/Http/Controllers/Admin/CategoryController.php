@@ -44,7 +44,7 @@ class CategoryController extends Controller
             return back()->with('notificationSuccess', trans('admin.notifications.add_new_category_success'));
             }
 
-            return back()->with('notificationError', trans('admin.notifications.add_new_category_fail'));
+            return view('errors.403');
         } catch(Exception $e) {
             return back()->with('notificationError', trans('admin.notifications.add_new_category_fail'));
         }
@@ -83,7 +83,7 @@ class CategoryController extends Controller
                 return back()->with('notificationSuccess', trans('admin.notifications.delete_category_success'));
             }
 
-            return back()->with('notificationError', trans('admin.notifications.delete_category_fail'));
+            return view('errors.403');
         } catch (Exception $e) {
             return back()->with('notificationError', trans('admin.notifications.delete_category_fail'));
         }
