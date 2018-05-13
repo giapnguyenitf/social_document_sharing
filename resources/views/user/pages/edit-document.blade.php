@@ -36,7 +36,7 @@
                     <div class="tab-content">
                         <div class="active tab-pane" id="user-edit-document">
                             <div class="form-edit-document">
-                                <form action="{{ route('document.update', $document->id) }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+                                <form action="{{ route('document.update', $document->slug) }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">

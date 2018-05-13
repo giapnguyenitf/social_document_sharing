@@ -52,11 +52,11 @@
                             @foreach ($newestDocuments as $newestDocument)
                                 <div class="product product-single">
                                     <div class="product-thumb">
-                                        <a class="main-btn quick-view" href="{{ route('view-document', $newestDocument->id) }}"><i class="fa fa-eye"></i> @lang('user.view')</a>
+                                        <a class="main-btn quick-view" href="{{ route('view-document', $newestDocument->slug) }}"><i class="fa fa-eye"></i> @lang('user.view')</a>
                                         <img class="img-responsive" src="{{ $newestDocument->thumbnail }}" alt="">
                                     </div>
                                     <div class="product-body">
-                                        <h2 class="product-name"><a href="{{ route('view-document', $newestDocument->id) }}">{{ $newestDocument->name }}</a></h2>
+                                        <h2 class="product-name"><a href="{{ route('view-document', $newestDocument->slug) }}">{{ $newestDocument->name }}</a></h2>
                                         <div class="product-info">
                                             <ul class="product-bts">
                                                 <li title="@lang('user.views')"><i class="fa fa-eye"></i> {{ $newestDocument->views }}</li>
@@ -82,10 +82,10 @@
                         @foreach ($topViewsDocuments  as $topViewsDocument)
                             <div class="product product-widget">
                                 <div class="product-thumb">
-                                    <a href="{{ route('view-document', $topViewsDocument->id) }}"><img class="img-responsive" src="{{ $topViewsDocument->thumbnail }}" alt=""></a>
+                                    <a href="{{ route('view-document', $topViewsDocument->slug) }}"><img class="img-responsive" src="{{ $topViewsDocument->thumbnail }}" alt=""></a>
                                 </div>
                                 <div class="product-body">
-                                    <h2 class="product-name"><a href="{{ route('view-document', $topViewsDocument->id) }}">{{ $topViewsDocument->name }}</a></h2>
+                                    <h2 class="product-name"><a href="{{ route('view-document', $topViewsDocument->slug) }}">{{ $topViewsDocument->name }}</a></h2>
                                     <div class="product-info">
                                         <ul class="product-bts">
                                             <li><i class="fa fa-eye"></i> {{ $topViewsDocument->views }}</li>
@@ -123,14 +123,14 @@
                                 <div class="col-md-3 col-sm-6 col-xs-6">
                                     <div class="product product-single">
                                         <div class="product-thumb">
-                                            <a class="main-btn quick-view" href="{{ route('view-document',  $allDocument->id) }}"><i class="fa fa-eye"></i> @lang('user.view')</a>
+                                            <a class="main-btn quick-view" href="{{ route('view-document',  $allDocument->slug) }}"><i class="fa fa-eye"></i> @lang('user.view')</a>
                                             <img src="{{ $allDocument->thumbnail }}" alt="">
                                         </div>
                                         <div class="product-body">
-                                            <h2 class="product-name"><a href="{{ route('view-document', $allDocument->id) }}">{{ $allDocument->name }}</a></h2>
+                                            <h2 class="product-name"><a href="{{ route('view-document', $allDocument->slug) }}">{{ $allDocument->name }}</a></h2>
                                             <div class="product-btns">
                                                 <a class="main-btn icon-btn"><i class="fa fa-heart"></i></a>
-                                                <a class="main-btn icon-btn" href="{{ route('view-document', $allDocument->id) }}"><i class="fa fa-eye"></i></a>
+                                                <a class="main-btn icon-btn" href="{{ route('view-document', $allDocument->slug) }}"><i class="fa fa-eye"></i></a>
                                                 <a class="main-btn icon-btn"><i class="fa fa-cloud-download"></i></a>
                                             </div>
                                         </div>

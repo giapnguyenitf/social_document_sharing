@@ -33,7 +33,7 @@
                                         <td>{{ $moderator->user_type }}</td>
                                         <td>{{ $moderator->created_at->format('d/m/Y') }}</td>
                                         <td>
-                                            <a href="{{ route('manage-users.show', $moderator->id) }}" class="btn btn-success btn-sm" title="@lang('admin.view_user_info')"><i class="fa fa-eye"></i> @lang('admin.view_user_info')</a>
+                                            <a href="{{ route('manage-users.show', $moderator->slug) }}" class="btn btn-success btn-sm" title="@lang('admin.view_user_info')"><i class="fa fa-eye"></i> @lang('admin.view_user_info')</a>
                                             <a href="{{ route('manage-users.block', $moderator->id) }}" class="btn btn-danger btn-sm" title="@lang('admin.ban_user')"><i class="fa fa-times"></i> @lang('admin.block_user')</a>
                                         </td>
                                     </tr>

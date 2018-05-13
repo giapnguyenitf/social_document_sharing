@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User;
 use Auth;
 use Storage;
 use Session;
-use Exception;
+// use Exception;
 use Illuminate\Http\Request;
 use App\Traits\UploadFileTrait;
 use App\Http\Controllers\Controller;
@@ -101,11 +101,11 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
         try {
-            $document = $this->documentRepository->getDocument($id);
-            $comments = $this->commentRepository->getComment($id);
+            $document = $this->documentRepository->getDocument($slug);
+            $comments = $this->commentRepository->getComment($slug);
             $relatedDocuments = $this->documentRepository->getRelatedCategory($document->id, $document->category_id);
             $authorUploaded = $this->documentRepository->where('status',config('settings.document.status.is_published'))
                 ->where('user_id', $document->user->id)->count();
@@ -114,20 +114,20 @@ class DocumentController extends Controller
 
             if (Session::has('recently_view')) {
                 $recentlyView = Session::get('recently_view');
-                if (!in_array($id, $recentlyView)) {
+                if (!in_array($document->id, $recentlyView)) {
                     $views = $document->views + 1;
-                    $this->documentRepository->where('id', $id)->update(['views' => $views]);
+                    $this->documentRepository->where('id', $document->id)->update(['views' => $views]);
                     Session::push('recently_view', $document->id);
                 }
             } else {
                 $views = $document->views + 1;
-                $this->documentRepository->where('id', $id)->update(['views' => $views]);
+                $this->documentRepository->where('id', $document->id)->update(['views' => $views]);
                 Session::push('recently_view', $document->id);
             }
 
             if (Auth::check()) {
                 $user = Auth::user();
-                $isBookmark = $this->bookmarkRepository->isBookmark($user->id, $id);
+                $isBookmark = $this->bookmarkRepository->isBookmark($user->id, $document->id);
 
                 if ( $user->can('view', $document)) {
                     return view('user.pages.view-document', compact(
@@ -164,10 +164,10 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
         try {
-            $document = $this->documentRepository->findOrFail($id);
+            $document = $this->documentRepository->where('slug', $slug)->firstOrFail();
             $user = Auth::user();
 
             if ($user->can('edit', $document)) {
@@ -189,13 +189,13 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDocumentRequest $request, $id)
+    public function update(UpdateDocumentRequest $request, $slug)
     {
         try {
-            $document = $this->documentRepository->findOrFail($id);
+            $oldDocument = $this->documentRepository->where('slug', $slug)->firstOrFail();
             $user = Auth::user();
 
-            if ($user->can('update', $document)) {
+            if ($user->can('update', $oldDocument)) {
                 $document = $request->only([
                     'name',
                     'description',
@@ -207,7 +207,7 @@ class DocumentController extends Controller
                     $document['thumbnail'] = $request->thumbnail;
                 }
 
-                $this->documentRepository->where('id', $id)->update($document);
+                $this->documentRepository->where('id', $oldDocument->id)->update($document);
 
                 return redirect()->route('uploaded-document.show')->with('messageSuccess', trans('user.document.update_success'));
             } else {
@@ -224,14 +224,14 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
         try {
             $user = Auth::user();
-            $document = $this->documentRepository->findOrFail($id);
+            $document = $this->documentRepository->where('slug', $slug)->firstOrFail();
 
             if ($user->can('delete', $document)) {
-                $this->documentRepository->destroy($id);
+                $document->delete();
 
                 return back()->with('messageSuccess', trans('user.document.delete_success'));
             } else {
@@ -242,36 +242,36 @@ class DocumentController extends Controller
         }
     }
 
-    public function download($id)
+    public function download($slug)
     {
         try {
-            $document = $this->documentRepository->find($id);
+            $document = $this->documentRepository->where('slug', $slug)->firstOrFail();
             $fileName = $document->file_name;
             $filePath = str_replace('storage', '', $fileName);
             $exist = Storage::disk('public')->exists($filePath);
 
             if ($exist) {
                 $downloads = $document->downloads + 1;
-                $this->documentRepository->where('id', $id)->update(['downloads' => $downloads]);
+                $this->documentRepository->where('id', $document->id)->update(['downloads' => $downloads]);
 
                 if (Auth::check()) {
                     $downloadedDocument = Auth::user()->downloaded;
                     $downloadedDocument = explode(',', $downloadedDocument);
 
-                    if (!in_array($id, $downloadedDocument)) {
-                        array_push($downloadedDocument, $id);
+                    if (!in_array($document->id, $downloadedDocument)) {
+                        array_push($downloadedDocument, $document->id);
                     }
 
                     $downloadedDocument = implode(',', $downloadedDocument);
-                    $this->userRepository->update(Auth::user()->id, ['downloaded' => $downloadedDocument]);
+                    $this->userRepository->where('id', Auth::user()->id)->update(['downloaded' => $downloadedDocument]);
                 }
 
                 return response()->download($document->download_link);
             } else {
-                return back();
+                return view('errors.404');
             }
         } catch(Exception $e) {
-            return back();
+            return view('errors.404');
         }
     }
 }

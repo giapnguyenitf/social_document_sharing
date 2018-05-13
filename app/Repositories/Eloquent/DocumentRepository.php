@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Models\Document;
 use App\Repositories\Eloquent\BaseRepository;
 use App\Repositories\Contracts\DocumentRepositoryInterface;
+use App\Repositories\Contracts\CategoryRepositoryInterface;
 
 class DocumentRepository extends BaseRepository implements DocumentRepositoryInterface
 {
@@ -85,9 +86,9 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
             ->paginate(config('settings.document.paginate_per_page'));
     }
 
-    public function getDocument($id)
+    public function getDocument($slug)
     {
-        return $this->model->with('user')->findOrFail($id);
+        return $this->model->with('user')->where('slug', $slug)->firstOrFail();
     }
 
     public function getPublished()
@@ -111,11 +112,11 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
             ->get();
     }
 
-    public function getRelatedCategory($id, $categoryId)
+    public function getRelatedCategory($slug, $categoryId)
     {
         return $this->model->where('category_id', $categoryId)
                 ->where('status',config('settings.document.status.is_published'))
-                ->where('id', '!=', $id)
+                ->where('slug', '!=', $slug)
                 ->with('user')
                 ->take(config('settings.top_related_document'))
                 ->get();

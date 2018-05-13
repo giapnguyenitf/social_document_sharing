@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Sluggable;
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +28,7 @@ class User extends Authenticatable
         'gender',
         'avatar',
         'is_ban',
+        'slug',
     ];
 
     /**
@@ -69,6 +71,11 @@ class User extends Authenticatable
         return $this->rules == config('settings.rules.is_moderator');
     }
 
+    public function isBlocked()
+    {
+        return $this->is_ban;
+    }
+
     public function getUserTypeAttribute()
     {
         if ($this->provider) {
@@ -85,5 +92,14 @@ class User extends Authenticatable
         }
 
         return trans('user.genders.male');
+    }
+
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name',
+            ]
+        ];
     }
 }

@@ -33,9 +33,10 @@ interface RepositoryInterface
     public function take($number);
 
     public function count();
-    
+
     public function get($columns = ['*']);
 
     public function sum($column);
-    
+
+    public function firstOrFail();
 }

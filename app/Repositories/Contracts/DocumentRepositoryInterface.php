@@ -26,7 +26,7 @@ interface DocumentRepositoryInterface extends RepositoryInterface
 
     public function getByParentCategory($categoryId);
 
-    public function getDocument($id);
+    public function getDocument($slug);
 
     public function getPublished();
 
@@ -34,5 +34,5 @@ interface DocumentRepositoryInterface extends RepositoryInterface
 
     public function getIllegal();
 
-    public function getRelatedCategory($id, $categoryId);
+    public function getRelatedCategory($slug, $categoryId);
 }

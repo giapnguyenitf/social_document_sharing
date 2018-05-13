@@ -84,7 +84,7 @@
                                             @if (count($uploadeds))
                                                 @foreach ($uploadeds as $uploaded)
                                                     <tr>
-                                                        <td><a class="text-link" href="{{ route('view-document', $uploaded->id) }}">{{ $uploaded->name }}</a></td>
+                                                        <td><a class="text-link" href="{{ route('view-document', $uploaded->slug) }}">{{ $uploaded->name }}</a></td>
                                                         <td>{{ $uploaded->views }}</td>
                                                         <td>{{ $uploaded->downloads }}</td>
                                                         <td><span class="label label-info">{{ $uploaded->status_name }}</span></td>

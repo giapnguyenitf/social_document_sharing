@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     protected $userRepository;
     protected $documentRepository;
-    
+
     public function __construct(
         UserRepositoryInterface $userRepository,
         DocumentRepositoryInterface $documentRepository
@@ -33,11 +33,11 @@ class UserController extends Controller
         //
     }
 
-    public function show($id)
+    public function show($slug)
     {
         try {
-            $user = $this->userRepository->with('documents')->findOrFail($id);
-            $uploadeds = $this->documentRepository->getUploadedDocument($id);
+            $user = $this->userRepository->with('documents')->where('slug', $slug)->firstOrFail();
+            $uploadeds = $this->documentRepository->getUploadedDocument($user->id);
 
             return view('admin.pages.viewInfoUser', compact('user', 'uploadeds'));
         } catch (Exception $e) {

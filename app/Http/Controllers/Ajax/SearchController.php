@@ -5,26 +5,32 @@ namespace App\Http\Controllers\Ajax;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\DocumentRepositoryInterface;
+use App\Repositories\Contracts\CategoryRepositoryInterface;
 
 class SearchController extends Controller
 {
     protected $documentRepository;
+    protected $categoryRepository;
 
-    public function __construct(DocumentRepositoryInterface $documentRepository)
-    {
+    public function __construct(
+        DocumentRepositoryInterface $documentRepository,
+        CategoryRepositoryInterface $categoryRepository
+    ) {
         $this->documentRepository = $documentRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     public function search(Request $request)
     {
         if ($request->ajax()) {
             $keyword = $request->keyword;
-            $searchBy = $request->searchBy;
+            $category = $request->category;
 
-            if ($searchBy == config('settings.search.by_name')) {
-                $results = $this->documentRepository->searchByName($keyword)->take(6);
+            if ($category == config('settings.search.by_all')) {
+                $results = $this->documentRepository->searchByName($keyword)->take(5);
             } else {
-                $results = $this->documentRepository->searchByCategory($keyword, $searchBy)->take(6);
+                $searchBy = $this->categoryRepository->where('slug', $category)->firstOrFail();
+                $results = $this->documentRepository->searchByCategory($keyword, $searchBy->id)->take(5);
             }
 
             return response()->json([

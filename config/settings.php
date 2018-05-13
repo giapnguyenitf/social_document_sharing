@@ -45,7 +45,7 @@
             ]
         ],
         'search' => [
-            'by_name' => 0,
+            'by_all' => 'all',
         ],
         'comment' => [
             'paginate' => 10,

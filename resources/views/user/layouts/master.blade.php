@@ -53,9 +53,9 @@
                             <ul class="live-search">
                             </ul>
                             <select class="input search-categories" name="category">
-                                <option value="0">@lang('user.search.by_all')</option>
+                                <option value="all">@lang('user.search.by_all')</option>
                                 @foreach ($categories as $parentCategory)
-                                    <option value="{{ $parentCategory->id }}">{{ $parentCategory->name }}</option>
+                                    <option value="{{ $parentCategory->slug }}">{{ $parentCategory->name }}</option>
                                 @endforeach
                             </select>
                             <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
@@ -85,7 +85,7 @@
                             @guest
                                 <i class="fa fa-user-o">&nbsp;</i><a href="{{ route('login') }}" class="">@lang('user.sign_in')</a> / <a href="{{ route('register') }}" class="">@lang('user.register')</a>
                             @endguest
-                           
+
                         </li>
                         <li class="nav-toggle">
                             <button class="nav-toggle-btn main-btn icon-btn"><i class="fa fa-bars"></i></button>
@@ -95,7 +95,7 @@
             </div>
         </div>
     </header>
-    
+
     <div id="navigation">
         <div class="container">
             <div id="responsive-nav">
@@ -110,7 +110,7 @@
                                         <div class="col-md-12">
                                             <ul class="list-links">
                                                 @foreach ($parentCategory->subCategories as $subCategory)
-                                                    <li><a href="{{ route('show-by-sub-category', $subCategory->id) }}">{{ $subCategory->name }}</a></li>
+                                                    <li><a href="{{ route('show-by-sub-category', $subCategory->slug) }}">{{ $subCategory->name }}</a></li>
                                                 @endforeach
                                             </ul>
                                             <hr class="hidden-md hidden-lg">
@@ -119,30 +119,13 @@
                                 </div>
                             </li>
                         @endforeach
-                        <li><a href="#">@lang('user.view_all')</a></li>
+                        <li><a href="{{ route('show-by-sub-category', 'khac') }}">Khác</a></li>
                     </ul>
                 </div>
                 <div class="menu-nav">
                     <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                     <ul class="menu-list">
                         <li><a href="{{ route('home') }}">@lang('user.home')</a></li>
-                        <li class="dropdown mega-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">@lang('user.other_categories') <i class="fa fa-caret-down"></i></a>
-                            <div class="custom-menu">
-                                <div class="row">
-                                    @foreach ($categories as $category)
-                                        <div class="col-md-4">
-                                            <ul class="list-links">
-                                                <li><h3 class="list-links-title">{{ $category->name }}</h3></li>
-                                                @foreach ($category->subCategories as $subCategory)
-                                                    <li><a href="{{ route('show-by-sub-category', $subCategory->id) }}">{{ $subCategory->name }}</a></li>
-                                                @endforeach
-                                            </ul>
-                                            <hr class="hidden-md hidden-lg">
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </li>
                         <li><a href="#">@lang('user.contact')</a></li>
                     </ul>
                 </div>

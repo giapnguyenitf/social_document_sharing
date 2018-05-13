@@ -5,8 +5,6 @@ $(document).ready(function () {
         }
     });
 
-
-
     $('#parent-category').click(function () {
         $('#child-category').empty();
         var url = $(this).data('url');
@@ -139,7 +137,7 @@ $(document).ready(function () {
         e.preventDefault();
         var url = $(this).data('url');
         var keyword = $(this).val().trim();
-        var searchBy = $('.search-categories').val();
+        var category = $('.search-categories').val();
 
         if (keyword.length) {
             $.ajax({
@@ -148,7 +146,7 @@ $(document).ready(function () {
                 dataType: 'json',
                 data: {
                     keyword: keyword,
-                    searchBy: searchBy,
+                    category: category,
                 }
             })
             .done(function (response) {
@@ -158,7 +156,7 @@ $(document).ready(function () {
                     var data = response.data;
                     data.forEach(function (el) {
                         $('.live-search').append(`
-                            <li><a href="${response.url}/${el.id}">${el.name}</a></li>
+                            <li><a href="${response.url}/${el.slug}">${el.name}</a></li>
                         `);
                     });
                 } else {
@@ -389,10 +387,6 @@ $(document).ready(function () {
         setTimeout(function () {
             $(".notifications-user").fadeOut('slow');
         }, 2000);
-
-        $('html, body').animate({
-            scrollTop: 0
-        }, 800);
     });
 
     // confirm admin delete document

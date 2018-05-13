@@ -59,7 +59,7 @@ abstract class BaseRepository implements RepositoryInterface
     {
         $this->makeModel();
     }
-    
+
     public function all($columns = ['*'])
     {
         return $this->model->all($columns);
@@ -82,7 +82,7 @@ abstract class BaseRepository implements RepositoryInterface
     {
         return $this->model->find($id);
     }
-    
+
 
     public function findByField($field, $value)
     {
@@ -167,5 +167,10 @@ abstract class BaseRepository implements RepositoryInterface
         $this->resetModel();
 
         return $model;
+    }
+
+    public function firstOrFail()
+    {
+        return $this->model->firstOrFail();
     }
 }

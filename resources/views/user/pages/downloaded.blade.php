@@ -49,7 +49,7 @@
                                         <tbody>
                                             @foreach ($downloadeds as $downloaded)
                                                 <tr>
-                                                    <td><a class="text-link" href="{{ route('view-document', $downloaded->id) }}">{{ $downloaded->name }}</a></td>
+                                                    <td><a class="text-link" href="{{ route('view-document', $downloaded->slug) }}">{{ $downloaded->name }}</a></td>
                                                     <td>{{ $downloaded->category->name }}</td>
                                                     <td>{{ $downloaded->file_size }}</td>
                                                     <td><a href="">{{ $downloaded->user->name }}</a></td>

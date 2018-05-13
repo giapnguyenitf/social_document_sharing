@@ -49,7 +49,7 @@
                                         <tbody>
                                             @foreach ($bookmarks as $bookmark)
                                                 <tr>
-                                                    <td><a class="text-link" href="{{ route('view-document', $bookmark->document->id) }}">{{ $bookmark->document->name }}</a></td>
+                                                    <td><a class="text-link" href="{{ route('view-document', $bookmark->document->slug) }}">{{ $bookmark->document->name }}</a></td>
                                                     <td>{{ $bookmark->document->category->name }}</td>
                                                     <td>{{ $bookmark->created_at->format('d/m/Y') }}</td>
                                                     <td><a href="">{{ $bookmark->document->user->name }}</a></td>

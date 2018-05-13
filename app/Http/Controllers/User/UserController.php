@@ -36,23 +36,23 @@ class UserController extends Controller
         return view('user.pages.profiles');
     }
 
-    public function show($id)
+    public function show($slug)
     {
         try {
             if (Auth::check()) {
-                if (Auth::user()->id == $id) {
+                if (Auth::user()->slug == $slug) {
                     return redirect()->route('manage-profile');
                 }
             }
 
-            $user = $this->userRepository->findOrFail($id);
+            $user = $this->userRepository->where('slug', $slug)->firstOrFail();
             $uploadeds = $this->documentRepository->where('status', config('settings.document.status.is_published'))
                 ->where('user_id', $user->id)
                 ->get();
 
             return view('user.pages.user-profile', compact('user', 'uploadeds'));
         } catch (Exception $e) {
-            return back()->with('messageError', trans('user.notifications.user_not_found'));
+            return view('errors.404');
         }
     }
 
@@ -92,9 +92,7 @@ class UserController extends Controller
     {
         try {
             $user = Auth::user();
-             $uploadeds = $this->documentRepository->withTrashed()
-                ->where('user_id', $user->id)
-                ->get();
+             $uploadeds = $this->documentRepository->where('user_id', $user->id)->get();
 
             return view('user.pages.uploaded', compact('uploadeds'));
         } catch (Exception $e) {

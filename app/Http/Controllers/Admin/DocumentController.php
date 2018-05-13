@@ -67,11 +67,11 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
         try {
             $user = Auth::user();
-            $document = $this->documentRepository->getDocument($id);
+            $document = $this->documentRepository->getDocument($slug);
 
             if ($user->can('edit', $document)) {
                 return view('admin.pages.editInfoDocument', compact('document'));
@@ -91,10 +91,10 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
         try {
-            $document = $this->documentRepository->getDocument($id);
+            $document = $this->documentRepository->getDocument($slug);
             $user = Auth::user();
             $data = $request->only([
                 'name',
@@ -106,7 +106,7 @@ class DocumentController extends Controller
             ]);
 
             if ($user->can('update', $document)) {
-                $this->documentRepository->where('id', $id)->update($data);
+                $this->documentRepository->where('id', $document->id)->update($data);
 
                 return redirect()->route('manage-document.index')
                     ->with('notificationSuccess', trans('admin.notifications.update_document_success'));
@@ -124,14 +124,14 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
         try {
-            $document = $this->documentRepository->getDocument($id);
+            $document = $this->documentRepository->getDocument($slug);
             $user = Auth::user();
 
             if ($user->can('delete', $document)) {
-                $this->documentRepository->destroy($id);
+                $this->documentRepository->destroy($document->id);
 
                 return back()->with('notificationSuccess', trans('admin.notifications.delete_document_success'));
             }

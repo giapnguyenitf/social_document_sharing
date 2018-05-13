@@ -33,14 +33,14 @@
                                     <div class="col-md-3 col-sm-6 col-xs-6">
                                         <div class="product product-single">
                                             <div class="product-thumb">
-                                                <a class="main-btn quick-view" href="{{ route('view-document', $document->id) }}"><i class="fa fa-eye"></i> @lang('user.view')</a>
+                                                <a class="main-btn quick-view" href="{{ route('view-document', $document->slug) }}"><i class="fa fa-eye"></i> @lang('user.view')</a>
                                                 <img src="{{ $document->thumbnail }}" alt="">
                                             </div>
                                             <div class="product-body">
-                                                <h2 class="product-name"><a href="{{ route('view-document', $document->id) }}">{{ $document->name }}</a></h2>
+                                                <h2 class="product-name"><a href="{{ route('view-document', $document->slug) }}">{{ $document->name }}</a></h2>
                                                 <div class="product-btns">
                                                     <a class="main-btn icon-btn"><i class="fa fa-heart"></i></a>
-                                                    <a class="main-btn icon-btn" href="{{ route('view-document', $document->id) }}"><i class="fa fa-eye"></i></a>
+                                                    <a class="main-btn icon-btn" href="{{ route('view-document', $document->slug) }}"><i class="fa fa-eye"></i></a>
                                                     <a class="main-btn icon-btn"><i class="fa fa-cloud-download"></i></a>
                                                 </div>
                                             </div>
@@ -67,10 +67,10 @@
                         @foreach ($newestDocuments  as $newestDocument)
                             <div class="product product-widget">
                                 <div class="product-thumb">
-                                    <a href="{{ route('view-document', $newestDocument->id) }}"><img class="img-responsive" src="{{ $newestDocument->thumbnail }}" alt=""></a>
+                                    <a href="{{ route('view-document', $newestDocument->slug) }}"><img class="img-responsive" src="{{ $newestDocument->thumbnail }}" alt=""></a>
                                 </div>
                                 <div class="product-body">
-                                    <h2 class="product-name"><a href="{{ route('view-document', $newestDocument->id) }}">{{ $newestDocument->name }}</a></h2>
+                                    <h2 class="product-name"><a href="{{ route('view-document', $newestDocument->slug) }}">{{ $newestDocument->name }}</a></h2>
                                     <div class="product-info">
                                         <ul class="product-bts">
                                             <li><i class="fa fa-eye"></i> {{ $newestDocument->views }}</li>
