@@ -9,7 +9,7 @@
                     </div>
                     <div class="box-body">
                         <div class="col-md-12">
-                            <form class="form-edit-info-document" action="{{ route('manage-document.update', $document->id) }}" method="POST">
+                            <form class="form-edit-info-document" action="{{ route('manage-document.update', $document->slug) }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                  <div class="row">

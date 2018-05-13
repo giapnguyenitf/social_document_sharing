@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Document extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Sluggable;
 
     protected $dates = ['deleted_at'];
 
@@ -23,6 +24,7 @@ class Document extends Model
         'views',
         'downloads',
         'status',
+        'slug',
     ];
 
     public function user()
@@ -77,5 +79,16 @@ class Document extends Model
     public function isIllegal()
     {
         return $this->status == config('settings.document.status.is_illegal');
+    }
+
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name',
+                'includeTrashed' => true,
+                'maxLength' => 191,
+            ]
+        ];
     }
 }

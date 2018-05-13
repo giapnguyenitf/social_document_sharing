@@ -24,21 +24,22 @@ class SearchController extends Controller
     {
         $newestDocuments = $this->documentRepository->getNewests();
         $keyword = $request->keyword;
-        $searchBy = $request->category;
+        $category = $request->category;
 
-        if ($searchBy == config('settings.search.by_name')) {
+        if ($category == config('settings.search.by_all')) {
             $documents = $this->documentRepository->searchByName($keyword);
         } else {
-            $documents = $this->documentRepository->searchByCategory($keyword, $searchBy);
+            $searchBy = $this->categoryRepository->where('slug', $category)->firstOrFail();
+            $documents = $this->documentRepository->searchByCategory($keyword, $searchBy->id);
         }
 
         return view('user.pages.search', compact('documents', 'keyword', 'newestDocuments'));
     }
 
-    public function showBySubCategory($categoryId)
+    public function showBySubCategory($slug)
     {
-        $documents = $this->documentRepository->getBySubCategory($categoryId);
-        $category = $this->categoryRepository->find($categoryId);
+        $category = $this->categoryRepository->where('slug', $slug)->firstOrFail();
+        $documents = $this->documentRepository->getBySubCategory($category->id);
         $newestDocuments = $this->documentRepository->getNewests();
 
         return view('user.pages.category', compact('documents', 'category', 'newestDocuments'));

@@ -38,7 +38,7 @@ class BookmarkController extends Controller
     {
         try {
             $user = Auth::user();
-            $bookmark = $this->bookmarkRepository->find($id);
+            $bookmark = $this->bookmarkRepository->findOrFail($id);
 
             if ($user->can('delete', $bookmark)) {
                 $this->bookmarkRepository->destroy($id);

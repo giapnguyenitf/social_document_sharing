@@ -32,7 +32,7 @@
                                         <td>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <a href="{{ route('manage-users.show', $blockedUser->id) }}" class="btn btn-success btn-sm" title="@lang('admin.view_user_info')"><i class="fa fa-eye"></i> @lang('admin.view_user_info')</a>
+                                                    <a href="{{ route('manage-users.show', $blockedUser->slug) }}" class="btn btn-success btn-sm" title="@lang('admin.view_user_info')"><i class="fa fa-eye"></i> @lang('admin.view_user_info')</a>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <a href="{{ route('manage-users.unblock', $blockedUser->id) }}" class="btn btn-danger btn-sm" title="@lang('admin.ban_user')"><i class="fa fa-times"></i> @lang('admin.user.unblock_user')</a>

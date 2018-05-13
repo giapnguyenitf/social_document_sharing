@@ -20,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         $categories = Category::where('parent_id', '=', config('settings.category.is_parent'))
+            ->where('id', '!=', config('settings.category.category_default'))
             ->with('subCategories')
             ->orderBy('name', 'asc')
             ->get();

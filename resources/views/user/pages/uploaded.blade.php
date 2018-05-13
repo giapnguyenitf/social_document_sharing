@@ -50,10 +50,10 @@
                                             @if (count($uploadeds))
                                                 @foreach ($uploadeds as $uploaded)
                                                     <tr>
-                                                        <td><a class="text-link" href="{{ route('view-document', $uploaded->id) }}">{{ $uploaded->name }}</a></td>
+                                                        <td><a class="text-link" href="{{ route('view-document', $uploaded->slug) }}">{{ $uploaded->name }}</a></td>
                                                         <td>{{ $uploaded->views }}</td>
                                                         <td>{{ $uploaded->downloads }}</td>
-                                                        
+
                                                         <td>
                                                             @if ($uploaded->status == config('settings.document.status.is_illegal'))
                                                                 <span class="label label-danger">{{ $uploaded->status_name }}</span>
@@ -66,10 +66,10 @@
                                                         <td class="btn-action-group">
                                                             <div class="row">
                                                                 <div class="col-md-4">
-                                                                    <a class="btn btn-info btn-sm" href="{{ route('document.edit', $uploaded->id) }}"><i class="fa fa-pencil"></i></a>
+                                                                    <a class="btn btn-info btn-sm" href="{{ route('document.edit', $uploaded->slug) }}"><i class="fa fa-pencil"></i></a>
                                                                 </div>
                                                                 <div class="col-md-4">
-                                                                    <form action="{{ route('document.destroy', ['id' => $uploaded->id]) }}" method="POST" class="form-delete-uploaded-document">
+                                                                    <form action="{{ route('document.destroy', $uploaded->slug) }}" method="POST" class="form-delete-uploaded-document">
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <button class="btn btn-danger btn-sm btn-delete-uploaded-document" type="button"><i class="fa fa-trash"></i></button>

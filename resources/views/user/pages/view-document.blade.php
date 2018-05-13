@@ -17,10 +17,10 @@
                             <div class="col-md-3">
                                 <div class="author">
                                     <div class="avatar">
-                                        <a href="{{ route('user-profile.show', $document->user->id) }}"><img class="img-responsive" src="{{ $document->user->avatar }}" alt=""></a>
+                                        <a href="{{ route('user-profile.show', $document->user->slug) }}"><img class="img-responsive" src="{{ $document->user->avatar }}" alt=""></a>
                                     </div>
                                     <div class="name">
-                                        <a href="{{ route('user-profile.show', $document->user->id) }}">{{ $document->user->name }}</a>
+                                        <a href="{{ route('user-profile.show', $document->user->slug) }}">{{ $document->user->name }}</a>
                                         <p>@lang('user.document.upload') <span>{{ $authorUploaded }}</span> @lang('user.document.document')</p>
                                     </div>
                                 </div>
@@ -33,7 +33,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="document-action">
-                                    <a href="{{ route('download-document', $document->id) }}" class="btn btn-primary btn-sm">
+                                    <a href="{{ route('download-document', $document->slug) }}" class="btn btn-primary btn-sm">
                                         <i class="fa fa-download"></i>&nbsp;@lang('user.document.download')
                                     </a>
                                     @if (Auth::check())
@@ -165,10 +165,10 @@
                         @foreach ($relatedDocuments  as $relatedDocument)
                             <div class="product product-widget">
                                 <div class="product-thumb">
-                                    <a href="{{ route('view-document', $relatedDocument->id) }}"><img class="img-responsive" src="{{ $relatedDocument->thumbnail }}" alt=""></a>
+                                    <a href="{{ route('view-document', $relatedDocument->slug) }}"><img class="img-responsive" src="{{ $relatedDocument->thumbnail }}" alt=""></a>
                                 </div>
                                 <div class="product-body">
-                                    <h2 class="product-name"><a href="{{ route('view-document', $relatedDocument->id) }}">{{ $relatedDocument->name }}</a></h2>
+                                    <h2 class="product-name"><a href="{{ route('view-document', $relatedDocument->slug) }}">{{ $relatedDocument->name }}</a></h2>
                                     <div class="product-info">
                                         <ul class="product-bts">
                                             <li><i class="fa fa-eye"></i> {{ $relatedDocument->views }}</li>
