@@ -39,4 +39,10 @@ interface RepositoryInterface
     public function sum($column);
 
     public function firstOrFail();
+
+    public function pluck($column);
+
+    public function multiCreate($input);
+
+    public function whereNotIn($column, $values);
 }

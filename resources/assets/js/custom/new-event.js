@@ -1,12 +1,66 @@
 $(document).ready(function () {
+    // datatables
+    $(function () {
+        $('#user-tables').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': true
+        });
+        $('#new-document-tables').DataTable();
+        $('#published-document-tables').DataTable();
+        $('#illegal-document-tables').DataTable();
+        $('#tables-user-uploaded').DataTable();
+        $('#user-downloadeds-table').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': false,
+            'autoWidth': false,
+            "pageLength": 5,
+        });
+        $('#user-bookmarks-table').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': false,
+            'autoWidth': false,
+            "pageLength": 5,
+        });
+        $('#user-uploadeds-table').DataTable();
+        $('#table-list-category').DataTable({
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': false,
+            'autoWidth': false,
+            "pageLength": 1,
+            "lengthMenu": [1, 5, 10, 25, 50],
+        });
+
+        // hidden notifications after 2 seconds
+        setTimeout(function () {
+            $(".notifications-admin").fadeOut('slow');
+        }, 2000);
+
+        setTimeout(function () {
+            $(".notifications-user").fadeOut('slow');
+        }, 2000);
+    });
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
 
-    $('#parent-category').click(function () {
-        $('#child-category').empty();
+    $('#parent-category-upload').click(function () {
+        $('#child-category-upload').empty();
         var url = $(this).data('url');
         var parentId = $(this).val();
 
@@ -21,9 +75,14 @@ $(document).ready(function () {
         .done(function (response) {
             if (response.success) {
                 var data = response.childCategories;
-                data.forEach(el=> {
-                    $('#child-category').append(`<option value="${el.id}">${el.name}</option>`);
-                });
+                if (data.length) {
+                    $('.child-category-upload').show(300);
+                    data.forEach(el => {
+                        $('#child-category-upload').append(`<option value="${el.id}">${el.name}</option>`);
+                    });
+                } else {
+                    $('.child-category-upload').hide();
+                }
             }
         });
     });
@@ -337,58 +396,6 @@ $(document).ready(function () {
         $('.btn-group-comment-input').addClass('hidden');
     });
 
-    // datatables
-    $(function () {
-        $('#user-tables').DataTable({
-            'paging': true,
-            'lengthChange': true,
-            'searching': true,
-            'ordering': true,
-            'info': true,
-            'autoWidth': true
-        });
-        $('#new-document-tables').DataTable();
-        $('#published-document-tables').DataTable();
-        $('#illegal-document-tables').DataTable();
-        $('#tables-user-uploaded').DataTable();
-        $('#user-downloadeds-table').DataTable({
-            'paging': true,
-            'lengthChange': true,
-            'searching': true,
-            'ordering': true,
-            'info': false,
-            'autoWidth': false,
-        });
-        $('#user-bookmarks-table').DataTable({
-            'paging': true,
-            'lengthChange': true,
-            'searching': true,
-            'ordering': true,
-            'info': false,
-            'autoWidth': false,
-        });
-        $('#user-uploadeds-table').DataTable();
-        $('#table-list-category').DataTable({
-            'paging': true,
-            'lengthChange': true,
-            'searching': true,
-            'ordering': true,
-            'info': false,
-            'autoWidth': false,
-            "pageLength": 1,
-            "lengthMenu": [1, 5, 10, 25, 50],
-        });
-
-        // hidden notifications after 2 seconds
-        setTimeout(function () {
-            $(".notifications-admin").fadeOut('slow');
-        }, 2000);
-
-        setTimeout(function () {
-            $(".notifications-user").fadeOut('slow');
-        }, 2000);
-    });
-
     // confirm admin delete document
     $('.btn-admin-delete-document').on('click', function (e) {
         var form = $(this).closest('.form-delete-document');
@@ -542,6 +549,49 @@ $(document).ready(function () {
             if (response.success) {
                 $(response.html).insertBefore(li);
                 $(form).find("input[name='name']").val('');
+            }
+        });
+    });
+
+    // pick file document
+    $('.btn-pick-file-document, .input-file-upload-name').click(function (e) {
+        e.preventDefault();
+        $('.input-file-document-upload').click();
+    });
+
+    $('.input-file-document-upload').change(function (e) {
+        let filePath = $(this).val();
+        $('.input-file-upload-name').val(filePath);
+    });
+
+    $('.input-url-thumbnail-image').click(function (e) {
+        $('#modal-upload-image').modal('show');
+    });
+
+    $('#parent-category-edit').click(function () {
+        $('#child-category-edit').empty();
+        var url = $(this).data('url');
+        var parentId = $(this).val();
+
+        $.ajax({
+            method: 'POST',
+            url: url,
+            dataType: 'json',
+            data: {
+                'parentId': parentId
+            }
+        })
+        .done(function (response) {
+            if (response.success) {
+                var data = response.childCategories;
+                if (data.length) {
+                    $('.child-category-edit').show(300);
+                    data.forEach(el => {
+                        $('#child-category-edit').append(`<option value="${el.id}">${el.name}</option>`);
+                    });
+                } else {
+                    $('.child-category-edit').hide();
+                }
             }
         });
     });

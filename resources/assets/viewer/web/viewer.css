@@ -458,6 +458,7 @@ html[dir='rtl'] #outerContainer.sidebarOpen > #sidebarContainer {
   -webkit-transition-timing-function: ease;
   transition-duration: 200ms;
   transition-timing-function: ease;
+  border-bottom: 15px solid #2b2929;
 }
 html[dir='ltr'] #outerContainer.sidebarOpen > #mainContainer {
   -webkit-transition-property: left;
@@ -2224,3 +2225,4 @@ html[dir='rtl'] #documentPropertiesOverlay .row > * {
     display: none;
   }
 }
+

@@ -29,7 +29,6 @@ class UploadDocumentRequest extends FormRequest
             'description' => 'required|string|min:50|max:1000',
             'document' => 'required|max:10240|mimes:pdf,ppt,pptx',
             'parent_category' => 'required',
-            'child_category' => 'required',
         ];
     }
 }
