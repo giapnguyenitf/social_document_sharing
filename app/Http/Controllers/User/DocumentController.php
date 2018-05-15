@@ -218,7 +218,13 @@ class DocumentController extends Controller
                     'description',
                     'thumbnail',
                 ]);
-                $document['category_id'] = $request->child_category ? $request->child_category : $request->parent_category;
+
+                if ($request->parent_category == config('settings.category.category_default')) {
+                    $document['category_id'] = $request->parent_category;
+                } else if ($request->child_category) {
+                    $document['category_id'] =  $request->child_category;
+                }
+                
                 $this->documentRepository->where('id', $oldDocument->id)->update($document);
 
                  // create tags for document

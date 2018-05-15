@@ -128,4 +128,9 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
             ->where('user_id', $userId)
             ->count();
     }
+
+    public function getAllTrashed()
+    {
+        return $this->model->onlyTrashed()->get();
+    }
 }

@@ -45,4 +45,6 @@ interface RepositoryInterface
     public function multiCreate($input);
 
     public function whereNotIn($column, $values);
+
+    public function restore();
 }

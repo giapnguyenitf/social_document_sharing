@@ -209,4 +209,9 @@ return [
         'send' => 'Gửi',
     ],
     'tags' => 'Tags',
+    'tooltip' => [
+        'delete_bookmark' => 'Hủy đánh dấu',
+        'edit_document' => 'Chỉnh sửa tài liệu',
+        'delete_document' => 'Xóa tài liệu',
+    ]
 ];

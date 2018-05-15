@@ -114,7 +114,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 label-thin" for="">@lang('user.tag')</label>
-                                        <div class="col-md-9">
+                                        <div class="col-md-8">
                                             <input class="form-control" type="text" name="tag" id="tag" data-role="tagsinput" placeholder="Nhập tag cho tài liệu">
                                         </div>
                                     </div>

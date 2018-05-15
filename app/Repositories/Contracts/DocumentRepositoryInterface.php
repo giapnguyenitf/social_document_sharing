@@ -37,4 +37,6 @@ interface DocumentRepositoryInterface extends RepositoryInterface
     public function getRelatedCategory($id, $categoryId);
 
     public function countDocumentByAuthor($userId);
+
+    public function getAllTrashed();
 }

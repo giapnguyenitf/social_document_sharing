@@ -190,4 +190,9 @@ abstract class BaseRepository implements RepositoryInterface
 
         return $this;
     }
+
+    public function restore()
+    {
+        return $this->model->restore();
+    }
 }

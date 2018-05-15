@@ -175,6 +175,10 @@ Route::middleware('adminAuth')->namespace('Admin')->group(function () {
         'uses' => 'DocumentController@showIllegal',
         'as' => 'manage-document.illegal',
     ]);
+    Route::get('deleted-document', [
+        'uses' => 'DocumentController@showDeleted',
+        'as' => 'manage-document.deleted',
+    ]);
     Route::get('manage-category', [
         'uses' => 'CategoryController@index',
         'as' => 'manage-category.index',
@@ -186,6 +190,10 @@ Route::middleware('adminAuth')->namespace('Admin')->group(function () {
     Route::get('publish-document/{id}', [
         'uses' => 'NewDocumentController@publishDocument',
         'as' => 'new-documents.published',
+    ]);
+    Route::get('restore-document/{id}', [
+        'uses' => 'DocumentController@restore',
+        'as' => 'deleted-document.restore',
     ]);
     Route::post('add-new-category', [
         'uses' => 'CategoryController@create',
