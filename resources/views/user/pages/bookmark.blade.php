@@ -54,7 +54,7 @@
                                                     <td>{{ $bookmark->created_at->format('d/m/Y') }}</td>
                                                     <td><a href="">{{ $bookmark->document->user->name }}</a></td>
                                                     <td class="btn-action-group">
-                                                        <a class="btn btn-danger btn-sm btn-delete-bookmark-document" href="{{ route('bookmark-document.delete', $bookmark->id) }}"><i class="fa fa-trash"></i></a>
+                                                        <a title="@lang('user.tooltip.delete_bookmark')" class="btn btn-danger btn-sm btn-delete-bookmark-document" href="{{ route('bookmark-document.delete', $bookmark->id) }}"><i class="fa fa-times"></i></a>
                                                     </td>
                                                 </tr>
                                             @endforeach

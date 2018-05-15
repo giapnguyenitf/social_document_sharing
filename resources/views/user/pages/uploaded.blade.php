@@ -65,13 +65,13 @@
                                                         <td class="btn-action-group">
                                                             <div class="row">
                                                                 <div class="col-md-12">
-                                                                    <a class="btn btn-info btn-sm" href="{{ route('document.edit', $uploaded->slug) }}"><i class="fa fa-pencil"></i></a>
+                                                                    <a title="@lang('user.tooltip.edit_document')" class="btn btn-info btn-sm" href="{{ route('document.edit', $uploaded->slug) }}"><i class="fa fa-pencil"></i></a>
                                                                 </div>
                                                                 <div class="col-md-12">
                                                                     <form action="{{ route('document.destroy', $uploaded->slug) }}" method="POST" class="form-delete-uploaded-document">
                                                                         @csrf
                                                                         @method('DELETE')
-                                                                        <button class="btn btn-danger btn-sm btn-delete-uploaded-document" type="button"><i class="fa fa-trash"></i></button>
+                                                                        <button title="@lang('user.tooltip.delete_document')" class="btn btn-danger btn-sm btn-delete-uploaded-document" type="button"><i class="fa fa-trash"></i></button>
                                                                     </form>
                                                                 </div>
                                                             </div>

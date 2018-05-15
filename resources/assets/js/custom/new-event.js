@@ -1,4 +1,21 @@
 $(document).ready(function () {
+    var language = {
+        'sProcessing': Lang.get('datatable.sProcessing'),
+        'sLengthMenu': Lang.get('datatable.sLengthMenu'),
+        'sZeroRecords': Lang.get('datatable.sZeroRecords'),
+        'sInfo': Lang.get('datatable.sInfo'),
+        'sInfoEmpty': Lang.get('datatable.sInfoEmpty'),
+        'sInfoFiltered': Lang.get('datatable.sInfoFiltered'),
+        'searchPlaceholder': Lang.get('datatable.searchPlaceholder'),
+        'sSearch': '',
+        'oPaginate': {
+            'sFirst': Lang.get('datatable.sFirst'),
+            'sPrevious': Lang.get('datatable.sPrevious'),
+            'sNext': Lang.get('datatable.sNext'),
+            'sLast': Lang.get('datatable.sLast'),
+        }
+    };
+
     // datatables
     $(function () {
         $('#user-tables').DataTable({
@@ -7,12 +24,21 @@ $(document).ready(function () {
             'searching': true,
             'ordering': true,
             'info': true,
-            'autoWidth': true
+            'autoWidth': true,
+            'language': language,
         });
-        $('#new-document-tables').DataTable();
-        $('#published-document-tables').DataTable();
-        $('#illegal-document-tables').DataTable();
-        $('#tables-user-uploaded').DataTable();
+        $('#new-document-tables').DataTable({
+            'language': language,
+        });
+        $('#published-document-tables').DataTable({
+            'language': language,
+        });
+        $('#illegal-document-tables').DataTable({
+            'language': language,
+        });
+        $('#tables-user-uploaded').DataTable({
+            'language': language,
+        });
         $('#user-downloadeds-table').DataTable({
             'paging': true,
             'lengthChange': true,
@@ -21,6 +47,8 @@ $(document).ready(function () {
             'info': false,
             'autoWidth': false,
             "pageLength": 5,
+            'language': language,
+            "lengthMenu": [5, 10, 25, 50],
         });
         $('#user-bookmarks-table').DataTable({
             'paging': true,
@@ -30,8 +58,13 @@ $(document).ready(function () {
             'info': false,
             'autoWidth': false,
             "pageLength": 5,
+            'language': language,
+            "lengthMenu": [5, 10, 25, 50],
         });
-        $('#user-uploadeds-table').DataTable();
+        $('#user-uploadeds-table').DataTable({
+            'language': language,
+            "lengthMenu": [5, 10, 25, 50],
+        });
         $('#table-list-category').DataTable({
             'paging': true,
             'lengthChange': true,
@@ -41,6 +74,7 @@ $(document).ready(function () {
             'autoWidth': false,
             "pageLength": 1,
             "lengthMenu": [1, 5, 10, 25, 50],
+            'language': language,
         });
 
         // hidden notifications after 2 seconds
@@ -296,6 +330,26 @@ $(document).ready(function () {
                 $(form).submit();
             }
         });
+    });
+
+    // confirm restore deleted document
+    $('.btn-admin-restore-document').on('click', function (e) {
+        var form = $(this).closest('.form-restore-deleted-document');
+        swal({
+            title: "Are you sure?",
+            text: Lang.get('admin.modal.restore_deleted_document_message'),
+            icon: "warning",
+            dangerMode: true,
+            buttons: {
+                cancel: Lang.get('admin.modal.bt_cancel_text'),
+                restore: Lang.get('admin.modal.bt_restore_text'),
+            },
+        })
+            .then((value) => {
+                if (value == "restore") {
+                    $(form).submit();
+                }
+            });
     });
 
     // confirm delete bookmark document

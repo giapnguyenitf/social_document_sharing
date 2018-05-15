@@ -71,15 +71,15 @@ class DocumentController extends Controller
     {
         try {
             $user = Auth::user();
-            $document = $this->documentRepository->getDocument($slug);
+            $document = $this->documentRepository->withTrashed()->where('slug', $slug)->firstOrFail();
 
             if ($user->can('edit', $document)) {
                 return view('admin.pages.editInfoDocument', compact('document'));
             }
 
-            return back()->with('notificationError', trans('admin.notifications.you_are_not_allowed_to_edit_this_document'));
+            return view('errors.403');
         } catch (Exception $e) {
-            return back()->with('messageError', trans('admin.notifications.document_not_found'));
+            return view('errors.404');
         }
 
     }
@@ -112,9 +112,9 @@ class DocumentController extends Controller
                     ->with('notificationSuccess', trans('admin.notifications.update_document_success'));
             }
 
-            return back()->with('notificationError', trans('admin.notifications.you_are_not_allowed_to_edit_this_document'));
+            return view('errors.403');
         } catch (Exception $e) {
-            return back()->with('notificationError', trans('admin.notifications.document_not_found'));
+            return view('errors.404');
         }
     }
 
@@ -138,7 +138,19 @@ class DocumentController extends Controller
 
             return view('errors.403');
         } catch (Exception $e) {
-            return back()->with('messageError', trans('admin.notifications.document_not_found'));
+            return view('errors.404');
+        }
+    }
+
+    public function restore($id)
+    {
+        try {
+            $document = $this->documentRepository->withTrashed()->findOrFail($id);
+            $document->restore();
+
+            return back()->with('notificationSuccess', trans('admin.notifications.restore_document_success', ['document' => $document->name]));
+        } catch (Exception $e) {
+            return view('errors.404');
         }
     }
 
@@ -154,5 +166,12 @@ class DocumentController extends Controller
         $documents = $this->documentRepository->getIllegal();
 
         return view('admin.pages.illegalDocument', compact('documents'));
+    }
+
+    public function showDeleted()
+    {
+        $documents = $this->documentRepository->getAllTrashed();
+
+        return view('admin.pages.deletedDocument', compact('documents'));
     }
 }

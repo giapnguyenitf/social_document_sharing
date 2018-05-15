@@ -183,9 +183,10 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="{{ route('manage-document.index') }}"><i class="fa fa-circle-o text-red"></i> @lang('admin.document.not_checking')</a></li>
-                                <li><a href="{{ route('manage-document.published') }}"><i class="fa fa-circle-o text-yellow"></i> @lang('admin.document.published')</a></li>
-                                <li><a href="{{ route('manage-document.illegal') }}"><i class="fa fa-circle-o text-aqua"></i> @lang('admin.document.illegal')</a></li>
+                                <li><a href="{{ route('manage-document.index') }}"><i class="fa fa-circle-o text-blue"></i> @lang('admin.document.not_checking')</a></li>
+                                <li><a href="{{ route('manage-document.published') }}"><i class="fa fa-circle-o text-aqua"></i> @lang('admin.document.published')</a></li>
+                                <li><a href="{{ route('manage-document.illegal') }}"><i class="fa fa-circle-o text-yellow"></i> @lang('admin.document.illegal')</a></li>
+                                <li><a href="{{ route('manage-document.deleted') }}"><i class="fa fa-circle-o text-red"></i> @lang('admin.document.deleted')</a></li>
                             </ul>
                         </li>
                         <li class="header">@lang('admin.sub_navigation')</li>

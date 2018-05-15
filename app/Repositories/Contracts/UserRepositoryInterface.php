@@ -15,5 +15,4 @@ interface UserRepositoryInterface extends RepositoryInterface
     public function getAllBlockedUsers();
 
     public function getAllBlockedMods();
-    
 }

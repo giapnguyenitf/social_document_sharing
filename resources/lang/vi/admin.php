@@ -118,13 +118,16 @@ return [
         'delete_category_fail' => 'Xóa danh mục thất bại!',
         'update_category_success' => 'Cập nhật danh mục thành công!',
         'update_category_fail' => 'Cập nhật danh mục thất bại!',
+        'restore_document_success' => 'Tài liệu :document đã được khôi phục!',
     ],
     'modal' => [
         'publish_document_notification' => 'Bạn đã kiểm tra kĩ tài liệu rồi chứ!',
         'delete_document_message' => 'Bạn chắc chắn muốn xóa tài liệu này chứ?',
         'delete_category_message' => 'Bạn chắc chắn muốn xóa danh mục này chứ?',
+        'restore_deleted_document_message' => 'Bạn chắc chắn muốn khôi phục tài liệu này chứ?',
         'bt_cancel_text' => 'Hủy',
         'bt_ok_text' => 'Ok',
+        'bt_restore_text' => 'Khôi phục',
     ],
     'document' => [
         'status' => [
@@ -135,6 +138,7 @@ return [
         'not_checking' => 'Chưa kiểm duyệt',
         'published' => 'Đã phát hành',
         'illegal' => 'Vi phạm',
+        'deleted' => 'Đã xóa',
     ],
     'user' => [
         'uploaded' => 'Đã tải lên',
