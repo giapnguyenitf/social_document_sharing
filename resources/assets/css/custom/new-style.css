@@ -585,3 +585,36 @@
 .btn-radius {
     border-radius: 5px !important;
 }
+
+.btn-pick-file-document {
+    background: #00b5ad;
+    color: #fff;
+}
+
+.document-description {
+    padding-top: 10px;
+}
+
+.text-blue {
+    color: #00b5ad !important;
+}
+
+.document-tags {
+    padding-top: 20px;
+}
+
+.label-tag-document {
+    padding: 3px 10px 3px 10px;
+    font-size: 12px;
+    background-color: transparent;
+    color: #333;
+    border: 1px solid #b7afaf;
+}
+
+.child-category-upload {
+    display: none;
+}
+
+.child-category-edit {
+    display: none;
+}

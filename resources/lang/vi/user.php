@@ -143,6 +143,10 @@ return [
         'you_are_not_allowed_to_edit_this_document' => 'Bạn không được phép chỉnh sửa tài liệu này!',
         'you_are_not_allowed_to_delete_this_document' => 'Bạn không được phép xóa tài liệu này!',
         'you_are_not_allowed_to_delete_this_bookmark' => 'Bạn không được phép hủy đánh dấu tài này!',
+        'description_about_document' => 'Hãy mô tả về tài liệu của bạn (100-500 kí tự)',
+        'type_name_document' => 'Nhập tên tài tiệu (10-100 kí tự)',
+        'accept_file_type' => 'Chọn tài liệu tải lên (.pdf, .ppt)',
+        'accept_thumnail_type' => 'Chọn thumbnail cho tài liệu (.png, .jpg, .jpeg, .svg)',
     ],
     'edit_document' => 'Chỉnh sửa tài liệu',
     'image_preview' => 'Hình ảnh xem trước',
@@ -204,4 +208,5 @@ return [
         '404_page' => '404 page',
         'send' => 'Gửi',
     ],
+    'tags' => 'Tags',
 ];

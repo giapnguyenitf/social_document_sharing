@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Ajax;
 
 use Illuminate\Http\Request;
+use App\Models\Document;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\DocumentRepositoryInterface;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
@@ -27,7 +28,7 @@ class SearchController extends Controller
             $category = $request->category;
 
             if ($category == config('settings.search.by_all')) {
-                $results = $this->documentRepository->searchByName($keyword)->take(5);
+                $results = Document::search($keyword)->take(6)->get();
             } else {
                 $searchBy = $this->categoryRepository->where('slug', $category)->firstOrFail();
                 $results = $this->documentRepository->searchByCategory($keyword, $searchBy->id)->take(5);

@@ -173,4 +173,21 @@ abstract class BaseRepository implements RepositoryInterface
     {
         return $this->model->firstOrFail();
     }
+
+    public function pluck($column)
+    {
+        return $this->model->pluck($column);
+    }
+
+    public function multiCreate($input)
+    {
+        return $this->model->insert($input);
+    }
+
+    public function whereNotIn($column, $values)
+    {
+        $this->model = $this->model->whereNotIn($column, $values);
+
+        return $this;
+    }
 }

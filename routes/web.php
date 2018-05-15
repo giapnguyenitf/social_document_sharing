@@ -12,6 +12,8 @@
 */
 Auth::routes();
 
+Route::redirect('/', '/home');
+
 Route::namespace('Auth')->group(function (){
     Route::get('redirect/{provider}', [
         'as' => 'redirect',
@@ -27,8 +29,6 @@ Route::namespace('Auth')->group(function (){
     ]);
 });
 
-Route::redirect('/', '/home');
-
 Route::namespace('User')->group(function () {
     Route::get('home', [
         'uses' => 'HomeController@index',
@@ -38,11 +38,11 @@ Route::namespace('User')->group(function () {
         'uses' => 'SearchController@search',
         'as' => 'search-document',
     ]);
-    Route::get('document/show/{id}', [
+    Route::get('document/show/{slug}', [
         'uses' => 'DocumentController@show',
         'as' => 'view-document',
     ]);
-    Route::get('sub-category/{id}', [
+    Route::get('category/{slug}', [
         'uses' => 'SearchController@showBySubCategory',
         'as' => 'show-by-sub-category',
     ]);
@@ -50,13 +50,17 @@ Route::namespace('User')->group(function () {
         'uses' => 'SearchController@showBySubCategory',
         'as' => 'show-by-parent-category',
     ]);
-    Route::get('document/download/{id}', [
+    Route::get('document/download/{slug}', [
         'uses' => 'DocumentController@download',
         'as' => 'download-document',
     ]);
-    Route::get('user-profile/{id}', [
+    Route::get('user-profile/{slug}', [
         'uses' => 'UserController@show',
         'as' => 'user-profile.show',
+    ]);
+    Route::get('tags/{slug}', [
+        'uses' => 'SearchController@showByTag',
+        'as' => 'show-by-tag',
     ]);
 });
 
@@ -123,6 +127,10 @@ Route::namespace('Ajax')->group(function () {
     Route::post('add-sub-category', [
         'uses' => 'CategoryController@create',
         'as' => 'ajax-add-sub-category',
+    ]);
+    Route::get('get-all-tag', [
+        'uses' => 'TagController@getAllTag',
+        'as' => 'ajax-get-all-tag',
     ]);
 });
 

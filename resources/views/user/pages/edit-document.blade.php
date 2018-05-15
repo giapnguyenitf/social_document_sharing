@@ -70,10 +70,17 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 label-thin" for="">@lang('user.category')</label>
                                         <div class="col-md-6">
-                                            <select class="form-control input-no-border" id="parent-category" data-url="{{ route('ajax-get-child-category') }}" name="parent_category">
-                                                <option value="">--@lang('user.choose_category')--</option>
+                                            <select class="form-control input-no-border" id="parent-category-edit" data-url="{{ route('ajax-get-child-category') }}" name="parent_category">
                                                 @foreach ($parentCategories as $parentCategory)
-                                                    <option {{ $parentCategory->id == $document->category->parentCategory->id ? 'selected' : '' }} value="{{ $parentCategory->id }}">{{ $parentCategory->name }}</option>
+                                                    @if ($document->category->id == config('settings.category.category_default'))
+                                                        <option value="{{ $parentCategory->id }}" {{ $parentCategory->id == $document->category->id ? 'selected' : '' }}>
+                                                            {{ $parentCategory->name }}
+                                                        </option>
+                                                    @else
+                                                        <option value="{{ $parentCategory->id }}" {{ $parentCategory->id == $document->category->parentCategory->id ? 'selected' : '' }}>
+                                                            {{ $parentCategory->name }}
+                                                        </option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                             @if ($errors->has('parent_category'))
@@ -83,10 +90,10 @@
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group child-category-edit">
                                         <label class="control-label col-md-3 label-thin" for="">@lang('user.child_category')</label>
                                         <div class="col-md-6">
-                                            <select class="form-control input-no-border" value="{{ $document->category->id }}" name="child_category" id="child-category">
+                                            <select class="form-control input-no-border" value="{{ $document->category->id }}" name="child_category" id="child-category-edit">
                                                 <option value="">--@lang('user.choose_child_category')--</option>
                                             </select>
                                             @if ($errors->has('child_category'))
@@ -107,7 +114,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 label-thin" for="">@lang('user.tag')</label>
-                                        <div class="col-md-6">
+                                        <div class="col-md-9">
                                             <input class="form-control" type="text" name="tag" id="tag" data-role="tagsinput" placeholder="Nhập tag cho tài liệu">
                                         </div>
                                     </div>
@@ -126,3 +133,9 @@
     </div>
     @include('user.layouts.modal-upload-image')
 @endsection
+@push('css')
+    {{ Html::style('css/bootstrap-tagsinput.css') }}
+@endpush
+@push('js')
+    {{ Html::script('js/bootstrap-tagsinput.min.js') }}
+@endpush

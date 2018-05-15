@@ -11,6 +11,7 @@ use App\Traits\UploadFileTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateDocumentRequest;
 use App\Http\Requests\UploadDocumentRequest;
+use App\Repositories\Contracts\TagRepositoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Contracts\CommentRepositoryInterface;
 use App\Repositories\Contracts\BookmarkRepositoryInterface;
@@ -22,24 +23,27 @@ class DocumentController extends Controller
 {
     use UploadFileTrait;
 
+    protected $tagRepository;
     protected $userRepository;
+    protected $commentRepository;
     protected $categoryRepository;
     protected $documentRepository;
     protected $bookmarkRepository;
-    protected $commentRepository;
 
     public function __construct(
+        TagRepositoryInterface $tagRepository,
         UserRepositoryInterface $userRepository,
+        CommentRepositoryInterface $commentRepository,
         CategoryRepositoryInterface $categoryRepository,
         DocumentRepositoryInterface $documentRepository,
-        BookmarkRepositoryInterface  $bookmarkRepository,
-        CommentRepositoryInterface $commentRepository
+        BookmarkRepositoryInterface  $bookmarkRepository
     ) {
+        $this->tagRepository = $tagRepository;
         $this->userRepository = $userRepository;
+        $this->commentRepository = $commentRepository;
         $this->categoryRepository = $categoryRepository;
         $this->documentRepository = $documentRepository;
         $this->bookmarkRepository = $bookmarkRepository;
-        $this->commentRepository = $commentRepository;
     }
 
     /**
@@ -73,21 +77,35 @@ class DocumentController extends Controller
     public function store(UploadDocumentRequest $request)
     {
         try {
+            dd($request);
+            // store document
             $document = $request->only([
                 'name',
                 'description',
-                'tag',
                 'thumbnail',
             ]);
-
             $file = $request->file('document');
             $filePath = $this->uploadFile(config('settings.document.path_store'), $file);
             $document['file_name'] = $filePath;
             $document['file_size'] = round($file->getClientSize()/(1024*1024), 2);
             $document['file_type'] = $file->extension();
-            $document['category_id'] = $request->input('child_category');
+            $document['category_id'] = $request->has('child_category') ? $request->child_category : $request->parent_category;
             $document['user_id'] = Auth::user()->id;
-            $this->documentRepository->create($document);
+            $document = $this->documentRepository->create($document);
+
+            // create tags for document
+            if ($request->tag) {
+                $documentTags = explode(',', $request->tag);
+                $tagExists = $this->tagRepository->pluck('name')->all();
+                $newTags = array_diff($documentTags, $tagExists);
+
+                foreach ($newTags as $value) {
+                    $this->tagRepository->create(['name' => $value]);
+                }
+
+                $documentTagIds = $this->tagRepository->whereIn('name', $documentTags)->pluck('id')->all();
+                $document->tags()->attach($documentTagIds);
+            }
 
             return back()->with('messageSuccess', trans('user.document.upload_success'));
         } catch(Exception $e) {
@@ -107,8 +125,7 @@ class DocumentController extends Controller
             $document = $this->documentRepository->getDocument($slug);
             $comments = $this->commentRepository->getComment($slug);
             $relatedDocuments = $this->documentRepository->getRelatedCategory($document->id, $document->category_id);
-            $authorUploaded = $this->documentRepository->where('status',config('settings.document.status.is_published'))
-                ->where('user_id', $document->user->id)->count();
+            $authorUploaded = $this->documentRepository->countDocumentByAuthor($document->user->id);
             $isBookmark = config('settings.document.is_bookmark.false');
             $urlViewer = route('viewer') . '?file=' . $document->file_name;
 
@@ -199,19 +216,29 @@ class DocumentController extends Controller
                 $document = $request->only([
                     'name',
                     'description',
+                    'thumbnail',
                 ]);
-                $document['category_id'] = $request->child_category;
-                $document['tag'] = $request->tag ? $request->tag : ' ';
-
-                if ($request->thumbnail) {
-                    $document['thumbnail'] = $request->thumbnail;
-                }
-
+                $document['category_id'] = $request->child_category ? $request->child_category : $request->parent_category;
                 $this->documentRepository->where('id', $oldDocument->id)->update($document);
+
+                 // create tags for document
+                if ($request->tag) {
+                    $documentTags = explode(',', $request->tag);
+                    $tagExists = $this->tagRepository->pluck('name')->all();
+                    $newTags = array_diff($documentTags, $tagExists);
+
+                    foreach ($newTags as $value) {
+                        $this->tagRepository->create(['name' => $value]);
+                    }
+
+                    $documentTagIds = $this->tagRepository->whereIn('name', $documentTags)->pluck('id')->all();
+                    $oldDocument->tags()->detach();
+                    $oldDocument->tags()->attach($documentTagIds);
+                }
 
                 return redirect()->route('uploaded-document.show')->with('messageSuccess', trans('user.document.update_success'));
             } else {
-                return back()->with('messageError', trans('user.document.you_are_not_allowed_to_edit_this_document'));
+                return view('errors.403');
             }
         } catch(Exception $e) {
             return back()->with('messageError', trans('user.document.update_fail'));

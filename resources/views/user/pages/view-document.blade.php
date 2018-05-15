@@ -9,6 +9,11 @@
                             <div class="col-md-12 document-name">
                                 <h3>{{ $document->name }}</h3>
                             </div>
+                            <div class="col-md-12">
+                                <div class="category">
+                                    <b>@lang('user.category'): <a class="text-blue" href="{{ route('show-by-sub-category',  $document->category->slug) }}">{{ $document->category->name }}</a></b>
+                                </div>
+                            </div>
                             <div class="col-md-12 document-description">
                                 <p>{{ $document->description }}</p>
                             </div>
@@ -20,7 +25,7 @@
                                         <a href="{{ route('user-profile.show', $document->user->slug) }}"><img class="img-responsive" src="{{ $document->user->avatar }}" alt=""></a>
                                     </div>
                                     <div class="name">
-                                        <a href="{{ route('user-profile.show', $document->user->slug) }}">{{ $document->user->name }}</a>
+                                        <a class="text-blue" href="{{ route('user-profile.show', $document->user->slug) }}">{{ $document->user->name }}</a>
                                         <p>@lang('user.document.upload') <span>{{ $authorUploaded }}</span> @lang('user.document.document')</p>
                                     </div>
                                 </div>
@@ -82,6 +87,14 @@
                                     <a href="" class="btn btn-danger"><i class="fa fa-google"></i> Google</a>
                                     <a href="" class="btn btn-info"><i class="fa fa-twitter"></i> Twitter</a>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 document-tags">
+                                <b>@lang('user.tags'):</b>
+                                @foreach ($document->tags as $tag)
+                                    <a href="{{ route('show-by-tag', $tag->slug) }}" class="label label-default label-tag-document">{{ $tag->name }}</a>
+                                @endforeach
                             </div>
                         </div>
                         <div class="row">

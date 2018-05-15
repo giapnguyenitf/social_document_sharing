@@ -88,7 +88,7 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
 
     public function getDocument($slug)
     {
-        return $this->model->with('user')->where('slug', $slug)->firstOrFail();
+        return $this->model->with(['user', 'tags'])->where('slug', $slug)->firstOrFail();
     }
 
     public function getPublished()
@@ -112,13 +112,20 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
             ->get();
     }
 
-    public function getRelatedCategory($slug, $categoryId)
+    public function getRelatedCategory($id, $categoryId)
     {
         return $this->model->where('category_id', $categoryId)
                 ->where('status',config('settings.document.status.is_published'))
-                ->where('slug', '!=', $slug)
+                ->where('id', '!=', $id)
                 ->with('user')
                 ->take(config('settings.top_related_document'))
                 ->get();
+    }
+
+    public function countDocumentByAuthor($userId)
+    {
+        return $this->model->where('status',config('settings.document.status.is_published'))
+            ->where('user_id', $userId)
+            ->count();
     }
 }

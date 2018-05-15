@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Document extends Model
 {
-    use SoftDeletes, Sluggable;
+    use SoftDeletes, Sluggable, Searchable;
 
     protected $dates = ['deleted_at'];
 
@@ -45,6 +46,11 @@ class Document extends Model
     public function bookmarks()
     {
         return $this->hasMany(Bookmark::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'document_tag', 'document_id', 'tag_id');
     }
 
     public function getStatusNameAttribute()
@@ -90,5 +96,19 @@ class Document extends Model
                 'maxLength' => 191,
             ]
         ];
+    }
+
+    public function toSearchableArray()
+    {
+        $record = $this->toArray();
+        $record['name'] = $this->name;
+        $record['description'] = $this->description;
+
+        return $record;
+    }
+
+    public function shouldBeSearchable()
+    {
+        return $this->isPublished();
     }
 }

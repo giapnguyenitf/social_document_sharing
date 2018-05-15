@@ -34,5 +34,7 @@ interface DocumentRepositoryInterface extends RepositoryInterface
 
     public function getIllegal();
 
-    public function getRelatedCategory($slug, $categoryId);
+    public function getRelatedCategory($id, $categoryId);
+
+    public function countDocumentByAuthor($userId);
 }

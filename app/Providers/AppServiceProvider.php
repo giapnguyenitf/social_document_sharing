@@ -58,5 +58,10 @@ class AppServiceProvider extends ServiceProvider
             Contracts\BookmarkRepositoryInterface::class,
             Eloquent\BookmarkRepository::class
         );
+
+         $this->app->bind(
+            Contracts\TagRepositoryInterface::class,
+            Eloquent\TagRepository::class
+        );
     }
 }
