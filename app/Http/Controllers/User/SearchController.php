@@ -30,6 +30,7 @@ class SearchController extends Controller
         $newestDocuments = $this->documentRepository->getNewests();
         $keyword = $request->keyword;
         $category = $request->category;
+        $categories = $this->categoryRepository->getAll();
 
         if ($category == config('settings.search.by_all')) {
             $documents = Document::search($keyword)->paginate(config('settings.document.paginate_per_page'));
@@ -38,7 +39,7 @@ class SearchController extends Controller
             $documents = $this->documentRepository->searchByCategory($keyword, $searchBy->id);
         }
 
-        return view('user.pages.search', compact('documents', 'keyword', 'newestDocuments'));
+        return view('user.pages.search', compact('documents', 'keyword', 'newestDocuments', 'categories'));
     }
 
     public function showBySubCategory($slug)
@@ -46,8 +47,9 @@ class SearchController extends Controller
         $category = $this->categoryRepository->where('slug', $slug)->firstOrFail();
         $documents = $this->documentRepository->getBySubCategory($category->id);
         $newestDocuments = $this->documentRepository->getNewests();
+        $categories = $this->categoryRepository->getAll();
 
-        return view('user.pages.show-by-category', compact('documents', 'category', 'newestDocuments'));
+        return view('user.pages.show-by-category', compact('documents', 'category', 'newestDocuments', 'categories'));
     }
 
     public function showByParentCategory($categoryId)
@@ -55,15 +57,17 @@ class SearchController extends Controller
         $documents = $this->documentRepository->getByParentCategory($categoryId);
         $category = $this->categoryRepository->find($categoryId);
         $newestDocuments = $this->documentRepository->getNewests();
+        $categories = $this->categoryRepository->getAll();
 
-        return view('user.pages.show-by-category', compact('documents', 'category', 'newestDocuments'));
+        return view('user.pages.show-by-category', compact('documents', 'category', 'newestDocuments', 'categories'));
     }
 
     public function showByTag($slug)
     {
         $tag = $this->tagRepository->getDocumentBytag($slug);
         $newestDocuments = $this->documentRepository->getNewests();
+        $categories = $this->categoryRepository->getAll();
 
-        return view('user.pages.show-by-tag', compact('tag', 'newestDocuments'));
+        return view('user.pages.show-by-tag', compact('tag', 'newestDocuments', 'categories'));
     }
 }

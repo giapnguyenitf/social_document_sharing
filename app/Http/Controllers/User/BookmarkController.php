@@ -8,18 +8,23 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\BookmarkRepositoryInterface;
 use App\Repositories\Contracts\DocumentRepositoryInterface;
+use App\Repositories\Contracts\CategoryRepositoryInterface;
+
 
 class BookmarkController extends Controller
 {
     protected $bookmarkRepository;
     protected $documentRepository;
+    protected $categoryRepository;
 
     public function __construct(
         DocumentRepositoryInterface $documentRepository,
-        BookmarkRepositoryInterface  $bookmarkRepository
+        BookmarkRepositoryInterface  $bookmarkRepository,
+        CategoryRepositoryInterface $categoryRepository
     ) {
         $this->bookmarkRepository = $bookmarkRepository;
         $this->documentRepository = $documentRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     public function index()
@@ -27,8 +32,9 @@ class BookmarkController extends Controller
         try {
             $user = Auth::user();
             $bookmarks = $this->bookmarkRepository->getByUser($user->id);
+            $categories = $this->categoryRepository->getAll();
 
-            return view('user.pages.bookmark', compact('bookmarks'));
+            return view('user.pages.bookmark', compact('bookmarks', 'categories'));
         } catch(Exception $e) {
             return back();
         }

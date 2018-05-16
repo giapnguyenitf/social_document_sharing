@@ -12,6 +12,7 @@ use App\Http\Requests\UpdateProfileRequest;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Contracts\DocumentRepositoryInterface;
 use App\Repositories\Contracts\BookmarkRepositoryInterface;
+use App\Repositories\Contracts\CategoryRepositoryInterface;
 
 class UserController extends Controller
 {
@@ -20,20 +21,25 @@ class UserController extends Controller
     protected $userRepository;
     protected $documentRepository;
     protected $bookmarkRepository;
+    protected $categoryRepository;
 
     public function __construct(
         UserRepositoryInterface $userRepository,
         DocumentRepositoryInterface $documentRepository,
-        BookmarkRepositoryInterface  $bookmarkRepository
+        BookmarkRepositoryInterface  $bookmarkRepository,
+        CategoryRepositoryInterface $categoryRepository
     ) {
         $this->userRepository = $userRepository;
         $this->documentRepository = $documentRepository;
         $this->bookmarkRepository = $bookmarkRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     public function index()
     {
-        return view('user.pages.profiles');
+        $categories = $this->categoryRepository->getAll();
+
+        return view('user.pages.profiles', compact('categories'));
     }
 
     public function show($slug)
@@ -45,12 +51,13 @@ class UserController extends Controller
                 }
             }
 
+            $categories = $this->categoryRepository->getAll();
             $user = $this->userRepository->where('slug', $slug)->firstOrFail();
             $uploadeds = $this->documentRepository->where('status', config('settings.document.status.is_published'))
                 ->where('user_id', $user->id)
                 ->get();
 
-            return view('user.pages.user-profile', compact('user', 'uploadeds'));
+            return view('user.pages.user-profile', compact('user', 'uploadeds', 'categories'));
         } catch (Exception $e) {
             return view('errors.404');
         }
@@ -91,10 +98,11 @@ class UserController extends Controller
     public function showUploaded()
     {
         try {
+            $categories = $this->categoryRepository->getAll();
             $user = Auth::user();
-             $uploadeds = $this->documentRepository->where('user_id', $user->id)->get();
+            $uploadeds = $this->documentRepository->where('user_id', $user->id)->get();
 
-            return view('user.pages.uploaded', compact('uploadeds'));
+            return view('user.pages.uploaded', compact('uploadeds', 'categories'));
         } catch (Exception $e) {
             return view('errors.404');
         }
@@ -103,13 +111,14 @@ class UserController extends Controller
     public function showDownloaded()
     {
         try {
+            $categories = $this->categoryRepository->getAll();
             $user = Auth::user();
             $dowloadedsId = explode(',', $user->downloaded);
             $downloadeds = $this->documentRepository->withTrashed()
             ->whereIn('id', $dowloadedsId)
             ->get();
 
-            return view('user.pages.downloaded', compact('downloadeds'));
+            return view('user.pages.downloaded', compact('downloadeds', 'categories'));
         } catch(Exception $e) {
             return view('errors.404');
         }
