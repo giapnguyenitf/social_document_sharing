@@ -10,12 +10,9 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-.env
-/storage
 /public/css
 /public/js
 /public/fonts
-.env
 public/storage
 public/images
 public/messages.js
