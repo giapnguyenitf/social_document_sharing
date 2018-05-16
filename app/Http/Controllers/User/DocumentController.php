@@ -54,8 +54,9 @@ class DocumentController extends Controller
     public function index()
     {
         $parentCategories = $this->categoryRepository->where('parent_id', '=', config('settings.category.is_parent'))->get();
+        $categories = $this->categoryRepository->getAll();
 
-        return view('user.pages.upload', compact('parentCategories'));
+        return view('user.pages.upload', compact('parentCategories', 'categories'));
     }
 
     /**
@@ -77,7 +78,6 @@ class DocumentController extends Controller
     public function store(UploadDocumentRequest $request)
     {
         try {
-            dd($request);
             // store document
             $document = $request->only([
                 'name',
@@ -122,6 +122,7 @@ class DocumentController extends Controller
     public function show($slug)
     {
         try {
+            $categories = $this->categoryRepository->getAll();
             $document = $this->documentRepository->getDocument($slug);
             $comments = $this->commentRepository->getComment($slug);
             $relatedDocuments = $this->documentRepository->getRelatedCategory($document->id, $document->category_id);
@@ -153,11 +154,13 @@ class DocumentController extends Controller
                         'relatedDocuments',
                         'authorUploaded',
                         'isBookmark',
-                        'comments')
+                        'comments',
+                        'categories'
+                        )
                     );
                 }
 
-                return back()->with('messageError', trans('user.document.document_not_found'));
+                return view('errors.403');
             } else if ($document->isPublished()){
                 return view('user.pages.view-document', compact(
                     'document',
@@ -165,7 +168,9 @@ class DocumentController extends Controller
                     'relatedDocuments',
                     'authorUploaded',
                     'isBookmark',
-                    'comments')
+                    'comments',
+                    'categories'
+                    )
                 );
             }
 
@@ -184,18 +189,19 @@ class DocumentController extends Controller
     public function edit($slug)
     {
         try {
+            $categories = $this->categoryRepository->getAll();
             $document = $this->documentRepository->where('slug', $slug)->firstOrFail();
             $user = Auth::user();
 
             if ($user->can('edit', $document)) {
                 $parentCategories = $this->categoryRepository->where('parent_id', '=', config('settings.category.is_parent'))->get();
 
-                return view('user.pages.edit-document', compact('document', 'parentCategories'));
+                return view('user.pages.edit-document', compact('document', 'parentCategories', 'categories'));
             }
 
-            return back()->with('messageError', trans('user.document.you_are_not_allowed_to_edit_this_document'));
+            return view('errors.403');
         } catch(Exception $e) {
-            return back()->with('messageError', trans('user.document.document_not_found'));
+            return view('errors.404');
         }
     }
 
@@ -224,7 +230,7 @@ class DocumentController extends Controller
                 } else if ($request->child_category) {
                     $document['category_id'] =  $request->child_category;
                 }
-                
+
                 $this->documentRepository->where('id', $oldDocument->id)->update($document);
 
                  // create tags for document

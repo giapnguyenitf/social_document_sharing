@@ -29,6 +29,7 @@ class HomeController extends Controller
         $numberDocument = $this->documentRepository->countAll();
         $numberCategory = $this->categoryRepository->countAll();
         $numberViews = $this->documentRepository->allViews();
+        $categories = $this->categoryRepository->getAll();
 
         return view('user.pages.home', compact(
             'newestDocuments',
@@ -36,7 +37,8 @@ class HomeController extends Controller
             'topViewsDocuments',
             'numberDocument',
             'numberCategory',
-            'numberViews'
+            'numberViews',
+            'categories'
         ));
     }
 }
