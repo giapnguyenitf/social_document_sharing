@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\Document;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\TagRepositoryInterface;
@@ -33,7 +32,7 @@ class SearchController extends Controller
         $categories = $this->categoryRepository->getAll();
 
         if ($category == config('settings.search.by_all')) {
-            $documents = Document::search($keyword)->paginate(config('settings.document.paginate_per_page'));
+            $documents = $this->documentRepository->searchByName($keyword);
         } else {
             $searchBy = $this->categoryRepository->where('slug', $category)->firstOrFail();
             $documents = $this->documentRepository->searchByCategory($keyword, $searchBy->id);

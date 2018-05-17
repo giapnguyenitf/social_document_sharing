@@ -170,6 +170,7 @@ return [
         'bt_delete_text' => 'Xóa',
         'delete_uploaded_document_message' => 'Bạn chắc chắn muốn xóa tài liệu này chứ!',
         'delete_bookmark_document_message' => 'Bạn chắc chắn muốn hủy đánh dấu tài liệu này chứ!',
+        'choose_avatar_from_computer' => 'Chọn ảnh từ máy tính',
     ],
     'comment' => [
         'leave_a_comment' => 'Để lại một bình luận...',
@@ -213,5 +214,7 @@ return [
         'delete_bookmark' => 'Hủy đánh dấu',
         'edit_document' => 'Chỉnh sửa tài liệu',
         'delete_document' => 'Xóa tài liệu',
-    ]
+    ],
+    'btn_cancel_text' => 'Hủy',
+    'btn_save_text' => 'Lưu thay đổi',
 ];

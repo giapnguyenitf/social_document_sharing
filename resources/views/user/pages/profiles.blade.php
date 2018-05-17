@@ -6,6 +6,9 @@
                 <div class="box box-primary">
                     <div class="box-body box-profile">
                         <img class="profile-user-img img-responsive img-circle" src="{{ Auth::user()->avatar }}" alt="">
+                        <div class="btn-edit-avatar">
+                            <a href="#modal-avatar" data-toggle="modal" data-target="#modal-avatar"><i class="fa fa-camera"></i></a>
+                        </div>
                         <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
                         <p class="text-muted text-center"></p>
                         <ul class="list-group list-group-unbordered">
@@ -119,6 +122,33 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-avatar" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <form action="{{ route('user.change-avatar') }}" method="POST" enctype="multipart/form-data" files="true">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3>@lang('user.modal.choose_avatar_from_computer')</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="wrap-preview-avatar">
+                            <div class="preview-avatar">
+                                <img src="{{ Auth::user()->avatar }}" class="img-responsive" alt="">
+                                <i class="fa fa-camera fa-3x"></i>
+                            </div>
+                            <input type="file" accept="image/*" name="avatar" class="avatar-user-change hidden" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">@lang('user.btn_cancel_text')</button>
+                        <button type="submit" class="btn btn-info btn-save-chane-avatar">@lang('user.btn_save_text')</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 @endsection
