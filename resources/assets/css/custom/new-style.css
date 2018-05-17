@@ -618,3 +618,16 @@
 .child-category-edit {
     display: none;
 }
+
+.btn-edit-avatar {
+    text-align: center;
+    font-size: 18px;
+}
+
+.preview-avatar i {
+    position: absolute;
+    left: 44%;
+    top: 39%;
+    opacity: 0.7;
+    cursor: pointer;
+}

@@ -649,4 +649,23 @@ $(document).ready(function () {
             }
         });
     });
+
+    // change avatar
+    $('.preview-avatar').click(function (e) {
+        $('.avatar-user-change').click();
+    });
+
+    $('.avatar-user-change').change(function () {
+        readURL(this);
+    });
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('.preview-avatar img').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 });

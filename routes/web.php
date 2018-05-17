@@ -93,6 +93,10 @@ Route::middleware('auth')->namespace('User')->group(function () {
         'uses' => 'UserController@showDownloaded',
         'as' => 'downloaded-document.show',
     ]);
+    Route::post('change-avatar', [
+        'uses' => 'UserController@changeAvatar',
+        'as' => 'user.change-avatar',
+    ]);
 });
 
 Route::namespace('Ajax')->group(function () {

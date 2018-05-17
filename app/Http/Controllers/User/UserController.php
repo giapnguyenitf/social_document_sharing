@@ -123,4 +123,16 @@ class UserController extends Controller
             return view('errors.404');
         }
     }
+
+    public function changeAvatar(Request $request)
+    {
+        if ($request->has('avatar')) {
+            $avatarPath = $this->uploadFile(config('settings.avatar.path_store'), $request->avatar);
+            $this->userRepository->where('id', Auth::user()->id)->update([
+                'avatar' => $avatarPath,
+            ]);
+        }
+
+        return back();
+    }
 }

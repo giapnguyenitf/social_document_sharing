@@ -91,7 +91,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 label-thin" for="">@lang('user.choose_file')</label>
                                         <div class="col-md-6">
-                                            <input class="form-control input-no-border input-file-document-upload hidden" type="file" name="document" accept=".pdf,.docx,.doc,.ppt,.pptx">
+                                            <input class="form-control input-no-border input-file-document-upload hidden" type="file" name="document" accept=".pdf,.ppt,.pptx">
                                              <div class="input-group">
                                                 <input placeholder="@lang('user.document.accept_file_type')" class="form-control input-no-border input-file-upload-name" value="" type="text" readonly>
                                                 <a href="" data-toggle="modal" class="btn btn-primary input-group-addon btn-pick-file-document"><i class="fa fa-file-o"></i>&nbsp;@lang('user.document.upload_thumbnail')</a>
