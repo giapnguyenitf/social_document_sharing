@@ -27,7 +27,7 @@ class SearchController extends Controller
             $category = $request->category;
 
             if ($category == config('settings.search.by_all')) {
-                $results = $this->documentRepository->searchByName($keyword);
+                $results = $this->documentRepository->searchByName($keyword)->take(6);
             } else {
                 $searchBy = $this->categoryRepository->where('slug', $category)->firstOrFail();
                 $results = $this->documentRepository->searchByCategory($keyword, $searchBy->id)->take(5);
