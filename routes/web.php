@@ -155,7 +155,7 @@ Route::middleware('adminAuth')->namespace('Admin')->group(function () {
         'uses' => 'UserController@showBlockedMods',
         'as' => 'manage-users.showBlockedMods',
     ]);
-    Route::get('manage-users/show/{id}', [
+    Route::get('manage-users/show/{slug}', [
         'uses' => 'UserController@show',
         'as' => 'manage-users.show',
     ]);

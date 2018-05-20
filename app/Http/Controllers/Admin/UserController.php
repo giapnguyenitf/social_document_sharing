@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-// use Exception;
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\UserRepositoryInterface;
