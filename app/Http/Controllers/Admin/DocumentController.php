@@ -3,19 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use Auth;
-// use Exception;
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\DocumentRepositoryInterface;
+use App\Repositories\Contracts\CategoryRepositoryInterface;
 
 class DocumentController extends Controller
 {
     protected $documentRepository;
+    protected $categoryRepository;
 
     public function __construct(
-        DocumentRepositoryInterface $documentRepository
+        DocumentRepositoryInterface $documentRepository,
+        CategoryRepositoryInterface $categoryRepository
     ) {
         $this->documentRepository = $documentRepository;
+        $this->categoryRepository = $categoryRepository;
     }
     /**
      * Display a listing of the resource.
@@ -72,9 +76,10 @@ class DocumentController extends Controller
         try {
             $user = Auth::user();
             $document = $this->documentRepository->withTrashed()->where('slug', $slug)->firstOrFail();
+            $categories = $this->categoryRepository->getAll();
 
             if ($user->can('edit', $document)) {
-                return view('admin.pages.editInfoDocument', compact('document'));
+                return view('admin.pages.editInfoDocument', compact('document', 'categories'));
             }
 
             return view('errors.403');
