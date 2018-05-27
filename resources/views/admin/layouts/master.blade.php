@@ -120,7 +120,7 @@
                                     </li>
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <a href="#" class="btn btn-default btn-flat">@lang('admin.profile')</a>
+                                            <a href="{{ route('manage-profile') }}" class="btn btn-default btn-flat">@lang('admin.profile')</a>
                                         </div>
                                         <div class="pull-right">
                                             <a href="{{ route('logout') }}" class="btn btn-default btn-flat">@lang('admin.sign_out')</a>
@@ -185,6 +185,7 @@
                             <ul class="treeview-menu">
                                 <li><a href="{{ route('manage-document.index') }}"><i class="fa fa-circle-o text-blue"></i> @lang('admin.document.not_checking')</a></li>
                                 <li><a href="{{ route('manage-document.published') }}"><i class="fa fa-circle-o text-aqua"></i> @lang('admin.document.published')</a></li>
+                                <li><a href="{{ route('manage-document.reported') }}"><i class="fa fa-circle-o text-yellow"></i> @lang('admin.document.reported_illegal')</a></li>
                                 <li><a href="{{ route('manage-document.illegal') }}"><i class="fa fa-circle-o text-yellow"></i> @lang('admin.document.illegal')</a></li>
                                 <li><a href="{{ route('manage-document.deleted') }}"><i class="fa fa-circle-o text-red"></i> @lang('admin.document.deleted')</a></li>
                             </ul>
@@ -196,19 +197,21 @@
                                 <span>@lang('admin.categories')</span>
                             </a>
                         </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-key"></i>
-                                <span>@lang('admin.moderators')</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="{{ route('manage-moderator.index') }}"><i class="fa fa-circle-o text-red"></i> @lang('admin.user.user_actived')</a></li>
-                                <li><a href="{{ route('manage-users.showBlockedMods') }}"><i class="fa fa-circle-o text-yellow"></i> @lang('admin.user.user_blocked')</a></li>
-                            </ul>
-                        </li>
+                        @if (auth()->user()->isAdmin())
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-key"></i>
+                                    <span>@lang('admin.moderators')</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="{{ route('manage-moderator.index') }}"><i class="fa fa-circle-o text-red"></i> @lang('admin.user.user_actived')</a></li>
+                                    <li><a href="{{ route('manage-users.showBlockedMods') }}"><i class="fa fa-circle-o text-yellow"></i> @lang('admin.user.user_blocked')</a></li>
+                                </ul>
+                            </li>
+                        @endif
                     </ul>
                 </section>
             </aside>

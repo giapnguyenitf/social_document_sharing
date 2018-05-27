@@ -132,7 +132,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h3>@lang('user.modal.choose_avatar_from_computer')</h3>
+                        <h4>@lang('user.modal.choose_avatar_from_computer')</h4>
                     </div>
                     <div class="modal-body">
                         <div class="wrap-preview-avatar">
@@ -144,8 +144,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">@lang('user.btn_cancel_text')</button>
-                        <button type="submit" class="btn btn-info btn-save-chane-avatar">@lang('user.btn_save_text')</button>
+                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">@lang('user.btn_cancel_text')</button>
+                        <button type="submit" class="btn btn-info btn-save-chane-avatar btn-sm">@lang('user.btn_save_text')</button>
                     </div>
                 </div>
             </form>

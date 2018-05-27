@@ -8,21 +8,25 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\BookmarkRepositoryInterface;
 use App\Repositories\Contracts\CommentRepositoryInterface;
 use App\Repositories\Contracts\DocumentRepositoryInterface;
+use App\Repositories\Contracts\ReportRepositoryInterface;
 
 class DocumentController extends Controller
 {
     protected $bookmarkRepository;
     protected $commentRepository;
     protected $documentRepository;
+    protected $reportRepository;
 
     public function __construct(
         BookmarkRepositoryInterface  $bookmarkRepository,
         CommentRepositoryInterface $commentRepository,
-        DocumentRepositoryInterface $documentRepository
+        DocumentRepositoryInterface $documentRepository,
+        ReportRepositoryInterface $reportRepository
     ) {
         $this->bookmarkRepository = $bookmarkRepository;
         $this->commentRepository = $commentRepository;
         $this->documentRepository = $documentRepository;
+        $this->reportRepository = $reportRepository;
     }
 
     public function bookmark(Request $request) {
@@ -65,7 +69,7 @@ class DocumentController extends Controller
             $comment['messages'] = $request->messages;
             $comment = $this->commentRepository->create($comment);
             $comment = $this->commentRepository->with('user')->find($comment->id);
-            
+
             if ($comment) {
                 return response()->json([
                     'success' => true,
@@ -96,6 +100,25 @@ class DocumentController extends Controller
 
         return response()->json([
             'success' => false,
+        ]);
+    }
+
+    public function report(Request $request)
+    {
+        if (!$request->ajax()) {
+            return response()->json([
+                'success' => false,
+            ]);
+        }
+
+        $data = $request->except([
+            '_token',
+        ]);
+        $data['user_id'] = auth()->user()->id;
+        $this->reportRepository->create($data);
+
+        return response()->json([
+            'success' => true,
         ]);
     }
 }

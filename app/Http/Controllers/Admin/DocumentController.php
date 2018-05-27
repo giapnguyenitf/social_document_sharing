@@ -8,18 +8,22 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\DocumentRepositoryInterface;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
+use App\Repositories\Contracts\ReportRepositoryInterface;
 
 class DocumentController extends Controller
 {
     protected $documentRepository;
     protected $categoryRepository;
+    protected $reportRepository;
 
     public function __construct(
         DocumentRepositoryInterface $documentRepository,
-        CategoryRepositoryInterface $categoryRepository
+        CategoryRepositoryInterface $categoryRepository,
+        ReportRepositoryInterface $reportRepository
     ) {
         $this->documentRepository = $documentRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->reportRepository = $reportRepository;
     }
     /**
      * Display a listing of the resource.
@@ -178,5 +182,23 @@ class DocumentController extends Controller
         $documents = $this->documentRepository->getAllTrashed();
 
         return view('admin.pages.deletedDocument', compact('documents'));
+    }
+
+    public function showReported()
+    {
+        $documents = $this->documentRepository->getAllReport();
+
+        return view('admin.pages.listReportedDocument', compact('documents'));
+    }
+
+    public function showDetailReport($slug)
+    {
+        $categories = $this->categoryRepository->getAll();
+        $document = $this->documentRepository->with(['reports' => function ($query) {
+            $query->with('user');
+        }])->where('slug', $slug)->firstOrFail();
+        $this->reportRepository->where('document_id', $document->id)->update(['status' => config('settings.report.status.read')]);
+
+        return view('admin.pages.detailReportDocument', compact('document', 'categories'));
     }
 }

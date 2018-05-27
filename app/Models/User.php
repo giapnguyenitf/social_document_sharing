@@ -56,6 +56,11 @@ class User extends Authenticatable
         return $this->hasMany(Bookmark::class);
     }
 
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
+
     public function isUser()
     {
         return $this->rules == config('settings.rules.is_user');
@@ -101,5 +106,10 @@ class User extends Authenticatable
                 'source' => 'name',
             ]
         ];
+    }
+
+    public function notifications()
+    {
+        return hasMany(Notification::class);
     }
 }

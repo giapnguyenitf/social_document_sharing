@@ -217,4 +217,21 @@ return [
     ],
     'btn_cancel_text' => 'Hủy',
     'btn_save_text' => 'Lưu thay đổi',
+    'report_document' => [
+        'btn_send_text' => 'Gửi',
+        'type' => [
+            '1' => 'Tài liệu bị lỗi font',
+            '2' => 'Tài liệu bị cắt, thiếu nội dung',
+            '3' => 'Tài liệu spam, quảng cáo',
+            '4' => 'Tài liệu không phải là Tiếng Việt, Tiếng Anh',
+        ],
+        '5' => 'Tài liệu vi phạm bản quyền',
+        '6' => 'Tài liệu trùng với tài liệu đã có trên E-document Lab',
+        'copy_right_instruction' => 'Nhập email của bạn và nội dung chứng minh bản quyền. Chúng tôi sẽ phản hồi bạn!',
+        'existed_instruction' => 'Link tài liệu trùng đã có trên E-document Lab',
+        'report_document' => 'Báo cáo tài liệu vi phạm',
+        'report_success' => 'Chúng tôi sẽ xem xét phản hồi từ bạn!',
+        'report_fail' => 'Gửi báo cáo thất bại',
+    ],
+    'notification_blocked' => 'Bạn đã bị chặn đăng nhập vào hệ thống!',
 ];

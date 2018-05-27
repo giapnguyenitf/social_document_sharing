@@ -668,4 +668,51 @@ $(document).ready(function () {
             reader.readAsDataURL(input.files[0]);
         }
     }
+
+    $('.radio-report-other').click(function (e) {
+        $('.report-copyright-input').hide();
+        $('.report-existed-input').hide();
+        $('.report-copyright-input textarea').attr('disabled', true);
+        $('.report-existed-input textarea').attr('disabled', true);
+    })
+
+    $('.radio-report-existed').click(function (e) {
+        $('.report-copyright-input').hide();
+        $('.report-copyright-input textarea').attr('disabled', true);
+        $('.report-existed-input').show();
+        $('.report-existed-input textarea').removeAttr('disabled');
+    });
+
+    $('.radio-report-copyright').click(function (e) {
+        $('.report-existed-input').hide();
+        $('.report-existed-input textarea').attr('disabled', true);
+        $('.report-copyright-input').show();
+        $('.report-copyright-input textarea').removeAttr('disabled');
+    });
+
+    $('.btn-submit-form-report').click(function (e) {
+        e.preventDefault();
+        let formSelector = document.getElementById('form-report-document');
+        let form = new FormData(formSelector);
+        let url = $(this).data('url');
+
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: form,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+        })
+        .done(function (res) {
+            $('#modal-report-document').modal('hide');
+
+            if (res.success) {
+                swal("Good job!", Lang.get('user.report_document.report_success'), "success");
+            } else {
+                swal("Good job!", Lang.get('user.report_document.report_fail'), "danger");
+            }
+        });
+    });
 });

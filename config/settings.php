@@ -54,4 +54,10 @@
             'paginate' => 10,
         ],
         'top_related_document' => 10,
+        'report' => [
+            'status' => [
+                'unread' => 0,
+                'read' => 1,
+            ],
+        ],
     ];

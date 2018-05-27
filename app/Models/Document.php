@@ -29,7 +29,7 @@ class Document extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->select(['id', 'name', 'avatar', 'slug']);
     }
 
     public function category()
@@ -39,7 +39,7 @@ class Document extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->select(['message', 'created_at']);
     }
 
     public function bookmarks()
@@ -50,6 +50,11 @@ class Document extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'document_tag', 'document_id', 'tag_id');
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
     }
 
     public function getStatusNameAttribute()

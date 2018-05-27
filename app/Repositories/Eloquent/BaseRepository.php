@@ -171,7 +171,10 @@ abstract class BaseRepository implements RepositoryInterface
 
     public function firstOrFail()
     {
-        return $this->model->firstOrFail();
+        $model = $this->model->firstOrFail();
+        $this->resetModel();
+
+        return $model;
     }
 
     public function pluck($column)

@@ -57,14 +57,17 @@
                                                 <i class="fa fa-heart"></i>&nbsp;@lang('user.document.bookmark')
                                             </a>
                                         @endif
+                                         <a href="" data-toggle="modal" data-target="#modal-report-document" class="btn btn-warning btn-sm">
+                                            <i class="fa fa-times"></i>&nbsp;@lang('user.document.report_illegal')
+                                        </a>
                                     @else
                                         <a href="{{ route('login') }}" class="btn btn-success btn-sm">
                                             <i class="fa fa-heart"></i>&nbsp;@lang('user.document.bookmark')
                                         </a>
+                                        <a href="{{ route('login') }}" class="btn btn-warning btn-sm">
+                                            <i class="fa fa-times"></i>&nbsp;@lang('user.document.report_illegal')
+                                        </a>
                                     @endif
-                                    <a href="" class="btn btn-warning btn-sm">
-                                        <i class="fa fa-times"></i>&nbsp;@lang('user.document.report_illegal')
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -196,4 +199,5 @@
             </div>
         </div>
     </div>
+    @include('user.layouts.modal-report-document');
 @endsection

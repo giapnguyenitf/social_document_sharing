@@ -21,6 +21,15 @@ class DocumentPolicy
         }
     }
 
+    public function create(User $user)
+    {
+        if ($user->isBlocked()) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function edit(User $user, Document $document)
     {
         return $user->id == $document->user_id;

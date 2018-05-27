@@ -10,7 +10,10 @@ Copyright 2017 Mozilla Foundation
     <meta name="google" content="notranslate">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>PDF.js viewer</title>
-    <link rel="resource" type="application/l10n" href="{{ asset('viewer/web/locale/locale.properties') }}"> {{Html::style('viewer/web/viewer.css')}} {{ Html::script('viewer/build/pdf.js') }} {{ Html::script('viewer/web/viewer.js') }}
+    <link rel="resource" type="application/l10n" href="{{ asset('viewer/web/locale/locale.properties') }}">
+    {{Html::style('viewer/web/viewer.css')}}
+    {{ Html::script('viewer/build/pdf.js') }}
+    {{ Html::script('viewer/web/viewer.js') }}
 
 </head>
 

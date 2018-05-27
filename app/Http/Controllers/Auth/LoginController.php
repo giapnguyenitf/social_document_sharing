@@ -47,6 +47,12 @@ class LoginController extends Controller
 
     public function authenticated($request, $user)
     {
+        if ($user->isBlocked()) {
+            Auth::logout();
+
+            return redirect()->route('login')->withErrors(['email' => trans('user.notification_blocked')]);
+        }
+
         if ($user->isAdmin() || $user->isModerator()) {
             return redirect()->route('dashboard.index');
         }

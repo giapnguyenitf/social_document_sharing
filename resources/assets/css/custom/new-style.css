@@ -632,3 +632,24 @@
     opacity: 0.7;
     cursor: pointer;
 }
+
+.notification-footer {
+    text-emphasis: center;
+}
+
+.modal-content {
+    border-radius: 0px;
+    border-top: 5px solid #00b5ad !important;
+}
+
+textarea.form-control {
+    resize: none;
+}
+
+.report-existed-input {
+    display: none;
+}
+
+.report-copyright-input {
+    display: none;
+}
