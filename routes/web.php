@@ -12,8 +12,6 @@
 */
 Auth::routes();
 
-Route::redirect('/', '/home');
-
 Route::namespace('Auth')->group(function (){
     Route::get('redirect/{provider}', [
         'as' => 'redirect',
@@ -30,7 +28,7 @@ Route::namespace('Auth')->group(function (){
 });
 
 Route::namespace('User')->group(function () {
-    Route::get('home', [
+    Route::get('/', [
         'uses' => 'HomeController@index',
         'as' => 'home',
     ]);
@@ -136,6 +134,10 @@ Route::namespace('Ajax')->group(function () {
         'uses' => 'TagController@getAllTag',
         'as' => 'ajax-get-all-tag',
     ]);
+    Route::post('report-document', [
+        'uses' => 'DocumentController@report',
+        'as' => 'ajax-report-document',
+    ]);
 });
 
 Route::middleware('adminAuth')->namespace('Admin')->group(function () {
@@ -182,6 +184,14 @@ Route::middleware('adminAuth')->namespace('Admin')->group(function () {
     Route::get('deleted-document', [
         'uses' => 'DocumentController@showDeleted',
         'as' => 'manage-document.deleted',
+    ]);
+    Route::get('reported-document', [
+        'uses' => 'DocumentController@showReported',
+        'as' => 'manage-document.reported',
+    ]);
+     Route::get('detail-report-document/{slug}', [
+        'uses' => 'DocumentController@showDetailReport',
+        'as' => 'manage-document.detail-report',
     ]);
     Route::get('manage-category', [
         'uses' => 'CategoryController@index',

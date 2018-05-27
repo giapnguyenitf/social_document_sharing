@@ -290,8 +290,20 @@ class DocumentController extends Controller
             $exist = Storage::disk('public')->exists($filePath);
 
             if ($exist) {
-                $downloads = $document->downloads + 1;
-                $this->documentRepository->where('id', $document->id)->update(['downloads' => $downloads]);
+
+                if (Session::has('recently_download')) {
+                    $recentlyDownload = Session::get('recently_download');
+                    if (!in_array($document->id, $recentlyDownload)) {
+                        $downloads = $document->downloads + 1;
+                        $this->documentRepository->where('id', $document->id)->update(['downloads' => $downloads]);
+                        Session::push('recently_download', $document->id);
+                    }
+                } else {
+                    $downloads = $document->downloads + 1;
+                    $this->documentRepository->where('id', $document->id)->update(['downloads' => $downloads]);
+                    Session::push('recently_download', $document->id);
+                }
+
 
                 if (Auth::check()) {
                     $downloadedDocument = Auth::user()->downloaded;

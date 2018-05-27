@@ -16,7 +16,7 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
 
     public function getUploadedDocument($userId)
     {
-        return $this->model->where('user_id', $userId)->paginate(config('settings.document.uploaded.paginate'));
+        return $this->model->where('user_id', $userId)->paginate(config('settings.document.uploaded.paginate'), ['name', 'views', 'downloads', 'slug']);
     }
 
     public function getNewests()
@@ -24,7 +24,7 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
         return $this->model->where('status', config('settings.document.status.is_published'))
             ->orderBy('created_at', 'desc')
             ->take(config('settings.document.top_new'))
-            ->get();
+            ->get(['name', 'views', 'downloads', 'thumbnail', 'slug']);
     }
 
     public function getTopViews()
@@ -32,14 +32,14 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
         return $this->model->where('status', config('settings.document.status.is_published'))
             ->orderBy('views', 'desc')
             ->take(config('settings.document.top_views'))
-            ->get();
+            ->get(['name', 'views', 'downloads', 'thumbnail', 'slug']);
     }
 
     public function getAll()
     {
         return $this->model->where('status', config('settings.document.status.is_published'))
             ->orderBy('created_at', 'desc')
-            ->paginate(config('settings.document.paginate_per_page'));
+            ->paginate(config('settings.document.paginate_per_page'), ['name', 'views', 'downloads', 'thumbnail', 'slug']);
     }
 
     public function countAll()
@@ -57,7 +57,7 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
         return $this->model->where('status', config('settings.document.status.is_published'))
             ->where('name', 'like', '%' . $keyword . '%')
             ->with('user', 'category')
-            ->paginate(config('settings.document.paginate_per_page'));
+            ->paginate(config('settings.document.paginate_per_page'), ['name', 'thumbnail','slug']);
     }
 
     public function searchByCategory($keyword, $categoryId)
@@ -67,14 +67,14 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
                 $query->select('id')->from('categories')->where('parent_id', $categoryId);
             })
             ->where('name', 'like', '%' . $keyword . '%')
-            ->paginate(config('settings.document.paginate_per_page'));
+            ->paginate(config('settings.document.paginate_per_page'), ['name', 'thumbnail', 'slug']);
     }
 
     public function getBySubCategory($categoryId)
     {
         return $this->model->where('category_id', $categoryId)
             ->where('status', config('settings.document.status.is_published'))
-            ->paginate(config('settings.document.paginate_per_page'));
+            ->paginate(config('settings.document.paginate_per_page'), ['name', 'thumbnail', 'slug']);
     }
 
     public function getByParentCategory($categoryId)
@@ -83,7 +83,7 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
             ->whereIn('category_id', function($query) use ($categoryId) {
                 $query->select('id')->from('categories')->where('parent_id', $categoryId);
             })
-            ->paginate(config('settings.document.paginate_per_page'));
+            ->paginate(config('settings.document.paginate_per_page'), ['name', 'thumbnail','slug']);
     }
 
     public function getDocument($slug)
@@ -117,9 +117,8 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
         return $this->model->where('category_id', $categoryId)
                 ->where('status',config('settings.document.status.is_published'))
                 ->where('id', '!=', $id)
-                ->with('user')
                 ->take(config('settings.top_related_document'))
-                ->get();
+                ->get(['name', 'thumbnail','views', 'downloads', 'slug']);
     }
 
     public function countDocumentByAuthor($userId)
@@ -132,5 +131,10 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
     public function getAllTrashed()
     {
         return $this->model->onlyTrashed()->get();
+    }
+
+    public function getAllReport()
+    {
+        return $this->model->has('reports')->with('reports')->get();
     }
 }

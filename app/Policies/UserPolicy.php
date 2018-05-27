@@ -19,6 +19,15 @@ class UserPolicy
         return false;
     }
 
+    public function block(User $user, User $model)
+    {
+        if ($model->isModerator()) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function before(User $user)
     {
         if ($user->isAdmin())

@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
+    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
     {{ Html::style('css/bootstrap.min.css') }}
     {{ Html::style('css/font-awesome.min.css') }}
     {{ Html::style('css/pretty-checkbox.min.css') }}
@@ -64,6 +65,39 @@
                 </div>
                 <div class="pull-right">
                     <ul class="header-btns">
+                        @auth
+                        <li class="header-cart dropdown default-dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                <div class="header-btns-icon">
+                                    <i class="fa fa-bell"></i>
+                                    <span class="qty">3</span>
+                                </div>
+                            </a>
+                            <div class="custom-menu">
+                                <div id="shopping-cart">
+                                    <div class="notification-header">
+                                        Notifications
+                                    </div>
+                                    <hr>
+                                    <div class="shopping-cart-list">
+                                        <div class="product product-widget">
+                                            <div class="product-thumb">
+                                                <img src="./img/thumb-product01.jpg" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+                                            </div>
+                                            <button class="cancel-btn"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="notification-footer">
+                                        Xem tất cả <i class="fa fa-angle-right"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        @endauth
                         <li class="header-account dropdown default-dropdown">
                             @auth
                                 <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">

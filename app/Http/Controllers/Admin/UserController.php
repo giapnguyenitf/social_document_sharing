@@ -47,18 +47,26 @@ class UserController extends Controller
 
     public function showModerator()
     {
-        $moderators = $this->userRepository->getAllModerators();
+        if (auth()->user()->isAdmin()) {
+            $moderators = $this->userRepository->getAllModerators();
 
-        return view('admin.pages.listModerator', compact('moderators'));
+            return view('admin.pages.listModerator', compact('moderators'));
+        }
+
+        return view('errors.403');
     }
 
     public function block($id)
     {
         try {
             $user = $this->userRepository->findOrFail($id);
-            $this->userRepository->where('id', $id)->update(['is_ban' => config('settings.is_ban.true')]);
+            if (auth()->user()->can('block', $user)) {
+                 $this->userRepository->where('id', $id)->update(['is_ban' => config('settings.is_ban.true')]);
 
-            return back()->with('notificationSuccess', trans('admin.notifications.block_user_success', ['user' => $user->name]));
+                return back()->with('notificationSuccess', trans('admin.notifications.block_user_success', ['user' => $user->name]));
+            }
+
+            return view('errors.403');
         } catch (Exception $e) {
             return back()->with('notificationError', trans('admin.notifications.user_not_found'));
         }
@@ -68,9 +76,13 @@ class UserController extends Controller
     {
         try {
             $user = $this->userRepository->findOrFail($id);
-            $this->userRepository->where('id', $id)->update(['is_ban' => config('settings.is_ban.false')]);
+            if (auth()->user()->can('block', $user)) {
+                $this->userRepository->where('id', $id)->update(['is_ban' => config('settings.is_ban.false')]);
 
-            return back()->with('notificationSuccess', trans('admin.notifications.unblock_user_success', ['user' => $user->name]));
+                return back()->with('notificationSuccess', trans('admin.notifications.unblock_user_success', ['user' => $user->name]));
+            }
+
+            return view('errors.403');
         } catch (Exception $e) {
             return back()->with('notificationError', trans('admin.notifications.user_not_found'));
         }
@@ -85,8 +97,12 @@ class UserController extends Controller
 
     public function showBlockedMods()
     {
-        $blockedMods = $this->userRepository->getAllBlockedMods();
+        if (auth()->user()->isAdmin()) {
+            $blockedMods = $this->userRepository->getAllBlockedMods();
 
-        return view('admin.pages.listBlockedMod', compact('blockedMods'));
+            return view('admin.pages.listBlockedMod', compact('blockedMods'));
+        }
+
+        return view('errors.403');
     }
 }

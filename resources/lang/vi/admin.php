@@ -139,6 +139,7 @@ return [
         'published' => 'Đã phát hành',
         'illegal' => 'Vi phạm',
         'deleted' => 'Đã xóa',
+        'reported_illegal' => 'Báo cáo từ người dùng',
     ],
     'user' => [
         'uploaded' => 'Đã tải lên',
@@ -149,5 +150,15 @@ return [
         'user_actived' => 'Đang hoạt động',
         'user_blocked' => 'Đã chặn',
         'unblock_user' => 'Hủy chặn tài khoản này',
+    ],
+    'list_report_document' => 'Tài liệu bị báo cáo',
+    'reports' => 'Số lượt',
+    'all_report' => 'Tất cả báo cáo từ người dùng',
+    'report' => [
+        'type' => 'Loại',
+        'message' => 'Nội dung',
+        'date' => 'Thời gian',
+        'read' => 'Đã xem',
+        'unread' => 'Chưa xem',
     ]
 ];

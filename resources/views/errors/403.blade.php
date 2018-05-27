@@ -18,7 +18,7 @@
             <div class="agileits_w3layouts_main_grids">
                 <div class="w3_agileits_main_grid_left">
                     <ul class="wthree_nav">
-                        <li><a href="">@lang('user.error.home')</a></li>
+                        <li><a href="{{ route('home') }}">@lang('user.error.home')</a></li>
                         <li><a href="">@lang('user.error.about')</a></li>
                         <li><a href="">@lang('user.error.contact_us')</a></li>
                     </ul>
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="agileits_copyright">
-            <p>Copy &copy; <script>document.write(new Date().getFullYear());</script>. All rights reserved | Design by <a href="">E-Document-lab</a></p>
+            <p>Copy &copy; <script>document.write(new Date().getFullYear());</script>. All rights reserved | Design by <a href="{{ route('home') }}">E-Document-lab</a></p>
         </div>
     </div>
 </body>
