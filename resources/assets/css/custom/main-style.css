@@ -341,12 +341,9 @@ textarea.input {
 }
 
 .live-search li:hover {
-  background: #00b5ad;
+  background: #f1f1f1;
 }
 
-.live-search li:hover a {
-  color: #ffffff;
-}
 /*----------------------------*\
 	Account header
 \*----------------------------*/

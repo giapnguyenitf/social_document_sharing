@@ -60,6 +60,10 @@ Route::namespace('User')->group(function () {
         'uses' => 'SearchController@showByTag',
         'as' => 'show-by-tag',
     ]);
+    Route::get('locale/{locale}', [
+        'uses' => 'HomeController@setLocale',
+        'as' => 'set-locale',
+    ]);
 });
 
 Route::middleware('auth')->namespace('User')->group(function () {
@@ -94,6 +98,14 @@ Route::middleware('auth')->namespace('User')->group(function () {
     Route::post('change-avatar', [
         'uses' => 'UserController@changeAvatar',
         'as' => 'user.change-avatar',
+    ]);
+    Route::get('change-password', [
+        'uses' => 'UserController@showChangePassword',
+        'as' => 'user.show-change-password',
+    ]);
+    Route::post('user-change-password', [
+        'uses' => 'UserController@changePassword',
+        'as' => 'user.change-password',
     ]);
 });
 

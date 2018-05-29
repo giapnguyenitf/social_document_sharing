@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Traits\UploadFileTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Requests\ChangePasswordRequest;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Contracts\DocumentRepositoryInterface;
 use App\Repositories\Contracts\BookmarkRepositoryInterface;
@@ -134,5 +135,27 @@ class UserController extends Controller
         }
 
         return back();
+    }
+
+    public function showChangePassword()
+    {
+        $categories = $this->categoryRepository->getAll();
+
+        return view('user.pages.change-password', compact('categories'));
+    }
+
+    public function changePassword(ChangePasswordRequest $request) {
+        $credentials['password'] = $request->old_password;
+        $credentials['email'] = auth()->user()->email;
+
+        if (Auth::attempt($credentials)) {
+            $user = auth()->user();
+            $user->password = $request->password;
+            $this->userRepository->where('id', $user->id)->update(['password' => $user->password]);
+
+            return back()->with('messageSuccess', trans('user.profile.change_password_success'));
+        }
+
+        return back()->withErrors(['old_password' => trans('user.profile.password_incorrect')]);
     }
 }

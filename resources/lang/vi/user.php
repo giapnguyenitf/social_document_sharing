@@ -14,7 +14,7 @@ return [
     'faq' => 'FAQ',
     'welcome' => 'Chào mừng tới E-Document Lab!',
     'lang_vi' => 'VietNam (VI)',
-    'lang_en' => 'English (ENG)',
+    'lang_en' => 'English (EN)',
     'vnd' => 'VND (VND)',
     'usd' => 'USD ($)',
     'VI' => 'VI',
@@ -107,6 +107,9 @@ return [
     'profile' => [
         'update_success' => 'Cập nhật thông tin thành công!',
         'update_fail' => 'Cập nhật thông tin thất bại!',
+        'password_incorrect' => 'Mật khẩu không đúng',
+        'change_password_success' => 'Thay đổi mật khẩu thành công',
+        ''
     ],
     'required_agree_with_term' => 'Bạn phải đông ý với điều khoản và điều kiện trước khi tải lên',
     'thumbnail' => 'Hình minh họa',
@@ -234,4 +237,6 @@ return [
         'report_fail' => 'Gửi báo cáo thất bại',
     ],
     'notification_blocked' => 'Bạn đã bị chặn đăng nhập vào hệ thống!',
+    'old_password' => 'Mật khẩu cũ',
+    'password_confirmation' => 'Xác nhận mật khẩu',
 ];

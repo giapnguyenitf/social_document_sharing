@@ -317,7 +317,7 @@ class DocumentController extends Controller
                     $this->userRepository->where('id', Auth::user()->id)->update(['downloaded' => $downloadedDocument]);
                 }
 
-                return response()->download($document->download_link);
+                return response()->download($document->download_link, $document->slug . '.pdf');
             } else {
                 return view('errors.404');
             }

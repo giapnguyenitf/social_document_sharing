@@ -27,6 +27,5 @@ class NewDocumentController extends Controller
         } catch (Exception $e) {
             return back()->with('notificationError', trans('admin.notifications.publish_document_fail'));
         }
-
     }
 }
