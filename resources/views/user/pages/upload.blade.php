@@ -31,6 +31,9 @@
                         <li><a href="{{ route('uploaded-document.show') }}">@lang('user.uploaded')</a></li>
                         <li><a href="{{ route('downloaded-document.show') }}">@lang('user.downloaded')</a></li>
                         <li class="active"><a href="#user-upload-document" data-toggle="tab">@lang('user.upload')</a></li>
+                        @if (!auth()->user()->provider)
+                            <li><a href="{{ route('user.show-change-password') }}">@lang('user.change_password')</a></li>
+                        @endif
                     </ul>
                     <div class="tab-content">
                         <div class="active tab-pane" id="user-upload-document">

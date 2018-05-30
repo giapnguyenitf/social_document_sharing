@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\User;
 
+use App;
+use Session;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\UserRepositoryInterface;
@@ -40,5 +42,12 @@ class HomeController extends Controller
             'numberViews',
             'categories'
         ));
+    }
+
+    public function setLocale($locale)
+    {
+        Session::put('locale', $locale);
+
+        return back();
     }
 }
