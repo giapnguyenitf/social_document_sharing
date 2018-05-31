@@ -17,6 +17,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@edocumentlab.com',
             'password' => bcrypt('notknow#1'),
+            'rules' => 2,
         ]);
 
         Category::create([
