@@ -113,7 +113,7 @@ class User extends Authenticatable
         return hasMany(Notification::class);
     }
 
-    public function setPasswordAttribute($password)
+    public function setPasswordHashAttribute($password)
     {
         $this->password = bcrypt($password);
     }
