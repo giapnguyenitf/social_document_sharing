@@ -16,7 +16,7 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
 
     public function getUploadedDocument($userId)
     {
-        return $this->model->where('user_id', $userId)->paginate(config('settings.document.uploaded.paginate'), ['name', 'views', 'downloads', 'slug']);
+        return $this->model->where('user_id', $userId)->paginate(config('settings.document.uploaded.paginate'));
     }
 
     public function getNewests()

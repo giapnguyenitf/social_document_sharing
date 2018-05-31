@@ -22,7 +22,11 @@
                                 <b>@lang('admin.user.followers')</b> <a class="pull-right">13,287</a>
                             </li>
                         </ul>
-                        <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                        @if ($user->isModerator())
+                            <a href="{{ route('user.unset-moderator', $user->slug) }}" class="btn btn-primary btn-block"><b>Unset Moderator</b></a>
+                        @else
+                            <a href="{{ route('user.set-moderator',  $user->slug) }}" class="btn btn-primary btn-block"><b>Set Moderator</b></a>
+                        @endif
                         </div>
                     </div>
                 </div>
@@ -33,7 +37,7 @@
                             <li><a href="#user-uploaded" data-toggle="tab">@lang('admin.user.uploaded')</a></li>
                         </ul>
                         <div class="tab-content">
-                            <div class="active tab-pane" id="user-info"> 
+                            <div class="active tab-pane" id="user-info">
                                 <div class="form-group row">
                                     <label class="control-label col-md-3 label-thin" for="">@lang('user.name')</label>
                                     <div class="col-md-9">

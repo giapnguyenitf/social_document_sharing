@@ -5,7 +5,8 @@ namespace App\Http\Controllers\User;
 use Auth;
 use Storage;
 use Session;
-// use Exception;
+use Exception;
+use App\Events\UploadEvent;
 use Illuminate\Http\Request;
 use App\Traits\UploadFileTrait;
 use App\Http\Controllers\Controller;
@@ -106,6 +107,7 @@ class DocumentController extends Controller
                 $documentTagIds = $this->tagRepository->whereIn('name', $documentTags)->pluck('id')->all();
                 $document->tags()->attach($documentTagIds);
             }
+            event(new UploadEvent($document));
 
             return back()->with('messageSuccess', trans('user.document.upload_success'));
         } catch(Exception $e) {

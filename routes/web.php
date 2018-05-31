@@ -233,6 +233,14 @@ Route::middleware('adminAuth')->namespace('Admin')->group(function () {
         'uses' => 'CategoryController@delete',
         'as' => 'category.delete',
     ]);
+    Route::get('set-moderator/{slug}', [
+        'uses' => 'UserController@setModerator',
+        'as' => 'user.set-moderator',
+    ]);
+    Route::get('unset-moderator/{slug}', [
+        'uses' => 'UserController@unsetModerator',
+        'as' => 'user.unset-moderator',
+    ]);
 });
 
 Route::view('viewer.html', 'user.pages.viewer')->name('viewer');

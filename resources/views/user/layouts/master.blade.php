@@ -257,18 +257,5 @@
     {{ Html::script('js/dataTables.bootstrap.js') }}
     @stack('js')
     {{ Html::script('js/new-event.js') }}
-    <script>
-        Pusher.logToConsole = true;
-
-        var pusher = new Pusher('0e753170879ce51e133b', {
-        cluster: 'ap1',
-        encrypted: true
-        });
-
-        var channel = pusher.subscribe('my-channel');
-        channel.bind('my-event', function(data) {
-        alert(data.message);
-        });
-    </script>
 </body>
 </html>
