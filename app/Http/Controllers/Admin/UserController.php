@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Exception;
+// use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\UserRepositoryInterface;
@@ -104,5 +104,37 @@ class UserController extends Controller
         }
 
         return view('errors.403');
+    }
+
+    public function setModerator($slug)
+    {
+        try {
+            $user = $this->userRepository->where('slug', $slug)->firstOrFail();
+            if (auth()->user()->isAdmin()) {
+                $this->userRepository->where('id', $user->id)->update(['rules' => config('settings.rules.is_moderator')]);
+
+                return back()->with('notificationSuccess', trans('admin.notifications.set_moderator_success', ['user' => $user->name]));
+            }
+
+            return view('errors.403');
+        } catch (Exception $e) {
+            return view('errors.404');
+        }
+    }
+
+    public function unsetModerator($slug)
+    {
+        try {
+            $user = $this->userRepository->where('slug', $slug)->firstOrFail();
+            if (auth()->user()->isAdmin()) {
+                $this->userRepository->where('id', $user->id)->update(['rules' => config('settings.rules.is_user')]);
+
+                return back()->with('notificationSuccess', trans('admin.notifications.unset_moderator_success', ['user' => $user->name]));
+            }
+
+            return view('errors.403');
+        } catch (Exception $e) {
+            return view('errors.404');
+        }
     }
 }

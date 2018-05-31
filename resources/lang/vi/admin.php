@@ -119,6 +119,8 @@ return [
         'update_category_success' => 'Cập nhật danh mục thành công!',
         'update_category_fail' => 'Cập nhật danh mục thất bại!',
         'restore_document_success' => 'Tài liệu :document đã được khôi phục!',
+        'set_moderator_success' => 'Thành viên :user đã được cấp quyền cộng tác viên',
+        'unset_moderator_success' => 'Thành viên :user đã bị xóa quyền cộng tác viên',
     ],
     'modal' => [
         'publish_document_notification' => 'Bạn đã kiểm tra kĩ tài liệu rồi chứ!',
