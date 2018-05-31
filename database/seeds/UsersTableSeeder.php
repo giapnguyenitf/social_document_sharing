@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -16,6 +17,11 @@ class UsersTableSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@edocumentlab.com',
             'password' => bcrypt('notknow#1'),
+        ]);
+
+        Category::create([
+            'name' => 'Khác',
+            'parent_id' => 0,
         ]);
     }
 }
