@@ -150,8 +150,8 @@ class UserController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = auth()->user();
-            $user->password = $request->password;
-            $this->userRepository->where('id', $user->id)->update(['password' => $user->password]);
+            $user->password_hash = $request->password;
+            $this->userRepository->where('id', $user->id)->update(['password' => $user->password_hash]);
 
             return back()->with('messageSuccess', trans('user.profile.change_password_success'));
         }
