@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{{ asset('images/favicon.png') }}">
     <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
     <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
     {{ Html::style('css/bootstrap.min.css') }}
@@ -68,31 +69,27 @@
                         @auth
                         <li class="header-cart dropdown default-dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                <div class="header-btns-icon">
+                                <div class="header-btns-icon" id="notification-user" data-user="{{ auth()->user()->id }}">
                                     <i class="fa fa-bell"></i>
-                                    <span class="qty">3</span>
+                                    <span class="qty number-new-notification">0</span>
                                 </div>
                             </a>
                             <div class="custom-menu">
                                 <div id="shopping-cart">
                                     <div class="notification-header">
-                                        Notifications
+                                        @lang('user.notifications')
                                     </div>
                                     <hr>
-                                    <div class="shopping-cart-list">
-                                        <div class="product product-widget">
-                                            <div class="product-thumb">
-                                                <img src="./img/thumb-product01.jpg" alt="">
+                                    <div class="shopping-cart-list list-notification">
+                                        @foreach ($notifications as $notification)
+                                            <div class="product product-widget notification-item">
+                                                <p>{{ $notification->message }}</p>
                                             </div>
-                                            <div class="product-body">
-                                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                            </div>
-                                            <button class="cancel-btn"><i class="fa fa-trash"></i></button>
-                                        </div>
+                                        @endforeach
                                     </div>
                                     <hr>
                                     <div class="notification-footer">
-                                        Xem tất cả <i class="fa fa-angle-right"></i>
+                                        @lang('user.view_all') <i class="fa fa-angle-right"></i>
                                     </div>
                                 </div>
                             </div>
@@ -255,7 +252,38 @@
     {{ Html::script('js/bootstrap-datepicker.min.js') }}
     {{ Html::script('js/jquery.dataTables.js') }}
     {{ Html::script('js/dataTables.bootstrap.js') }}
+    {{ Html::script('js/app.js') }}
     @stack('js')
     {{ Html::script('js/new-event.js') }}
+    <script>
+        $(document).ready(function () {
+            let userId = $('#notification-user').data('user');
+            Echo.private('user.' + userId + '.channel')
+                .listen('DocumentEvent', (e) => {
+                    addNotification(e.notification);
+                });
+
+            function addNotification(notification) {
+                let firstNotification = $('.list-notification').find('.notification-item').first();
+
+                if (firstNotification.length) {
+                    $(`
+                        <div class="product product-widget">
+                            <p>${notification}</p>
+                        </div>`
+                    ).insertBefore(firstNotification);
+                } else {
+                    $('.list-notification').append(`
+                        <div class="product product-widget">
+                            <p>${notification}</p>
+                        </div>`
+                    );
+                }
+
+                let numberNotification = $('.number-new-notification').text();
+                $('.number-new-notification').text(parseInt(numberNotification)+1);
+            }
+        });
+    </script>
 </body>
 </html>

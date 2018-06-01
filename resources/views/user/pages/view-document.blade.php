@@ -86,9 +86,36 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="sharing-btn-group">
-                                    <a href="" class="btn btn-primary"><i class="fa fa-facebook"></i> Facebook</a>
-                                    <a href="" class="btn btn-danger"><i class="fa fa-google"></i> Google</a>
-                                    <a href="" class="btn btn-info"><i class="fa fa-twitter"></i> Twitter</a>
+                                    <div id="fb-root"></div>
+                                    <script>(function(d, s, id) {
+                                        var js, fjs = d.getElementsByTagName(s)[0];
+                                        if (d.getElementById(id)) return;
+                                        js = d.createElement(s); js.id = id;
+                                        js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.0&appId=946341332196552&autoLogAppEvents=1';
+                                        fjs.parentNode.insertBefore(js, fjs);
+                                        }(document, 'script', 'facebook-jssdk'));
+                                    </script>
+                                    <div class="fb-share-button" style="position:absolute !important; right:182px;" data-href="{{ route('view-document', $document->slug) }}" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+                                    <script src="https://apis.google.com/js/platform.js" async defer>{lang: 'vi'}</script>
+                                    <div class="g-plus" data-action="share" data-height="28" data-href="{{ route('view-document', $document->slug) }}"></div>
+                                    <script>window.twttr = (function(d, s, id) {
+                                        var js, fjs = d.getElementsByTagName(s)[0],
+                                            t = window.twttr || {};
+                                        if (d.getElementById(id)) return t;
+                                        js = d.createElement(s);
+                                        js.id = id;
+                                        js.src = "https://platform.twitter.com/widgets.js";
+                                        fjs.parentNode.insertBefore(js, fjs);
+
+                                        t._e = [];
+                                        t.ready = function(f) {
+                                            t._e.push(f);
+                                        };
+
+                                        return t;
+                                        }(document, "script", "twitter-wjs"));
+                                    </script>
+                                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet">Tweet</a>
                                 </div>
                             </div>
                         </div>

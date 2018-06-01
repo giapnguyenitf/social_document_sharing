@@ -3,25 +3,7 @@
     <div class="container">
         <div class="row user-profile">
             <div class="col-md-3">
-                <div class="box box-primary">
-                    <div class="box-body box-profile">
-                        <img class="profile-user-img img-responsive img-circle" src="{{ Auth::user()->avatar }}" alt="">
-                        <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
-                        <p class="text-muted text-center"></p>
-                        <ul class="list-group list-group-unbordered">
-                            <li class="list-group-item">
-                                <b class="text-blue">@lang('admin.user.uploaded')</b> <a class="pull-right">123</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>@lang('admin.user.following')</b> <a class="pull-right">543</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>@lang('admin.user.followers')</b> <a class="pull-right">13,287</a>
-                            </li>
-                        </ul>
-                        <a href="{{ route('manage-profile') }}" class="btn btn-info btn-block btn-no-radius"><i class="fa fa-edit"></i> <b>@lang('user.edit_info')</b></a>
-                    </div>
-                </div>
+                @include('user.layouts.sidebar')
             </div>
             <div class="col-md-9">
                 <div class="nav-tabs-custom">
@@ -41,7 +23,7 @@
                                 <form action="{{ route('document.store') }}" method="POST" class="form-horizontal form-upload-document" enctype="multipart/form-data" files="true">
                                     @csrf
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 label-thin" for="">@lang('user.document_name')</label>
+                                        <label class="control-label col-md-3 label-thin" for="">@lang('user.document_name')<span class="text-red">&nbsp;&#42;</span></label>
                                         <div class="col-md-8">
                                             <input class="form-control input-no-border" type="text" name="name" value="{{ old('name') }}" placeholder="@lang('user.document.type_name_document')">
                                             @if ($errors->has('name'))
@@ -52,7 +34,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 label-thin" for="">@lang('user.description_content')</label>
+                                        <label class="control-label col-md-3 label-thin" for="">@lang('user.description_content')<span class="text-red">&nbsp;&#42;</span></label>
                                         <div class="col-md-8">
                                             <textarea class="form-control input-no-border" name="description"cols="30" rows="6" placeholder="@lang('user.document.description_about_document')">{{ old('description') }}</textarea>
                                             @if ($errors->has('description'))
@@ -63,7 +45,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 label-thin" for="">@lang('user.category')</label>
+                                        <label class="control-label col-md-3 label-thin" for="">@lang('user.category')<span class="text-red">&nbsp;&#42;</span></label>
                                         <div class="col-md-8">
                                             <select class="form-control input-no-border" value="{{ old('parent_category') }}" id="parent-category-upload" data-url="{{ route('ajax-get-child-category') }}" name="parent_category">
                                                 <option value="">--@lang('user.choose_category')--</option>
@@ -79,7 +61,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group child-category-upload">
-                                        <label class="control-label col-md-3 label-thin" for="">@lang('user.child_category')</label>
+                                        <label class="control-label col-md-3 label-thin" for="">@lang('user.child_category')<span class="text-red">&nbsp;&#42;</span></label>
                                         <div class="col-md-8">
                                             <select class="form-control input-no-border" value="{{ old('child_category') }}" name="child_category" id="child-category-upload">
                                                 <option value="">--@lang('user.choose_child_category')--</option>
@@ -92,7 +74,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 label-thin" for="">@lang('user.choose_file')</label>
+                                        <label class="control-label col-md-3 label-thin" for="">@lang('user.choose_file')<span class="text-red">&nbsp;&#42;</span></label>
                                         <div class="col-md-6">
                                             <input class="form-control input-no-border input-file-document-upload hidden" type="file" name="document" accept=".pdf,.ppt,.pptx">
                                              <div class="input-group">
@@ -107,7 +89,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 label-thin" for="">@lang('user.thumbnail')</label>
+                                        <label class="control-label col-md-3 label-thin" for="">@lang('user.thumbnail')<span class="text-red">&nbsp;&#42;</span></label>
                                         <div class="col-md-6">
                                            <div class="input-group">
                                                 <input class="form-control input-no-border input-url-thumbnail-image" value="" type="text" name="thumbnail" placeholder="@lang('user.document.accept_thumnail_type')" readonly>

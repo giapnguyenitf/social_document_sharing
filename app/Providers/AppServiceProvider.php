@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Schema;
 use App\Repositories\Contracts;
 use App\Repositories\Eloquent;
 use Illuminate\Support\Facades\View;
-use App\Models\Category;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -61,6 +60,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             Contracts\ReportRepositoryInterface::class,
             Eloquent\ReportRepository::class
+        );
+
+        $this->app->bind(
+            Contracts\NotificationRepositoryInterface::class,
+            Eloquent\NotificationRepository::class
         );
     }
 }

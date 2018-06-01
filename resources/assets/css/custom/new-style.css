@@ -653,3 +653,17 @@ textarea.form-control {
 .report-copyright-input {
     display: none;
 }
+
+.text-red {
+    color: #e0230e;
+}
+
+.notification-item {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+    border-bottom: 1px solid #c1c1c1 !important;
+}
+
+.notification-item:hover {
+    background: #f1f1f1;
+}

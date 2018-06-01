@@ -13,13 +13,13 @@
                         <p class="text-muted text-center"></p>
                         <ul class="list-group list-group-unbordered">
                             <li class="list-group-item">
-                                <b class="text-blue">@lang('admin.user.uploaded')</b> <a class="pull-right">123</a>
+                                <b class="text-blue">@lang('admin.user.uploaded')</b> <a class="pull-right">{{ auth()->user()->documents->count() }}</a>
                             </li>
                             <li class="list-group-item">
-                                <b>@lang('admin.user.following')</b> <a class="pull-right">543</a>
+                                <b>@lang('admin.user.downloaded')</b> <a class="pull-right">{{ count(explode(',', auth()->user()->downloaded)) }}</a>
                             </li>
                             <li class="list-group-item">
-                                <b>@lang('admin.user.followers')</b> <a class="pull-right">13,287</a>
+                                <b>@lang('admin.user.bookmarks')</b> <a class="pull-right">{{ auth()->user()->bookmarks->count() }}</a>
                             </li>
                         </ul>
                         <a href="#" class="btn btn-info btn-block btn-no-radius" id="btn-edit-profile" ><i class="fa fa-edit"></i> <b>@lang('user.edit_info')</b></a>
@@ -39,8 +39,8 @@
                         @endif
                     </ul>
                     <div class="tab-content">
-                        <div class="active tab-pane" id="user-profile" enctype="multipart/form-data">
-                            <form action="{{ route('update-profile') }}" method="POST" class="form-edit-profile">
+                        <div class="active tab-pane" id="user-profile" >
+                            <form action="{{ route('update-profile') }}" enctype="multipart/form-data" method="POST" class="form-edit-profile">
                                 @csrf
                                 <div class="form-group row">
                                     <label class="control-label col-md-3 label-thin" for="">@lang('user.name')</label>
@@ -56,24 +56,24 @@
                                 <div class="form-group row">
                                     <label class="control-label col-md-3 label-thin" for="">@lang('user.email')</label>
                                     <div class="col-md-6">
-                                        <input type="email" class="form-control" value="{{ Auth::user()->email }}" disabled>
-                                        @if ($errors->has('email'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('email') }}</strong>
-                                            </span>
-                                        @endif
+                                        <input type="email" class="form-control" value="{{ Auth::user()->email }}" disabled readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-md-3 label-thin" for="">@lang('user.date_of_birth')</label>
                                     <div class="col-md-6">
                                         <input type="text" data-date-format="yyyy-mm-dd" name="date_of_birth" data-provide="datepicker" class="form-control" value="{{ Auth::user()->date_of_birth }}" disabled>
+                                        @if ($errors->has('date_of_birth'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('date_of_birth') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="control-label col-md-3 label-thin" for="">@lang('user.address')</label>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" value="{{ Auth::user()->address }}" disabled>
+                                        <input type="text" name="address" class="form-control" value="{{ Auth::user()->address }}" disabled>
                                         @if ($errors->has('address'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('address') }}</strong>
@@ -107,7 +107,7 @@
                                 <div class="form-group row">
                                     <label class="control-label col-md-3 label-thin" for="">@lang('user.phone')</label>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" value="{{ Auth::user()->phone }}" disabled>
+                                        <input type="text" name="phone" class="form-control" value="{{ Auth::user()->phone }}" disabled>
                                         @if ($errors->has('phone'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('phone') }}</strong>
@@ -117,7 +117,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-md-2 col-md-offset-3">
-                                        <button class="btn btn-info btn-block btn-sm hidden" id="btn-save-edit-profile">@lang('user.save')</button>
+                                        <button class="btn btn-info btn-block btn-sm hidden" type="submit" id="btn-save-edit-profile">@lang('user.save')</button>
                                     </div>
                                 </div>
                             </form>

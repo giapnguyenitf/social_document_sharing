@@ -152,6 +152,7 @@ return [
         'user_actived' => 'Đang hoạt động',
         'user_blocked' => 'Đã chặn',
         'unblock_user' => 'Hủy chặn tài khoản này',
+        'bookmarks' => 'Đánh dấu',
     ],
     'list_report_document' => 'Tài liệu bị báo cáo',
     'reports' => 'Số lượt',

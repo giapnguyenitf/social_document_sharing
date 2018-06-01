@@ -50,4 +50,5 @@ mix.copy('node_modules/jquery/dist/jquery.min.js', 'public/js')
     .copy('node_modules/datatables.net-bs/js/dataTables.bootstrap.js', 'public/js')
     .copy('resources/assets/viewer/web', 'public/viewer/web')
     .copy('resources/assets/viewer/build', 'public/viewer/build')
+    .js('resources/assets/js/app.js', 'public/js')
     .copy('resources/assets/images', 'public/images');
