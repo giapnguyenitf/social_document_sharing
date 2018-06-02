@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Models\Document;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -11,20 +10,21 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class UploadEvent implements ShouldBroadcast
+class DocumentEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $document;
-
+    protected $userId;
+    public $notification;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Document $document)
+    public function __construct($userId, $notification)
     {
-        $this->document = $document;
+        $this->userId = $userId;
+        $this->notification = $notification;
     }
 
     /**
@@ -34,6 +34,6 @@ class UploadEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('user.' . $this->document->user_id . '.channel');
+        return new PrivateChannel('user.' . $this->userId . '.channel');
     }
 }

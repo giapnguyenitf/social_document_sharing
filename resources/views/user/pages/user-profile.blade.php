@@ -10,16 +10,16 @@
                         <p class="text-muted text-center"></p>
                         <ul class="list-group list-group-unbordered">
                             <li class="list-group-item">
-                                <b class="text-blue">@lang('admin.user.uploaded')</b> <a class="pull-right">123</a>
+                                <b class="text-blue">@lang('admin.user.uploaded')</b> <a class="pull-right">{{ $user->documents->count() }}</a>
                             </li>
                             <li class="list-group-item">
-                                <b>@lang('admin.user.following')</b> <a class="pull-right">543</a>
+                                <b>@lang('admin.user.downloaded')</b> <a class="pull-right">{{ count($uploadeds) }}</a>
                             </li>
                             <li class="list-group-item">
-                                <b>@lang('admin.user.followers')</b> <a class="pull-right">13,287</a>
+                                <b>@lang('admin.user.bookmarks')</b> <a class="pull-right">{{ $user->bookmarks->count() }}</a>
                             </li>
                         </ul>
-                        <a href="#" class="btn btn-info btn-block btn-no-radius"><i class="fa fa-heart"></i> <b>@lang('user.follow')</b></a>
+                        <a href="#" class="btn btn-info btn-block btn-no-radius">&nbsp;</a>
                     </div>
                 </div>
             </div>

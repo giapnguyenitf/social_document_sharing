@@ -228,4 +228,13 @@ return [
         'report_fail' => 'Send report fail!',
     ],
     'notification_blocked' => 'Your account is blocked!',
+    'user_info' => 'User info',
+    'bookmark' => 'Bookmarks',
+    'old_password' => 'Old password',
+    'password_confirmation' => 'Password confirmation',
+    'notifications' => 'Notifications',
+    'notification_upload_success' => 'Document ":document" was upload success. The document will be checking early. Thank you!',
+    'notification_publish_document' => 'Document ":document" was published. Thank you!',
+    'notification_delete_document' => 'Document ":document" was deleted!',
+    'notification_delete_document' =>  'Document ":document" is illegal!',
 ];

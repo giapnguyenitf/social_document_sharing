@@ -64,4 +64,10 @@
             'vi' => 'vi',
             'en' => 'en',
         ],
+        'notification' => [
+            'status' => [
+                'unread' => 0,
+                'read' => 1,
+            ],
+        ],
     ];

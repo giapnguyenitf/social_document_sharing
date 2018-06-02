@@ -9,22 +9,25 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\BookmarkRepositoryInterface;
 use App\Repositories\Contracts\DocumentRepositoryInterface;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
-
+use App\Repositories\Contracts\NotificationRepositoryInterface;
 
 class BookmarkController extends Controller
 {
     protected $bookmarkRepository;
     protected $documentRepository;
     protected $categoryRepository;
+    protected $notificationRepository;
 
     public function __construct(
         DocumentRepositoryInterface $documentRepository,
         BookmarkRepositoryInterface  $bookmarkRepository,
-        CategoryRepositoryInterface $categoryRepository
+        CategoryRepositoryInterface $categoryRepository,
+        NotificationRepositoryInterface $notificationRepository
     ) {
         $this->bookmarkRepository = $bookmarkRepository;
         $this->documentRepository = $documentRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->notificationRepository = $notificationRepository;
     }
 
     public function index()
@@ -33,8 +36,9 @@ class BookmarkController extends Controller
             $user = Auth::user();
             $bookmarks = $this->bookmarkRepository->getByUser($user->id);
             $categories = $this->categoryRepository->getAll();
+            $notifications = $this->notificationRepository->getAll($user->id);
 
-            return view('user.pages.bookmark', compact('bookmarks', 'categories'));
+            return view('user.pages.bookmark', compact('bookmarks', 'categories', 'notifications'));
         } catch(Exception $e) {
             return back();
         }

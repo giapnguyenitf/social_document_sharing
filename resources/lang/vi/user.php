@@ -239,4 +239,9 @@ return [
     'notification_blocked' => 'Bạn đã bị chặn đăng nhập vào hệ thống!',
     'old_password' => 'Mật khẩu cũ',
     'password_confirmation' => 'Xác nhận mật khẩu',
+    'notifications' => 'Thông báo',
+    'notification_upload_success' => 'Tài liệu ":document" đã được tải lên thành công. Tài liệu sẽ được kiểm duyệt trong thời gian sớm nhất. Xin cảm ơn!',
+    'notification_publish_document' => 'Tài liệu ":document" đã được cho phép lưu hành. Xin cảm ơn!',
+    'notification_delete_document' => 'Tài liệu ":document" đã bị xóa do vi phạm quy định của E-document lab!',
+    'notification_illegal_document' =>  'Tài liệu ":document" đã bị đánh dấu vi phạm quy định của E-document lab!',
 ];

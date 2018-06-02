@@ -6,7 +6,7 @@ use Auth;
 use Storage;
 use Session;
 use Exception;
-use App\Events\UploadEvent;
+use App\Events\DocumentEvent;
 use Illuminate\Http\Request;
 use App\Traits\UploadFileTrait;
 use App\Http\Controllers\Controller;
@@ -18,7 +18,7 @@ use App\Repositories\Contracts\CommentRepositoryInterface;
 use App\Repositories\Contracts\BookmarkRepositoryInterface;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Repositories\Contracts\DocumentRepositoryInterface;
-
+use App\Repositories\Contracts\NotificationRepositoryInterface;
 
 class DocumentController extends Controller
 {
@@ -30,6 +30,7 @@ class DocumentController extends Controller
     protected $categoryRepository;
     protected $documentRepository;
     protected $bookmarkRepository;
+    protected $notificationRepository;
 
     public function __construct(
         TagRepositoryInterface $tagRepository,
@@ -37,7 +38,8 @@ class DocumentController extends Controller
         CommentRepositoryInterface $commentRepository,
         CategoryRepositoryInterface $categoryRepository,
         DocumentRepositoryInterface $documentRepository,
-        BookmarkRepositoryInterface  $bookmarkRepository
+        BookmarkRepositoryInterface  $bookmarkRepository,
+        NotificationRepositoryInterface $notificationRepository
     ) {
         $this->tagRepository = $tagRepository;
         $this->userRepository = $userRepository;
@@ -45,6 +47,7 @@ class DocumentController extends Controller
         $this->categoryRepository = $categoryRepository;
         $this->documentRepository = $documentRepository;
         $this->bookmarkRepository = $bookmarkRepository;
+        $this->notificationRepository = $notificationRepository;
     }
 
     /**
@@ -56,8 +59,9 @@ class DocumentController extends Controller
     {
         $parentCategories = $this->categoryRepository->where('parent_id', '=', config('settings.category.is_parent'))->get();
         $categories = $this->categoryRepository->getAll();
+        $notifications = $this->notificationRepository->getAll(auth()->user()->id);
 
-        return view('user.pages.upload', compact('parentCategories', 'categories'));
+        return view('user.pages.upload', compact('parentCategories', 'categories', 'notifications', 'notifications'));
     }
 
     /**
@@ -107,7 +111,13 @@ class DocumentController extends Controller
                 $documentTagIds = $this->tagRepository->whereIn('name', $documentTags)->pluck('id')->all();
                 $document->tags()->attach($documentTagIds);
             }
-            event(new UploadEvent($document));
+
+            $this->notificationRepository->create([
+                'user_id' => auth()->user()->id,
+                'message' => trans('user.notification_upload_success', ['document' => $document->name]),
+                'status' => config('settings.notification.status.unread'),
+            ]);
+            event(new DocumentEvent($document->user_id, trans('user.notification_upload_success', ['document' => $document->name])));
 
             return back()->with('messageSuccess', trans('user.document.upload_success'));
         } catch(Exception $e) {
@@ -148,6 +158,7 @@ class DocumentController extends Controller
             if (Auth::check()) {
                 $user = Auth::user();
                 $isBookmark = $this->bookmarkRepository->isBookmark($user->id, $document->id);
+                $notifications = $this->notificationRepository->getAll($user->id);
 
                 if ( $user->can('view', $document)) {
                     return view('user.pages.view-document', compact(
@@ -157,7 +168,8 @@ class DocumentController extends Controller
                         'authorUploaded',
                         'isBookmark',
                         'comments',
-                        'categories'
+                        'categories',
+                        'notifications'
                         )
                     );
                 }
@@ -194,11 +206,12 @@ class DocumentController extends Controller
             $categories = $this->categoryRepository->getAll();
             $document = $this->documentRepository->where('slug', $slug)->firstOrFail();
             $user = Auth::user();
+            $notifications = $this->notificationRepository->getAll($user->id);
 
             if ($user->can('edit', $document)) {
                 $parentCategories = $this->categoryRepository->where('parent_id', '=', config('settings.category.is_parent'))->get();
 
-                return view('user.pages.edit-document', compact('document', 'parentCategories', 'categories'));
+                return view('user.pages.edit-document', compact('document', 'parentCategories', 'categories', 'notifications'));
             }
 
             return view('errors.403');

@@ -5,25 +5,30 @@ namespace App\Http\Controllers\Admin;
 use Auth;
 use Exception;
 use Illuminate\Http\Request;
+use App\Events\DocumentEvent;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\DocumentRepositoryInterface;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Repositories\Contracts\ReportRepositoryInterface;
+use App\Repositories\Contracts\NotificationRepositoryInterface;
 
 class DocumentController extends Controller
 {
     protected $documentRepository;
     protected $categoryRepository;
     protected $reportRepository;
+    protected $notificationRepository;
 
     public function __construct(
         DocumentRepositoryInterface $documentRepository,
         CategoryRepositoryInterface $categoryRepository,
-        ReportRepositoryInterface $reportRepository
+        ReportRepositoryInterface $reportRepository,
+        NotificationRepositoryInterface $notificationRepository
     ) {
         $this->documentRepository = $documentRepository;
         $this->categoryRepository = $categoryRepository;
         $this->reportRepository = $reportRepository;
+        $this->notificationRepository = $notificationRepository;
     }
     /**
      * Display a listing of the resource.
@@ -141,6 +146,12 @@ class DocumentController extends Controller
 
             if ($user->can('delete', $document)) {
                 $this->documentRepository->destroy($document->id);
+                $this->notificationRepository->create([
+                    'user_id' => $document->user_id,
+                    'message' => trans('user.notification_publish_document', ['document' => $document->name]),
+                    'status' => config('settings.notification.status.unread'),
+                ]);
+                event(new DocumentEvent($document->user_id, trans('user.notification_delete_document', ['document' => $document->name])));
 
                 return back()->with('notificationSuccess', trans('admin.notifications.delete_document_success'));
             }

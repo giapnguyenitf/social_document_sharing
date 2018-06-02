@@ -9,18 +9,22 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Repositories\Contracts\DocumentRepositoryInterface;
+use App\Repositories\Contracts\NotificationRepositoryInterface;
 
 class HomeController extends Controller
 {
     protected $categoryRepository;
     protected $documentRepository;
+    protected $notificationRepository;
 
     public function __construct(
         CategoryRepositoryInterface $categoryRepository,
-        DocumentRepositoryInterface $documentRepository
+        DocumentRepositoryInterface $documentRepository,
+        NotificationRepositoryInterface $notificationRepository
     ) {
         $this->categoryRepository = $categoryRepository;
         $this->documentRepository = $documentRepository;
+        $this->notificationRepository = $notificationRepository;
     }
 
     public function index()
@@ -32,6 +36,11 @@ class HomeController extends Controller
         $numberCategory = $this->categoryRepository->countAll();
         $numberViews = $this->documentRepository->allViews();
         $categories = $this->categoryRepository->getAll();
+        $notifications = [];
+
+        if (auth()->check()) {
+            $notifications = $this->notificationRepository->getAll(auth()->user()->id);
+        }
 
         return view('user.pages.home', compact(
             'newestDocuments',
@@ -40,7 +49,8 @@ class HomeController extends Controller
             'numberDocument',
             'numberCategory',
             'numberViews',
-            'categories'
+            'categories',
+            'notifications'
         ));
     }
 

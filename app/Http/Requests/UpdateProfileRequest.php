@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateProfileRequest extends FormRequest
@@ -26,9 +27,9 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'name' => 'required|max:20',
-            'date_of_birth' => 'before:now',
-            'phone' => 'regex:/^\+?[0-9]{9,13}$/',
-            'avatar' => 'mimes:jpg,png,jpeg|max:5120',
+            'address' => 'nullable|string|max:255',
+            'date_of_birth' => 'nullable|before:' . Carbon::today()->toDateString(),
+            'phone' => 'nullable|regex:/^\+?[0-9]{9,13}$/'
         ];
     }
 }
