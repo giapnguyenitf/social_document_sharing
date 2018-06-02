@@ -146,12 +146,12 @@ class DocumentController extends Controller
 
             if ($user->can('delete', $document)) {
                 $this->documentRepository->destroy($document->id);
-                $this->notificationRepository->create([
+                $notification = $this->notificationRepository->create([
                     'user_id' => $document->user_id,
-                    'message' => trans('user.notification_publish_document', ['document' => $document->name]),
+                    'message' => trans('user.notification_delete_document', ['document' => $document->name]),
                     'status' => config('settings.notification.status.unread'),
                 ]);
-                event(new DocumentEvent($document->user_id, trans('user.notification_delete_document', ['document' => $document->name])));
+                event(new DocumentEvent($document->user_id, trans('user.notification_delete_document', ['document' => $document->name]), $notification->created_at->toDateTimeString()));
 
                 return back()->with('notificationSuccess', trans('admin.notifications.delete_document_success'));
             }
@@ -167,6 +167,12 @@ class DocumentController extends Controller
         try {
             $document = $this->documentRepository->withTrashed()->findOrFail($id);
             $document->restore();
+            $notification = $this->notificationRepository->create([
+                    'user_id' => $document->user_id,
+                    'message' => trans('user.notification_restore_document', ['document' => $document->name]),
+                    'status' => config('settings.notification.status.unread'),
+                ]);
+                event(new DocumentEvent($document->user_id, trans('user.notification_restore_document', ['document' => $document->name]), $notification->created_at->toDateTimeString()));
 
             return back()->with('notificationSuccess', trans('admin.notifications.restore_document_success', ['document' => $document->name]));
         } catch (Exception $e) {

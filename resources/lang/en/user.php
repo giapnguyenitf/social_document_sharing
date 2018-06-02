@@ -236,5 +236,6 @@ return [
     'notification_upload_success' => 'Document ":document" was upload success. The document will be checking early. Thank you!',
     'notification_publish_document' => 'Document ":document" was published. Thank you!',
     'notification_delete_document' => 'Document ":document" was deleted!',
-    'notification_delete_document' =>  'Document ":document" is illegal!',
+    'notification_illegal_document' =>  'Document ":document" was mark illegal!',
+    'notification_restore_document' =>  'Document ":document" was restore success!',
 ];

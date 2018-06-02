@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="{{ asset('images/favicon.png') }}">
     <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
-    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
     {{ Html::style('css/bootstrap.min.css') }}
     {{ Html::style('css/font-awesome.min.css') }}
     {{ Html::style('css/pretty-checkbox.min.css') }}
@@ -69,9 +68,9 @@
                         @auth
                         <li class="header-cart dropdown default-dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                <div class="header-btns-icon" id="notification-user" data-user="{{ auth()->user()->id }}">
+                                <div class="header-btns-icon" data-url="{{ route('ajax-read-all-notification') }}" id="notification-user" data-user="{{ auth()->user()->id }}">
                                     <i class="fa fa-bell"></i>
-                                    <span class="qty number-new-notification">0</span>
+                                    <span class="qty number-new-notification">{{ $notifications->where('status', 0)->count() }}</span>
                                 </div>
                             </a>
                             <div class="custom-menu">
@@ -84,6 +83,7 @@
                                         @foreach ($notifications as $notification)
                                             <div class="product product-widget notification-item">
                                                 <p>{{ $notification->message }}</p>
+                                                <b>{{ $notification->notification_at }}</b>
                                             </div>
                                         @endforeach
                                     </div>
@@ -260,22 +260,24 @@
             let userId = $('#notification-user').data('user');
             Echo.private('user.' + userId + '.channel')
                 .listen('DocumentEvent', (e) => {
-                    addNotification(e.notification);
+                    addNotification(e);
                 });
 
-            function addNotification(notification) {
+            function addNotification(data) {
                 let firstNotification = $('.list-notification').find('.notification-item').first();
 
                 if (firstNotification.length) {
                     $(`
-                        <div class="product product-widget">
-                            <p>${notification}</p>
+                        <div class="product product-widget notification-item">
+                            <p>${data.notification}</p>
+                            <b>${data.time}</b>
                         </div>`
                     ).insertBefore(firstNotification);
                 } else {
                     $('.list-notification').append(`
-                        <div class="product product-widget">
+                        <div class="product product-widget notification-item">
                             <p>${notification}</p>
+                            <b>${data.time}</b>
                         </div>`
                     );
                 }

@@ -16,15 +16,17 @@ class DocumentEvent implements ShouldBroadcast
 
     protected $userId;
     public $notification;
+    public $time;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($userId, $notification)
+    public function __construct($userId, $notification, $time)
     {
         $this->userId = $userId;
         $this->notification = $notification;
+        $this->time = $time;
     }
 
     /**

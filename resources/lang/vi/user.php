@@ -244,4 +244,5 @@ return [
     'notification_publish_document' => 'Tài liệu ":document" đã được cho phép lưu hành. Xin cảm ơn!',
     'notification_delete_document' => 'Tài liệu ":document" đã bị xóa do vi phạm quy định của E-document lab!',
     'notification_illegal_document' =>  'Tài liệu ":document" đã bị đánh dấu vi phạm quy định của E-document lab!',
+    'notification_restore_document' =>  'Tài liệu ":document" đã được khôi phục lại thành công!',
 ];
