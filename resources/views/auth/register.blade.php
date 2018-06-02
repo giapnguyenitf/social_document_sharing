@@ -6,8 +6,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Registration Page</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        {{ Html::style('css/bootstrap.min.css') }}
-        {{ Html::style('css/font-awesome.min.css') }}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         {{ Html::style('css/ionicons.min.css') }}
         {{ Html::style('css/AdminLTE.min.css') }}
         {{ Html::style('css/_all-skins.min.css') }}
@@ -84,7 +84,7 @@
             <a href="{{ route('login') }}" class="text-center">@lang('user.login')</a>
         </div>
         </div>
-        {{ Html::script('js/jquery.min.js') }}
-        {{ Html::script('js/bootstrap.min.js') }}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </body>
 </html>

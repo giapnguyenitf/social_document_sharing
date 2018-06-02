@@ -75,10 +75,11 @@ class CategoryController extends Controller
                 if ($category->parent_id == config('settings.category.is_parent')) {
                     $categoryIds = $this->categoryRepository->where('parent_id', $category->id)->pluck('id')->all();
                     $this->documentRepository->whereIn('category_id', $categoryIds)->update(['category_id' => config('settings.category.category_default')]);
+                    $this->categoryRepository->where('parent_id', $id)->delete();
                 } else {
                     $this->documentRepository->where('category_id', $id)->update(['category_id' => config('settings.category.category_default')]);
                 }
-                $this->categoryRepository->destroy($id);
+                $category->delete();
 
                 return back()->with('notificationSuccess', trans('admin.notifications.delete_category_success'));
             }
