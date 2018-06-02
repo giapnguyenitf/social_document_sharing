@@ -135,8 +135,8 @@
     @include('user.layouts.modal-upload-image')
 @endsection
 @push('css')
-    {{ Html::style('css/bootstrap-tagsinput.css') }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.7.1/bootstrap-tagsinput.css">
 @endpush
 @push('js')
-    {{ Html::script('js/bootstrap-tagsinput.min.js') }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.7.1/bootstrap-tagsinput.min.js"></script>
 @endpush
