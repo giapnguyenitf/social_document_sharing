@@ -715,4 +715,21 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('.header-btns-icon').click(function (e) {
+        let url = $(this).data('url');
+        let userId = $(this).data('user');
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: {
+                'userId': userId,
+            },
+            dataType: 'json',
+        }).done(function (res) {
+            if (res.success) {
+                $('.number-new-notification').text(0);
+            }
+        });
+    });
 });

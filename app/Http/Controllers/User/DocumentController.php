@@ -112,12 +112,12 @@ class DocumentController extends Controller
                 $document->tags()->attach($documentTagIds);
             }
 
-            $this->notificationRepository->create([
+            $notification = $this->notificationRepository->create([
                 'user_id' => auth()->user()->id,
                 'message' => trans('user.notification_upload_success', ['document' => $document->name]),
                 'status' => config('settings.notification.status.unread'),
             ]);
-            event(new DocumentEvent($document->user_id, trans('user.notification_upload_success', ['document' => $document->name])));
+            event(new DocumentEvent($document->user_id, trans('user.notification_upload_success', ['document' => $document->name]), $notification->created_at->toDateTimeString()));
 
             return back()->with('messageSuccess', trans('user.document.upload_success'));
         } catch(Exception $e) {

@@ -150,6 +150,10 @@ Route::namespace('Ajax')->group(function () {
         'uses' => 'DocumentController@report',
         'as' => 'ajax-report-document',
     ]);
+    Route::post('read-all-notification', [
+        'uses' => 'NotificationController@readAll',
+        'as' => 'ajax-read-all-notification',
+    ]);
 });
 
 Route::middleware('adminAuth')->namespace('Admin')->group(function () {

@@ -27,12 +27,12 @@ class NewDocumentController extends Controller
         try {
             $document = $this->documentRepository->findOrFail($id);
             $this->documentRepository->where('id', $id)->update(['status' => config('settings.document.status.is_published')]);
-            $this->notificationRepository->create([
+            $notification = $this->notificationRepository->create([
                 'user_id' => $document->user_id,
                 'message' => trans('user.notification_publish_document', ['document' => $document->name]),
                 'status' => config('settings.notification.status.unread'),
             ]);
-            event(new DocumentEvent($document->user_id, trans('user.notification_publish_document', ['document' => $document->name])));
+            event(new DocumentEvent($document->user_id, trans('user.notification_publish_document', ['document' => $document->name]), $notification->created_at->toDateTimeString()));
 
             return back()->with('notificationSuccess', trans('admin.notifications.publish_document_success'));
         } catch (Exception $e) {
