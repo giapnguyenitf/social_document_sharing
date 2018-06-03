@@ -51,13 +51,15 @@ class UserController extends Controller
     public function show($slug)
     {
         try {
+            $notifications = [];
+
             if (Auth::check()) {
                 if (Auth::user()->slug == $slug) {
                     return redirect()->route('manage-profile');
                 }
+                $notifications = $this->notificationRepository->getAll(auth()->user()->id);
             }
 
-            $notifications = $this->notificationRepository->getAll(auth()->user()->id);
             $categories = $this->categoryRepository->getAll();
             $user = $this->userRepository->where('slug', $slug)->firstOrFail();
             $uploadeds = $this->documentRepository->where('status', config('settings.document.status.is_published'))

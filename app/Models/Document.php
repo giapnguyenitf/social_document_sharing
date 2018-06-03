@@ -39,7 +39,7 @@ class Document extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class)->select(['message', 'created_at']);
+        return $this->hasMany(Comment::class);
     }
 
     public function bookmarks()

@@ -136,7 +136,7 @@ class DocumentController extends Controller
         try {
             $categories = $this->categoryRepository->getAll();
             $document = $this->documentRepository->getDocument($slug);
-            $comments = $this->commentRepository->getComment($slug);
+            $comments = $this->commentRepository->getComment($document->id);
             $relatedDocuments = $this->documentRepository->getRelatedCategory($document->id, $document->category_id);
             $authorUploaded = $this->documentRepository->countDocumentByAuthor($document->user->id);
             $isBookmark = config('settings.document.is_bookmark.false');
