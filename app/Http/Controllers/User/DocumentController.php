@@ -119,7 +119,7 @@ class DocumentController extends Controller
             ]);
             event(new DocumentEvent($document->user_id, trans('user.notification_upload_success', ['document' => $document->name]), $notification->created_at->toDateTimeString()));
 
-            return back()->with('messageSuccess', trans('user.document.upload_success'));
+            return redirect()->route('uploaded-document.show')->with('messageSuccess', trans('user.document.upload_success'));
         } catch(Exception $e) {
             return back()->with('messageError', trans('user.document.upload_fail'));
         }
